@@ -37,6 +37,9 @@ public class ServidorDedicat extends Thread{
             ObjectOutputStream oo = new ObjectOutputStream(s.getOutputStream());
             ObjectInputStream oi = new ObjectInputStream(s.getInputStream());
 
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
