@@ -5,6 +5,8 @@ import Controlador.Controller1;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.File;
+import java.util.LinkedList;
 
 public class Window1 extends JFrame {
 
@@ -14,7 +16,9 @@ public class Window1 extends JFrame {
     private JTextField jtfPassword;
     private JButton jbAddUser;
     //SONG FILES
+    private JPanel jpSongFiles;
     private JScrollPane jpScrollFiles;
+    private JButton jbDeleteFile;
 
     public Window1() {
 
@@ -61,16 +65,10 @@ public class Window1 extends JFrame {
         //PANELL DELS FITXERS DE LES CANCONS
 
         //Creem el panell
-        JPanel jpSongFiles = new JPanel();
+        jpSongFiles = new JPanel();
         jpSongFiles.setLayout(new BoxLayout(jpSongFiles,BoxLayout.PAGE_AXIS));
         jpSongFiles.setBorder(BorderFactory.createTitledBorder("Song files"));
-        jpScrollFiles = new JScrollPane(jpSongFiles);
-
-        //Components del panell
-
-
-        //Afegim el panell al nostre conjunt de pestanyes
-        getContentPane().add("Song files", jpSongFiles);
+        jpScrollFiles = new JScrollPane();
 
 
         //PANELL DE L'EVOLUCIO DELS USUARIS
@@ -97,10 +95,69 @@ public class Window1 extends JFrame {
 
     }
 
+    public void fitxersPredeterminats() {
+
+        for (int i=0; i < 3; i++) {
+
+            JPanel jpFile = new JPanel ();
+            jpFile.setLayout (new BoxLayout(jpFile,BoxLayout.PAGE_AXIS));
+
+            jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+i+1));
+
+            //Nom del fitxer
+            JLabel jlFileName = new JLabel("File name: DEFAULT FILE "+i+1);
+            jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
+            jpFile.add(jlFileName);
+
+            //Borrar fitxer
+            jbDeleteFile = new JButton("Delete");
+            jbDeleteFile.setEnabled(false);
+            jpFile.add(jbDeleteFile);
+
+            jpSongFiles.add(jpFile);
+
+        }
+
+        jpScrollFiles.add(jpSongFiles);
+
+    }
+
+    public void generaLlistaFiles (LinkedList<File> files) {
+
+        jpSongFiles.removeAll();
+        //conjuntApply.clear();
+
+        fitxersPredeterminats();
+
+        for (int i=0; i< files.size(); i++){
+
+            JPanel jpFile = new JPanel ();
+            jpFile.setLayout (new BoxLayout(jpFile,BoxLayout.PAGE_AXIS));
+
+            jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+i+4));
+
+            //Nom del fitxer
+            JLabel jlFileName = new JLabel("File name: "+files.get(i).getName());
+            jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
+            jpFile.add(jlFileName);
+
+            //Borrar fitxer
+            jbDeleteFile = new JButton("Delete");
+            jpFile.add(jbDeleteFile);
+
+            jpSongFiles.add(jpFile);
+
+        }
+
+        jpScrollFiles.add(jpSongFiles);
+
+        getContentPane().add("Song files", jpScrollFiles);
+        jpSongFiles.revalidate();
+        this.repaint();
+
+    }
+
     public void registraControlador(Controller1 controller1) {
     }
 
-    public void generaLlistaFiles () {
-
-    }
 }
