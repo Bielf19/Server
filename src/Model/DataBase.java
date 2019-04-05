@@ -1,15 +1,26 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.sql.*;
 
 public class DataBase {
 
-    Configuracio config = new Configuracio();
-
-    private static final String NOM_BBDD = config.getNomBase();
-    private static final String USERNAME = config.getUsuariAcces();
-    private static final String PASSWORD = config.getContrasenyaAcces();
+    private static String NOM_BBDD;
+    private static String USERNAME;
+    private static String PASSWORD;
     private static final String CONN_URL = "jdbc:mysql://localhost/%s?user=%s&password=%s";
+
+    public DataBase (Configuracio config){
+        NOM_BBDD = config.getNomBase();
+        USERNAME = config.getUsuariAcces();
+        PASSWORD = config.getContrasenyaAcces();
+
+    }
 
     public static Connection getConnection() throws SQLException {
 
@@ -29,4 +40,7 @@ public class DataBase {
         return s.executeUpdate(query);
 
     }
+
+
+
 }
