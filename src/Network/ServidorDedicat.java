@@ -1,7 +1,8 @@
 package Network;
 import Model.Usuari;
 import Model.Model;
-
+import Model.Tecla;
+import Model.Song;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -77,6 +78,30 @@ public class ServidorDedicat extends Thread{
                             }
 
                         }
+
+                    case "2":
+                        //Rebem una llista amb la nova configuració del teclat que guardrem a la BBDD
+                        LinkedList<Tecla> teclat = (LinkedList<Tecla>)oi.readObject();
+                        /**
+                         * Guardem nova configuaració a la BBDD
+                         */
+                        //Actualitzem el nou teclat
+                        oo.writeObject(teclat);
+
+                    case "3":
+                        //Rebem una canço que hagi creat un usuari i la guardem a la BBDD
+                        Song song = (Song)oi.readObject();
+                        /**
+                         * Afegim canço a la BBDD  i associem la canço a l'usuari
+                         */
+                        /**
+                         * Actualitzar cançons disponibles
+                         */
+
+                    case "4":
+
+
+
 
 
 
