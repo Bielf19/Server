@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Window1 extends JFrame {
@@ -19,6 +20,7 @@ public class Window1 extends JFrame {
     private JPanel jpSongFiles;
     private JScrollPane jpScrollFiles;
     private JButton jbDeleteFile;
+    private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
 
     public Window1() {
 
@@ -69,6 +71,7 @@ public class Window1 extends JFrame {
         jpSongFiles.setLayout(new BoxLayout(jpSongFiles,BoxLayout.PAGE_AXIS));
         jpSongFiles.setBorder(BorderFactory.createTitledBorder("Song files"));
         jpScrollFiles = new JScrollPane();
+        fitxersPredeterminats();
 
 
         //PANELL DE L'EVOLUCIO DELS USUARIS
@@ -157,7 +160,45 @@ public class Window1 extends JFrame {
 
     }
 
+    public void consultaDelete () {
+
+        JDialog missatge = new JDialog();
+        JOptionPane consultaAccio = new JOptionPane("Are you sure you want to delete this file?",JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION);
+        missatge.add(consultaAccio);
+
+    }
+
+    public String getUserNickname (){
+
+        return jtfNickname.getText();
+
+    }
+
+    public String getUserEmail () {
+
+        return jtfEmail.getText();
+
+    }
+
+    public String getUserPassword () {
+
+        return jtfPassword.getText();
+
+    }
+
     public void registraControlador(Controller1 controller1) {
+
+        jbAddUser.removeActionListener(controller1);
+        jbAddUser.addActionListener(controller1);
+        jbAddUser.setActionCommand("ADDUSER");
+
+        for (int i = 0; i < conjuntDeleteFile.size(); i++) {
+
+            conjuntDeleteFile.get(i).removeActionListener(controller1);
+            conjuntDeleteFile.get(i).addActionListener(controller1);
+
+        }
+
     }
 
 }

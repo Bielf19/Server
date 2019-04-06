@@ -19,5 +19,24 @@ public class Controller1 implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        String actionCommand = e.getActionCommand();
+
+        if (actionCommand.equals("ADD_USER")){
+
+            String userNickname = window1.getUserNickname();
+            String userEmail = window1.getUserEmail();
+            String userPassword = window1.getUserPassword();
+
+            model.addUser(userNickname,userEmail,userPassword);
+
+        }
+
+        if (actionCommand.equals("DELETE")){
+
+            window1.consultaDelete();
+            //Esborrar fitxer
+
+        }
+
     }
 }
