@@ -1,0 +1,8 @@
+ {
+    "portBase": "3306",
+    "IP": "localhost",
+    "nomBase": "Sasse",
+    "usuariAcces": "GrupA6",
+    "contrasenyaAcces": "sassetestimo",
+    "portClient": "4000"
+ }
