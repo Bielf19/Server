@@ -23,8 +23,8 @@ public class Main {
                     config = config.llegeixJson();
                     DataBase BBDD = new DataBase(config);
                     Controller1 controller1 = new Controller1(model,window1);
-                    Servidor servidor = new Servidor();
-                    servidor.openServer(model);
+                    //Servidor servidor = new Servidor();
+                    //servidor.openServer(model);
 
                     window1.registraControlador(controller1);
                     window1.setVisible(true);

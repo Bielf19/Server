@@ -19,6 +19,7 @@ public class Window1 extends JFrame {
     //SONG FILES
     private JPanel jpSongFiles;
     private JScrollPane jpScrollFiles;
+    private JPanel jpFile;
     private JButton jbDeleteFile;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
 
@@ -69,10 +70,9 @@ public class Window1 extends JFrame {
         //Creem el panell
         jpSongFiles = new JPanel();
         jpSongFiles.setLayout(new BoxLayout(jpSongFiles,BoxLayout.PAGE_AXIS));
-        jpSongFiles.setBorder(BorderFactory.createTitledBorder("Song files"));
-        jpScrollFiles = new JScrollPane();
+        jpSongFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
+        jpScrollFiles = new JScrollPane(jpSongFiles);
         fitxersPredeterminats();
-
 
         //PANELL DE L'EVOLUCIO DELS USUARIS
 
@@ -102,13 +102,13 @@ public class Window1 extends JFrame {
 
         for (int i=0; i < 3; i++) {
 
-            JPanel jpFile = new JPanel ();
-            jpFile.setLayout (new BoxLayout(jpFile,BoxLayout.PAGE_AXIS));
+            jpFile = new JPanel ();
+            jpFile.setLayout (new GridLayout(1,2));
 
-            jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+i+1));
+            jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
 
             //Nom del fitxer
-            JLabel jlFileName = new JLabel("File name: DEFAULT FILE "+i+1);
+            JLabel jlFileName = new JLabel("File name: DEFAULT FILE "+(i+1));
             jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
             jpFile.add(jlFileName);
 
@@ -121,7 +121,7 @@ public class Window1 extends JFrame {
 
         }
 
-        jpScrollFiles.add(jpSongFiles);
+        getContentPane().add("Song files", jpScrollFiles);
 
     }
 
