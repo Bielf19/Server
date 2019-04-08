@@ -99,6 +99,15 @@ public class ServidorDedicat extends Thread{
                          */
 
                     case "4":
+                        //Passem una llista amb els noms de cançons ordenades per popularitat
+                        //S'ha d'inicialitzar al principi de la vista de client
+                        LinkedList<String> nomSongs = model.getSongsPopularitat();
+                        oo.writeObject(nomSongs);
+
+                    case "5":
+                        //Rebem el nom de la canço que es vol reproduir
+                        String nom = (String) oi.readObject();
+
 
 
 

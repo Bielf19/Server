@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.LinkedList;
+
 public class Model {
 
     public void addUser (String nickname, String email, String password){
@@ -25,4 +27,8 @@ public class Model {
 
     }
 
+    public LinkedList<String> getSongsPopularitat() {
+        LinkedList<String> nomSongs = new LinkedList<>();
+        return nomSongs;
+    }
 }
