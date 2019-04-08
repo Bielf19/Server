@@ -7,14 +7,23 @@ public class Model {
     public void addUser (String nickname, String email, String password){
 
         Usuari newUser = new Usuari();
+        Login newLogin = new Login();
 
-        //newUser.setLogin().setNomUsuari() = nickname;
-        //newUser.login.setCorreu() = email;
-        //newUser.login.setPassword() = password;
-        //newUser.setAmics() = null;
-        //newUser.setTecles() = null;
+        //Afegim el login desitjat.
+        newLogin.setNomUsuari(nickname);
+        newLogin.setCorreu(email);
+        newLogin.setPassword(password);
+        newUser.setLogin(newLogin);
 
-        //afegir usuari a la base de dades
+        //La llista d'amics i la configuració de les tecles estaran a "null" inicialment.
+        newUser.setAmics(null);
+        newUser.setTecles(null);
+
+        addBaseDades(newUser);
+
+    }
+
+    public void addBaseDades (Usuari newUser) {
 
     }
 
