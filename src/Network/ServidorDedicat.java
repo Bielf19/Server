@@ -3,6 +3,8 @@ import Model.Usuari;
 import Model.Model;
 import Model.Tecla;
 import Model.Song;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -111,15 +113,41 @@ public class ServidorDedicat extends Thread{
                     case "5":
                         //Rebem el nom de la canço que es vol reproduir
                         String nom = (String) oi.readObject();
+                        /**
+                         * Extreiem de la base de dades el fitxer de la canço
+                         */
+                        //Aquesta línia no existirà, s'haurà extret de la BBDD
+                        File file = new File("");
+                        oo.writeObject(file);
+
                         break;
 
+                    case "6":
+                        //Rebem el codi d'amistat i comprovem que coincideixi amb algun usuari de la BBDD
+                        boolean existeix = false;
+                        String codi = (String)oi.readObject();
+                        /**
+                         * Busquem el codi a la base de dades
+                         */
+                        if (existeix) {
+                            /**
+                             * Extreiem les noves cançons que podra escoltar l'usuari
+                             */
+                            //Passem un booleà que indica si s'ha afegit l'amic correctament
+                            oo.writeObject(existeix);
+                            //Passem la llista de noms de cançons que ara pot escoltar
+                            LinkedList<String> updateSongs = model.getSongsPopularitat();
+                            oo.writeObject(updateSongs);
+                        }
+                        else {
+                            oo.writeObject(existeix);
+                        }
+                        break;
 
-
-
-
-
-
-
+                    case "7":
+                        //Rebem un usuari per eliminar-lo
+                        Usuari user = (Usuari)oi.readObject();
+                        break;
 
                 }
 
