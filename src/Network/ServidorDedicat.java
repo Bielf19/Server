@@ -78,6 +78,7 @@ public class ServidorDedicat extends Thread{
                             }
 
                         }
+                        break;
 
                     case "2":
                         //Rebem una llista amb la nova configuració del teclat que guardrem a la BBDD
@@ -87,6 +88,7 @@ public class ServidorDedicat extends Thread{
                          */
                         //Actualitzem el nou teclat
                         oo.writeObject(teclat);
+                        break;
 
                     case "3":
                         //Rebem una canço que hagi creat un usuari i la guardem a la BBDD
@@ -97,16 +99,20 @@ public class ServidorDedicat extends Thread{
                         /**
                          * Actualitzar cançons disponibles
                          */
+                        break;
 
                     case "4":
                         //Passem una llista amb els noms de cançons ordenades per popularitat
                         //S'ha d'inicialitzar al principi de la vista de client
                         LinkedList<String> nomSongs = model.getSongsPopularitat();
                         oo.writeObject(nomSongs);
+                        break;
 
                     case "5":
                         //Rebem el nom de la canço que es vol reproduir
                         String nom = (String) oi.readObject();
+                        break;
+
 
 
 
