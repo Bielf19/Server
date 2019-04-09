@@ -7,6 +7,7 @@ public class Usuari {
     private Login login;
     private LinkedList<Usuari> amics;
     private LinkedList<Tecla> tecles;
+    private String codiAmistat;
 
     public LinkedList<Song> getSongs() {
         return songs;
@@ -38,5 +39,13 @@ public class Usuari {
 
     public void setTecles(LinkedList<Tecla> tecles) {
         this.tecles = tecles;
+    }
+
+    public String getCodiAmistat() {
+        return codiAmistat;
+    }
+
+    public void setCodiAmistat(String codiAmistat) {
+        this.codiAmistat = codiAmistat;
     }
 }
