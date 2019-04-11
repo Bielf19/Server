@@ -25,7 +25,6 @@ public class Main {
                     Controller1 controller1 = new Controller1(model,window1);
                     Servidor servidor = new Servidor(model);
                     servidor.start();
-
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 
