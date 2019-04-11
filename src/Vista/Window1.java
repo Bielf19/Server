@@ -22,6 +22,8 @@ public class Window1 extends JFrame {
     private JPanel jpFile;
     private JButton jbDeleteFile;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
+    //EVOLUTION
+
 
     public Window1() {
 
@@ -74,15 +76,22 @@ public class Window1 extends JFrame {
         jpScrollFiles = new JScrollPane(jpSongFiles);
         fitxersPredeterminats();
 
+
         //PANELL DE L'EVOLUCIO DELS USUARIS
 
         //Creem el panell
-        JPanel jpUsersEvolution = new JPanel();
+        JTabbedPane evolutionTabs = new JTabbedPane();
 
         //Components del panell
+        JPanel jpWeekEvolution = new JPanel();
+        JPanel jpMonthEvolution = new JPanel();
+        JPanel jpYearEvolution = new JPanel();
+        evolutionTabs.add("Last week evolution", jpWeekEvolution);
+        evolutionTabs.add("Last month evolution", jpMonthEvolution);
+        evolutionTabs.add("Last year evolution", jpYearEvolution);
 
         //Afegim el panell al nostre conjunt de pestanyes
-        getContentPane().add("Users evolution", jpUsersEvolution);
+        getContentPane().add("Users evolution", evolutionTabs);
 
 
         //PANELL DEL TOP 5 DE CANCONS MES POPULARS
@@ -108,7 +117,7 @@ public class Window1 extends JFrame {
             jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
 
             //Nom del fitxer
-            JLabel jlFileName = new JLabel("File name: DEFAULT FILE "+(i+1));
+            JLabel jlFileName = new JLabel("Song name: DEFAULT NAME "+(i+1));
             jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
             jpFile.add(jlFileName);
 
@@ -116,6 +125,9 @@ public class Window1 extends JFrame {
             jbDeleteFile = new JButton("Delete");
             jbDeleteFile.setEnabled(false);
             jpFile.add(jbDeleteFile);
+
+            jbDeleteFile.setActionCommand(""+(i+1));
+            conjuntDeleteFile.add(jbDeleteFile);
 
             jpSongFiles.add(jpFile);
 
@@ -140,7 +152,7 @@ public class Window1 extends JFrame {
             jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+i+4));
 
             //Nom del fitxer
-            JLabel jlFileName = new JLabel("File name: "+files.get(i).getName());
+            JLabel jlFileName = new JLabel("Song name: "+files.get(i).getName());
             jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
             jpFile.add(jlFileName);
 
@@ -149,6 +161,8 @@ public class Window1 extends JFrame {
             jpFile.add(jbDeleteFile);
 
             jpSongFiles.add(jpFile);
+
+            conjuntDeleteFile.add(jbDeleteFile);
 
         }
 

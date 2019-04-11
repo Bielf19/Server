@@ -31,12 +31,7 @@ public class Controller1 implements ActionListener {
 
         }
 
-        if (actionCommand.equals("DELETE")){
-
-            window1.consultaDelete();
-            //Esborrar fitxer
-
-        }
+        //window1.consultaDelete();
 
     }
 }
