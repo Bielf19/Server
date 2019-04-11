@@ -1,8 +1,8 @@
  {
     "portBase": "3306",
     "IP": "localhost",
-    "nomBase": "pianodata",
+    "nomBase": "PianoData",
     "usuariAcces": "root",
-    "contrasenyaAcces": "",
+    "contrasenyaAcces": "root",
     "portClient": "4000"
  }

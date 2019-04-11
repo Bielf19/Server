@@ -25,14 +25,40 @@ public class UserDAO {
         if (id != 0) {
             query = "SELECT nomUsuari, password, correu, codiAmistat FROM Usuaris WHERE user_id = '"+id+"';";
         }
+        if (!(nomUsuari.equals(null))) {
+            query = "SELECT user_id, password, correu, codiAmistat FROM Usuaris WHERE nomUsuari = '"+nomUsuari+"';";
+        }
+        if (correu != null) {
+            query = "SELECT nomUsuari, password, user_id, codiAmistat FROM Usuaris WHERE correu = '"+correu+"';";
+        }
+        if (codiAmistat != null) {
+            query = "SELECT nomUsuari, password, correu, user_id FROM Usuaris WHERE codiAmistat = '"+codiAmistat+"';";
+        }
         ResultSet resultat = DataBase.getInstance().selectQuery(query);
         try {
             while (resultat.next()) {
-                login.setNomUsuari(resultat.getString("nomUsuari"));
+                try {
+                    user.setUser_id(resultat.getInt("user_id"));
+                } catch (Exception e) {
+                    user.setUser_id(id);
+                }
+                try {
+                    login.setNomUsuari(resultat.getString("nomUsuari"));
+                } catch (Exception e) {
+                    login.setNomUsuari(nomUsuari);
+                }
                 login.setPassword(resultat.getString("password"));
-                login.setCorreu(resultat.getString("correu"));
+                try {
+                    login.setCorreu(resultat.getString("correu"));
+                } catch (Exception e) {
+                    login.setCorreu(correu);
+                }
                 user.setLogin(login);
-                user.setCodiAmistat(resultat.getString("codiAmistat"));
+                try {
+                    user.setCodiAmistat(resultat.getString("codiAmistat"));
+                } catch (Exception e) {
+                    user.setCodiAmistat(codiAmistat);
+                }
             }
             /**
              * Falta afegir amics i songs i teclat, i controlar si el que ens introdueixen no existeix

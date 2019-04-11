@@ -1,8 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Usuari {
+public class Usuari implements Serializable {
+    private int user_id;
     private LinkedList<Song> songs;
     private Login login;
     private LinkedList<Usuari> amics;
@@ -47,5 +49,13 @@ public class Usuari {
 
     public void setCodiAmistat(String codiAmistat) {
         this.codiAmistat = codiAmistat;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

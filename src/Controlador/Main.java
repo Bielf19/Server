@@ -1,6 +1,7 @@
 package Controlador;
 
 import Model.BaseDades.DAO.UserDAO;
+import Model.BaseDades.DAO.UserSongsDAO;
 import Model.Model;
 import Network.Servidor;
 import Vista.Window1;
@@ -25,6 +26,11 @@ public class Main {
                     Controller1 controller1 = new Controller1(model,window1);
                     Servidor servidor = new Servidor(model);
                     servidor.start();
+                    //UserSongsDAO usd = new UserSongsDAO();
+                    //usd.addSongToUser(1,3);
+                    UserDAO ud = new UserDAO();
+                    Usuari u = ud.getUser(0, "Biel", null, null);
+                    System.out.println(u.getLogin().getPassword());
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 
