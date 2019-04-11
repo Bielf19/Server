@@ -117,8 +117,8 @@ public class ServidorDedicat extends Thread{
                          * Extreiem de la base de dades el fitxer de la canço
                          */
                         //Aquesta línia no existirà, s'haurà extret de la BBDD
-                        File file = new File("");
-                        oo.writeObject(file);
+                        String fitxer = new String("");
+                        oo.writeObject(fitxer);
 
                         break;
 

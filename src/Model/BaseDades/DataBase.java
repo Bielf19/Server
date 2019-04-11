@@ -1,6 +1,7 @@
 package Model.BaseDades;
 import Model.Configuracio;
 
+import java.io.FileNotFoundException;
 import java.sql.*;
 
 public class DataBase {
@@ -9,23 +10,33 @@ public class DataBase {
     private static String USERNAME;
     private static String PASSWORD;
     private static int PORT;
-    private static final String CONN_URL = "jdbc:mysql://localhost/%s?user=%s&password=%s";
+    private static String CONN_URL = "jdbc:mysql://localhost";
     private static Connection conn;
     private static Statement s;
     private static DataBase instance;
 
     public DataBase (String user, String password, String nomBBDD, int port){
-        NOM_BBDD = nomBBDD;
-        USERNAME = user;
-        PASSWORD = password;
-        PORT = port;
+        this.NOM_BBDD = nomBBDD;
+        this.USERNAME = user;
+        this.PASSWORD = password;
+        this.PORT = port;
+        this.CONN_URL += ":"+port+"/";
+        this.CONN_URL += nomBBDD;
         this.instance = null;
 
     }
 
     public static DataBase getInstance(){
+        Configuracio config = new Configuracio();
+        try {
+            config = config.llegeixJson();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         if(instance == null){
-            instance = new DataBase(USERNAME, PASSWORD, NOM_BBDD, PORT);
+            instance = new DataBase(config.getUsuariAcces(),config.getContrasenyaAcces(),config.getNomBase(),config.getPortBase());
+            //instance = new DataBase("root", "root", "PianoData", 3306);
+            System.out.println(USERNAME + "     " + PASSWORD + "    " + NOM_BBDD + "     " + PORT + "     " + CONN_URL);
             instance.connect();
         }
         return  instance;
