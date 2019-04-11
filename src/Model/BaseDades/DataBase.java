@@ -45,16 +45,18 @@ public class DataBase {
     public void connect() {
         try {
             Class.forName("com.mysql.jdbc.Connection");
-            conn = (Connection) DriverManager.getConnection(CONN_URL, USERNAME, PASSWORD);
+            conn = (Connection) DriverManager.getConnection(CONN_URL,USERNAME,PASSWORD);
             if (conn != null) {
                 System.out.println("Connexió a base de dades "+CONN_URL+" ... Ok");
             }
         }
         catch(SQLException ex) {
             System.out.println("Problema al connecta-nos a la BBDD --> "+CONN_URL);
+            ex.printStackTrace();
         }
         catch(ClassNotFoundException ex) {
             System.out.println(ex);
+            ex.printStackTrace();
         }
 
     }

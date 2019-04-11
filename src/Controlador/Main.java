@@ -27,9 +27,9 @@ public class Main {
                     UserDAO ud= new UserDAO();
                     Usuari u = new Usuari();
                     Login l = new Login();
-                    l.setNomUsuari("Sasse");
-                    l.setPassword("sassetestimo");
-                    l.setCorreu("sasse@gmail.com");
+                    l.setNomUsuari("Biel");
+                    l.setPassword("bieltestimo");
+                    l.setCorreu("biel@gmail.com");
                     u.setLogin(l);
                     ud.addUser(u);
                     Controller1 controller1 = new Controller1(model,window1);
