@@ -26,11 +26,11 @@ public class Main {
                     Controller1 controller1 = new Controller1(model,window1);
                     Servidor servidor = new Servidor(model);
                     servidor.start();
-                    //UserSongsDAO usd = new UserSongsDAO();
-                    //usd.addSongToUser(1,3);
+                    /*UserSongsDAO usd = new UserSongsDAO();
+                    usd.getAllUserSongs();
                     UserDAO ud = new UserDAO();
-                    Usuari u = ud.getUser(0, "Biel", null, null);
-                    System.out.println(u.getLogin().getPassword());
+                    Usuari u = ud.getUser(1, null, null, null);
+                    System.out.println(u.getSongs().getFirst().getTitol());*/
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 
