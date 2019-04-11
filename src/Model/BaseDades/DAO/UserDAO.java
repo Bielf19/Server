@@ -1,7 +1,11 @@
 package Model.BaseDades.DAO;
 
 import Model.BaseDades.DataBase;
+import Model.Login;
 import Model.Usuari;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAO {
 
@@ -14,9 +18,29 @@ public class UserDAO {
     }
 
 
-    public Usuari getLastUser() {
+    public Usuari getUser(int id, String nomUsuari, String correu, String codiAmistat) {
         Usuari user = new Usuari();
-        String query = "SELECT COUNT (user_id) FROM Usuaris";
+        Login login = new Login();
+        String query = "";
+        if (id != 0) {
+            query = "SELECT nomUsuari, password, correu, codiAmistat FROM Usuaris WHERE user_id = '"+id+"';";
+        }
+        ResultSet resultat = DataBase.getInstance().selectQuery(query);
+        try {
+            while (resultat.next()) {
+                login.setNomUsuari(resultat.getString("nomUsuari"));
+                login.setPassword(resultat.getString("password"));
+                login.setCorreu(resultat.getString("correu"));
+                user.setLogin(login);
+                user.setCodiAmistat(resultat.getString("codiAmistat"));
+            }
+            /**
+             * Falta afegir amics i songs i teclat, i controlar si el que ens introdueixen no existeix
+             */
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return user;
     }
     private void generaCodiAmistat(){
