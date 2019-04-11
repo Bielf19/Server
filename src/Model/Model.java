@@ -1,5 +1,7 @@
 package Model;
 
+import Model.BaseDades.DAO.UserDAO;
+
 import java.util.LinkedList;
 
 public class Model {
@@ -15,15 +17,14 @@ public class Model {
         newLogin.setPassword(password);
         newUser.setLogin(newLogin);
 
-        //La llista d'amics i la configuració de les tecles estaran a "null" inicialment.
-        newUser.setAmics(null);
-        newUser.setTecles(null);
-
         addBaseDades(newUser);
 
     }
 
     public void addBaseDades (Usuari newUser) {
+
+        UserDAO ud = new UserDAO();
+        ud.addUser(newUser);
 
     }
 

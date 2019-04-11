@@ -22,16 +22,6 @@ public class Main {
 
                     Model model = new Model();
                     Window1 window1 = new Window1();
-
-
-                    UserDAO ud= new UserDAO();
-                    Usuari u = new Usuari();
-                    Login l = new Login();
-                    l.setNomUsuari("Biel");
-                    l.setPassword("bieltestimo");
-                    l.setCorreu("biel@gmail.com");
-                    u.setLogin(l);
-                    ud.addUser(u);
                     Controller1 controller1 = new Controller1(model,window1);
                     Servidor servidor = new Servidor(model);
                     servidor.start();

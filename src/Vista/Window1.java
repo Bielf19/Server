@@ -190,7 +190,7 @@ public class Window1 extends JFrame {
 
         jbAddUser.removeActionListener(controller1);
         jbAddUser.addActionListener(controller1);
-        jbAddUser.setActionCommand("ADDUSER");
+        jbAddUser.setActionCommand("ADD_USER");
 
         for (int i = 0; i < conjuntDeleteFile.size(); i++) {
 
