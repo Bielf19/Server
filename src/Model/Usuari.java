@@ -7,7 +7,7 @@ public class Usuari implements Serializable {
     private int user_id;
     private LinkedList<Song> songs;
     private Login login;
-    private LinkedList<Usuari> amics;
+    private LinkedList<Integer> amics;
     private LinkedList<Tecla> tecles;
     private String codiAmistat;
 
@@ -27,11 +27,11 @@ public class Usuari implements Serializable {
         this.login = login;
     }
 
-    public LinkedList<Usuari> getAmics() {
+    public LinkedList<Integer> getAmics() {
         return amics;
     }
 
-    public void setAmics(LinkedList<Usuari> amics) {
+    public void setAmics(LinkedList<Integer> amics) {
         this.amics = amics;
     }
 
