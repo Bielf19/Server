@@ -26,7 +26,7 @@ public class UserSongsDAO {
                 us.setSong_id(resultat.getInt("song_id"));
                 usList.add(us);
             }
-            System.out.println(usList.getFirst().getSong_id());
+
             return usList;
         } catch (SQLException e) {
             e.printStackTrace();

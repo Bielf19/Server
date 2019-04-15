@@ -12,11 +12,10 @@ import java.util.LinkedList;
 
 public class UserDAO {
 
-    private static String codiAmistat;
 
     public void addUser(Usuari user) {
+        String codiAmistat = generaCodiAmistat();
         String query = "INSERT INTO Usuaris (nomUsuari, password, correu, codiAmistat) VALUES ('"+user.getLogin().getNomUsuari()+"', '"+user.getLogin().getPassword()+"', '"+user.getLogin().getCorreu()+"', '"+codiAmistat+"');";
-        System.out.println(query);
         DataBase.getInstance().insertQuery(query);
     }
 
@@ -34,6 +33,7 @@ public class UserDAO {
         Login login = new Login();
         UserSongsDAO usd = new UserSongsDAO();
         SongDAO sd = new SongDAO();
+        AmicsDAO ad = new AmicsDAO();
         String query = "";
         //Fem la query segons el paràmetre que ens hagin enviat
         if (id != 0) {
@@ -82,14 +82,18 @@ public class UserDAO {
             int count = 0;
             for (int i = 0; i < usList.size(); i++) {
                 if (usList.get(i).getUser_id() == user.getUser_id()) {
-                    System.out.println("Prova1");
                     songs.add(sd.getSong(usList.get(i).getSong_id(), null));
-                    System.out.println("Prova2");
                     count ++;
                 }
             }
 
             user.setSongs(songs);
+
+            //Afegim una llista amb tots els id dels amics
+            LinkedList <Integer> amics = ad.getAmics(user.getUser_id());
+            user.setAmics(amics);
+
+
 
             /**
              * Falta afegir amics i songs i teclat, i controlar si el que ens introdueixen no existeix
@@ -100,7 +104,29 @@ public class UserDAO {
         }
         return user;
     }
-    private void generaCodiAmistat(){
 
+    private String generaCodiAmistat(){
+        String codiAmistat = "";
+        int caracter = 0;
+        for (int i = 0; i < 9; i++) {
+                int numero = (int) (Math.random() * 3) + 1;
+                switch (numero) {
+                    case 1:
+                        caracter = (int) (Math.random() * 26) + 97;
+                        break;
+                    case 2:
+                        caracter = (int) (Math.random() * 26) + 65;
+                        break;
+                    case 3:
+                        caracter = (int) (Math.random() * 10) + 48;
+                        break;
+
+                }
+                char c = (char) caracter;
+                codiAmistat = codiAmistat + c;
+
+        }
+        System.out.println(codiAmistat);
+        return codiAmistat;
     }
 }
