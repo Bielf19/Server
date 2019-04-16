@@ -88,6 +88,7 @@ public class ServidorDedicat extends Thread{
 
                         case "2":
                             oo.writeObject("2");
+                            //Preguntar com identificarem quin usuari és. (ho podriem fer amb el correu)
                             //Rebem una llista amb la nova configuració del teclat que guardrem a la BBDD
                             LinkedList<Tecla> teclat = (LinkedList<Tecla>) oi.readObject();
                             /**
