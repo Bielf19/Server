@@ -14,7 +14,7 @@ public class Window1 extends JFrame {
     //AFEGIR USUARIS
     private JTextField jtfNickname;
     private JTextField jtfEmail;
-    private JTextField jtfPassword;
+    private JPasswordField jpfPassword;
     private JButton jbAddUser;
     //SONG FILES
     private JPanel jpSongFiles;
@@ -55,8 +55,9 @@ public class Window1 extends JFrame {
         jpAddUser.add(jtfNickname,3);
         jtfEmail = new JTextField();
         jpAddUser.add(jtfEmail,4);
-        jtfPassword = new JTextField();
-        jpAddUser.add(jtfPassword,5);
+        jpfPassword = new JPasswordField();
+        jpfPassword.setEchoChar('*');
+        jpAddUser.add(jpfPassword,5);
         jpAddUser.add(new JPanel(),6);
         jpAddUser.add(new JPanel(),7);
         jbAddUser = new JButton("Add user");
@@ -182,6 +183,27 @@ public class Window1 extends JFrame {
 
     }
 
+    public void nicknameError () {
+
+        JDialog missatge = new JDialog();
+        JOptionPane.showMessageDialog(missatge, "Error! Invalid user nickname: The nickname is currently in use. Please, ", "Error - Invalid user nickname", JOptionPane.ERROR_MESSAGE);
+
+    }
+
+    public void emailError () {
+
+        JDialog missatge = new JDialog();
+        JOptionPane.showMessageDialog(missatge, "Error! Invalid email address: The address is currently in use. Please, ", "Error - Invalid email address", JOptionPane.ERROR_MESSAGE);
+
+    }
+
+    public void addSuccessful(){
+
+        JDialog missatge = new JDialog();
+        JOptionPane.showMessageDialog(missatge,"The user has successfully registered!","Information - Registration completed", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
     public String getUserNickname (){
 
         return jtfNickname.getText();
@@ -196,7 +218,23 @@ public class Window1 extends JFrame {
 
     public String getUserPassword () {
 
-        return jtfPassword.getText();
+        char[] userPassword;
+        String userPasswordOk;
+
+        userPassword = jpfPassword.getPassword();
+        userPasswordOk = String.valueOf(userPassword);
+
+        System.out.println(userPasswordOk);
+
+        return userPasswordOk;
+
+    }
+
+    public void cleanJTextfields () {
+
+        jtfNickname.setText("");
+        jtfEmail.setText("");
+        jpfPassword.setText("");
 
     }
 

@@ -29,7 +29,86 @@ public class Model {
     }
 
     public LinkedList<String> getSongsPopularitat() {
+
         LinkedList<String> nomSongs = new LinkedList<>();
         return nomSongs;
+
     }
+
+    public boolean comprovaNickname (String userNickname, LinkedList<Usuari> users) {
+
+        boolean nicknameOk = true;
+        Login login;
+        String nicknameDataBase;
+
+        for (int i = 0; i < users.size(); i++) {
+
+            login = users.get(i).getLogin();
+            nicknameDataBase = login.getNomUsuari();
+
+            if (nicknameDataBase.equals(userNickname)) {
+
+                nicknameOk = false;
+
+            }
+
+        }
+
+        return nicknameOk;
+
+    }
+
+    public boolean comprovaEmail (String userEmail, LinkedList<Usuari> users) {
+
+        boolean emailOk = true;
+        Login login;
+        String emailDataBase;
+
+        for (int i = 0; i < users.size(); i++) {
+
+            login = users.get(i).getLogin();
+            emailDataBase = login.getCorreu();
+
+            if (emailDataBase.equals(userEmail)) {
+
+                emailOk = false;
+
+            }
+
+        }
+
+        return emailOk;
+
+    }
+
+    public boolean authenticationPassword (String nickname, String passwordIntroduit, LinkedList<Usuari> users)  {
+
+        boolean authenticationOk = true;
+        Login login;
+
+        for (int i = 0; i < users.size(); i++) {
+
+            login = users.get(i).getLogin();
+
+            if (login.getNomUsuari().equals(nickname)) {
+
+                if (login.getPassword().equals(passwordIntroduit)) {
+
+                    authenticationOk = true;
+
+                } else {
+
+                    authenticationOk = false;
+
+                }
+
+            }
+
+        }
+
+        return authenticationOk;
+
+    }
+
+
 }
