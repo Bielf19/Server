@@ -3,9 +3,11 @@ package Controlador;
 import Model.Model;
 import Model.Usuari;
 import Vista.Window1;
+import Model.Song;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Controller1 implements ActionListener {
@@ -25,6 +27,8 @@ public class Controller1 implements ActionListener {
         LinkedList<Usuari> users = new LinkedList<Usuari>();
         boolean nicknameOk;
         boolean emailOk;
+        Integer fitxer_trobat;
+        ArrayList<Song> songFiles;
 
         if (actionCommand.equals("ADD_USER")){
 
@@ -62,6 +66,11 @@ public class Controller1 implements ActionListener {
             }
 
         }
+
+        songFiles = new ArrayList<Song>();
+        //songFiles = ompleLlistaFitxers; Funcio que agafara els fitxers de la base de dades i els dipositara a la llista
+
+        //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
 
         //window1.consultaDelete();
 

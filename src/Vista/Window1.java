@@ -17,8 +17,13 @@ public class Window1 extends JFrame {
     private JPasswordField jpfPassword;
     private JButton jbAddUser;
     //SONG FILES
-    private JPanel jpSongFiles;
-    private JScrollPane jpScrollFiles;
+    private JTabbedPane jtpSongFiles;
+    private JScrollPane jpScrollAllFiles;
+    private JScrollPane jpScrollPublicFiles;
+    private JScrollPane jpScrollPrivateFiles;
+    private JPanel jpAllFiles;
+    private JPanel jpPrivateFiles;
+    private JPanel jpPublicFiles;
     private JPanel jpFile;
     private JButton jbDeleteFile;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
@@ -39,7 +44,7 @@ public class Window1 extends JFrame {
         //Definim el Content Pane com a JTabbedPane
         setContentPane(serverTabs);
 
-        //PANELL D'AFEGIR USUARIS
+        //************************************PANELL D'AFEGIR USUARIS*************************************************//
 
         //Creem el panell
         JPanel jpUsers = new JPanel(new BorderLayout());
@@ -67,35 +72,44 @@ public class Window1 extends JFrame {
         jpUsers.add(jpAddUser, BorderLayout.NORTH);
         getContentPane().add("Add user", jpUsers);
 
-
-        //PANELL DELS FITXERS DE LES CANCONS
+        //*************************************PANELL DELS FITXERS DE LES CANCONS*************************************//
 
         //Creem el panell
-        jpSongFiles = new JPanel();
-        jpSongFiles.setLayout(new BoxLayout(jpSongFiles,BoxLayout.PAGE_AXIS));
-        jpSongFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
-        jpScrollFiles = new JScrollPane(jpSongFiles);
+        jtpSongFiles = new JTabbedPane();
+
+        //Components del panell
+        jpAllFiles = new JPanel();
+        jpPrivateFiles = new JPanel();
+        jpPublicFiles = new JPanel();
+        jpAllFiles.setLayout(new BoxLayout(jpAllFiles,BoxLayout.PAGE_AXIS));
+        jpAllFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
+        jpPrivateFiles.setLayout(new BoxLayout(jpPrivateFiles,BoxLayout.PAGE_AXIS));
+        jpPrivateFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
+        jpPublicFiles.setLayout(new BoxLayout(jpPublicFiles,BoxLayout.PAGE_AXIS));
+        jpPublicFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
+        jpScrollAllFiles = new JScrollPane();
+        jpScrollPublicFiles = new JScrollPane();
+        jpScrollPrivateFiles = new JScrollPane();
+
         fitxersPredeterminats();
 
-
-        //PANELL DE L'EVOLUCIO DELS USUARIS
+        //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
 
         //Creem el panell
-        JTabbedPane evolutionTabs = new JTabbedPane();
+        JTabbedPane jtpEvolutionTabs = new JTabbedPane();
 
         //Components del panell
         JPanel jpWeekEvolution = new JPanel();
         JPanel jpMonthEvolution = new JPanel();
         JPanel jpYearEvolution = new JPanel();
-        evolutionTabs.add("Last week evolution", jpWeekEvolution);
-        evolutionTabs.add("Last month evolution", jpMonthEvolution);
-        evolutionTabs.add("Last year evolution", jpYearEvolution);
+        jtpEvolutionTabs.add("Last week evolution", jpWeekEvolution);
+        jtpEvolutionTabs.add("Last month evolution", jpMonthEvolution);
+        jtpEvolutionTabs.add("Last year evolution", jpYearEvolution);
 
         //Afegim el panell al nostre conjunt de pestanyes
-        getContentPane().add("Users evolution", evolutionTabs);
+        getContentPane().add("Users evolution", jtpEvolutionTabs);
 
-
-        //PANELL DEL TOP 5 DE CANCONS MES POPULARS
+        //**********************************PANELL DEL TOP 5 DE CANCONS MES POPULARS**********************************//
 
         //Creem el panell
         JPanel jpTopFiveSongs = new JPanel();
@@ -130,18 +144,24 @@ public class Window1 extends JFrame {
             jbDeleteFile.setActionCommand(""+(i+1));
             conjuntDeleteFile.add(jbDeleteFile);
 
-            jpSongFiles.add(jpFile);
+            jpAllFiles.add(jpFile);
+            jpPublicFiles.add(jpFile);
 
         }
 
-        getContentPane().add("Song files", jpScrollFiles);
+        jpScrollAllFiles.add(jpAllFiles);
+        jpScrollPublicFiles.add(jpPublicFiles);
+        jtpSongFiles.add("Private files", jpScrollPrivateFiles);
+        jtpSongFiles.add("Public files", jpScrollPublicFiles);
+        jtpSongFiles.add("All files", jpScrollAllFiles);
+        getContentPane().add("Song files", jtpSongFiles);
 
     }
 
     public void generaLlistaFiles (LinkedList<File> files) {
 
-        jpSongFiles.removeAll();
-        //conjuntApply.clear();
+        jtpSongFiles.removeAll();
+        conjuntDeleteFile.clear();
 
         fitxersPredeterminats();
 
@@ -161,16 +181,16 @@ public class Window1 extends JFrame {
             jbDeleteFile = new JButton("Delete");
             jpFile.add(jbDeleteFile);
 
-            jpSongFiles.add(jpFile);
+            jtpSongFiles.add(jpFile);
 
             conjuntDeleteFile.add(jbDeleteFile);
 
         }
 
-        jpScrollFiles.add(jpSongFiles);
+        //jpScrollFiles.add(jtpSongFiles);
 
-        getContentPane().add("Song files", jpScrollFiles);
-        jpSongFiles.revalidate();
+        //getContentPane().add("Song files", jpScrollFiles);
+        jtpSongFiles.revalidate();
         this.repaint();
 
     }
@@ -223,8 +243,6 @@ public class Window1 extends JFrame {
 
         userPassword = jpfPassword.getPassword();
         userPasswordOk = String.valueOf(userPassword);
-
-        System.out.println(userPasswordOk);
 
         return userPasswordOk;
 

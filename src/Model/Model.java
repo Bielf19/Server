@@ -6,34 +6,16 @@ import java.util.LinkedList;
 
 public class Model {
 
-    public void addUser (String nickname, String email, String password){
-
-        Usuari newUser = new Usuari();
-        Login newLogin = new Login();
-
-        //Afegim el login desitjat.
-        newLogin.setNomUsuari(nickname);
-        newLogin.setCorreu(email);
-        newLogin.setPassword(password);
-        newUser.setLogin(newLogin);
-
-        addBaseDades(newUser);
-
-    }
-
-    public void addBaseDades (Usuari newUser) {
-
-        UserDAO ud = new UserDAO();
-        ud.addUser(newUser);
-
-    }
-
     public LinkedList<String> getSongsPopularitat() {
 
         LinkedList<String> nomSongs = new LinkedList<>();
         return nomSongs;
 
     }
+
+//*************************************************REGISTRE***********************************************************//
+
+    //Comrpova que el nickname introduit en el registre no estigui repetit
 
     public boolean comprovaNickname (String userNickname, LinkedList<Usuari> users) {
 
@@ -58,6 +40,8 @@ public class Model {
 
     }
 
+    //Comrpova que el email introduit en el registre no estigui repetit
+
     public boolean comprovaEmail (String userEmail, LinkedList<Usuari> users) {
 
         boolean emailOk = true;
@@ -81,9 +65,83 @@ public class Model {
 
     }
 
+    //Afegeix l'usuari a la base de dades
+
+    public void addUser (String nickname, String email, String password){
+
+        Usuari newUser = new Usuari();
+        Login newLogin = new Login();
+
+        //Afegim el login desitjat.
+        newLogin.setNomUsuari(nickname);
+        newLogin.setCorreu(email);
+        newLogin.setPassword(password);
+        newUser.setLogin(newLogin);
+
+        addBaseDades(newUser);
+
+    }
+
+    public void addBaseDades (Usuari newUser) {
+
+        UserDAO ud = new UserDAO();
+        ud.addUser(newUser);
+
+    }
+
+//**********************************************AUTENTIFICACIO********************************************************//
+
+    //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió
+
+    public boolean authenticationEmail (String emailIntroduit, LinkedList<Usuari> users) {
+
+        boolean authenticationOk = false;
+        Login login;
+
+        for (int i = 0; i < users.size(); i++) {
+
+            login = users.get(i).getLogin();
+
+            if (login.getNomUsuari().equals(emailIntroduit)) {
+
+                authenticationOk = true;
+
+            }
+
+        }
+
+        return authenticationOk;
+
+    }
+
+    //Funcio que s'utilitzarà per autentificar el nom d'usuari en l'inici de sessió
+
+    public boolean authenticationNickname (String nicknameIntroduit, LinkedList<Usuari> users) {
+
+        boolean authenticationOk = false;
+        Login login;
+
+        for (int i = 0; i < users.size(); i++) {
+
+            login = users.get(i).getLogin();
+
+            if (login.getNomUsuari().equals(nicknameIntroduit)) {
+
+                authenticationOk = true;
+
+            }
+
+        }
+
+        return authenticationOk;
+
+    }
+
+    //Funcio que s'utilitzara per autenticar la contraseña en l'inici de sessió d'un usuari
+
     public boolean authenticationPassword (String nickname, String passwordIntroduit, LinkedList<Usuari> users)  {
 
-        boolean authenticationOk = true;
+        boolean authenticationOk = false;
         Login login;
 
         for (int i = 0; i < users.size(); i++) {
@@ -109,6 +167,9 @@ public class Model {
         return authenticationOk;
 
     }
+
+//**************************************************MOSTRAR FITXERS***************************************************//
+
 
 
 }
