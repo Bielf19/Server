@@ -28,8 +28,10 @@ public class Main {
                     Controller1 controller1 = new Controller1(model,window1);
                     Servidor servidor = new Servidor(model);
                     servidor.start();
-                    AmicsDAO ad = new AmicsDAO();
-                    ad.addAmic("4Wf46vBnt", 3);
+                    /*LinkedList<Usuari> usuaris = model.getAllUsers();
+                    for (int i = 0; i < usuaris.size(); i++) {
+                        System.out.println(usuaris.get(i).getUser_id());
+                    }*/
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 

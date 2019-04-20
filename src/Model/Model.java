@@ -1,10 +1,25 @@
 package Model;
 
+import Model.BaseDades.DAO.AmicsDAO;
+import Model.BaseDades.DAO.SongDAO;
 import Model.BaseDades.DAO.UserDAO;
+import Model.BaseDades.DAO.UserSongsDAO;
 
 import java.util.LinkedList;
 
 public class Model {
+
+    private UserDAO ud;
+    private UserSongsDAO usd;
+    private SongDAO sd;
+    private AmicsDAO ad;
+
+    public Model () {
+        ud = new UserDAO();
+        sd = new SongDAO();
+        usd = new UserSongsDAO();
+        ad = new AmicsDAO();
+    }
 
     public LinkedList<String> getSongsPopularitat() {
 
@@ -78,21 +93,23 @@ public class Model {
         newLogin.setPassword(password);
         newUser.setLogin(newLogin);
 
-        addBaseDades(newUser);
-
-    }
-
-    public void addBaseDades (Usuari newUser) {
-
-        UserDAO ud = new UserDAO();
         ud.addUser(newUser);
 
     }
 
-    //Retirna tots els usuaris de la base de dades
+
+
+    //Retorna tots els usuaris de la base de dades
+
     public LinkedList<Usuari> getAllUsers () {
-        UserDAO ud = new UserDAO();
         return ud.getAllUsers();
+    }
+
+
+    //Estableix una amistat segons el codi d'Amistat
+
+    public void addAmic (String CodiAmistat, int user_id) {
+        ad.addAmic(CodiAmistat, user_id);
     }
 
 //**********************************************AUTENTIFICACIO********************************************************//

@@ -21,7 +21,7 @@ public class UserDAO {
     public LinkedList<Usuari> getAllUsers() {
         LinkedList<Usuari> usuaris = new LinkedList<>();
         Usuari user = new Usuari();
-        String query = "SELECT * FROM Usuaris;";
+        String query = "SELECT user_id FROM Usuaris;";
         ResultSet result = DataBase.getInstance().selectQuery(query);
         try {
             while (result.next()) {
