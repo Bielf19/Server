@@ -21,9 +21,9 @@ public class Model {
         ad = new AmicsDAO();
     }
 
-    public LinkedList<String> getSongsPopularitat() {
+    public LinkedList<String> getSongsPopularitat(LinkedList <String> nomSongs) {
 
-        LinkedList<String> nomSongs = new LinkedList<>();
+        //FALTA AFEGIR METODE ORDENACIO
         return nomSongs;
 
     }
@@ -80,6 +80,19 @@ public class Model {
 
     }
 
+
+
+    //Funció per comprovar que el titol de la nova cançó no es repetit
+    public boolean comprovaTitol (String titol, LinkedList<Song> songs) {
+        boolean titolOk = true;
+        for (int i = 0; i < songs.size(); i++) {
+            if (titol.equals(songs.get(i).getTitol())) {
+                titolOk = false;
+            }
+        }
+        return titolOk;
+    }
+
     //Afegeix l'usuari a la base de dades
 
     public void addUser (String nickname, String email, String password){
@@ -105,11 +118,111 @@ public class Model {
         return ud.getAllUsers();
     }
 
+    //Retorna l'usuari indicat per l'id
+    public Usuari getUser(int id) {
+        return ud.getUser(id, null, null, null);
+    }
+
+
+    //Retorna l'usuari indicat pel correu
+    public Usuari getUser(String correu) {
+        return ud.getUser(0, null, correu, null);
+    }
+
+
+    //Retorna l'usuari indicat pel nomUsuari. L'entern que ens passen es simplement per diferenciar de la funció anterior
+    public Usuari getUser(String nomUsuari, int i) {
+        return ud.getUser(0, nomUsuari, null, null);
+    }
+
 
     //Estableix una amistat segons el codi d'Amistat
 
     public void addAmic (String CodiAmistat, int user_id) {
         ad.addAmic(CodiAmistat, user_id);
+    }
+
+    //Llista de tots els amics d'un usuari
+    public LinkedList<Integer> getAmics (int user_id){
+        return ad.getAmics(user_id);
+    }
+
+
+    //Actualització del teclat de l'usuari indicat
+    public void updateTeclat(int id, LinkedList<Tecla> t) {
+        ud.updateTeclat(id,t);
+    }
+
+
+    //Obtenim una cançó a partir de l'id de la cançó
+    public Song getSong (int song_id) {
+        return sd.getSong(song_id, null);
+    }
+
+    //Obtenim una cançó a partir del titol de la cançó
+    public Song getSong (String titol) {
+        return sd.getSong(0, titol);
+    }
+
+
+    //Associem una cançó a un usuari
+    public void addSongToUser (int user_id, int song_id) {
+        usd.addSongToUser(user_id, song_id);
+    }
+
+
+    //Obtenim totes les cançons de la BBDD
+    public LinkedList<Song> getAllSongs() {
+        return sd.getAllSongs();
+    }
+
+
+    //Obtenim la configuració del teclat a partir del correu
+    public LinkedList<Tecla> getTeclat(String correu) {
+        return ud.getTeclat(correu);
+    }
+
+
+    //Afegir una cançó a la base de dades
+    public void addSong (Song song) {
+        sd.addSong(song);
+    }
+
+
+
+    //Funció que extreu les cançons disponibles que té cada usuari
+    public LinkedList<String> songs_titols (int user_id, LinkedList<Integer> amics, LinkedList<Song> songs) {
+        LinkedList<String> titols = new LinkedList<>();
+        LinkedList<UserSongs> usList = getAllUserSongs();
+        //Afegim les cançons del propi usuari
+        titols = getUserSongs_titols(user_id, titols, usList);
+        //Afegm el titol de les cançons privades dels amics
+        for (int i = 0; i < amics.size(); i++) {
+            titols = getUserSongs_titols(amics.get(i), titols, usList);
+        }
+        //Afegim el títol de les cançons públiques
+        for (int i = 0; i < songs.size(); i++) {
+            if (!songs.get(i).isPrivat()) {
+                titols.add(songs.get(i).getTitol());
+            }
+        }
+        //Ordenem per popularitat
+        titols = getSongsPopularitat(titols);
+        return titols;
+
+    }
+
+
+
+    //Funció que retorna la llista de les cançons associades als usuaris
+    public LinkedList<UserSongs> getAllUserSongs () {
+        return usd.getAllUserSongs();
+    }
+
+
+    //Funció que permet obtindre el títol de les cançons privades d'un usuari determinat
+    public LinkedList<String> getUserSongs_titols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
+        return usd.getUserSongs_titols(user_id, titols, usList);
     }
 
 //**********************************************AUTENTIFICACIO********************************************************//
@@ -190,6 +303,11 @@ public class Model {
         return authenticationOk;
 
     }
+
+
+
+
+
 
 //**************************************************MOSTRAR FITXERS***************************************************//
 

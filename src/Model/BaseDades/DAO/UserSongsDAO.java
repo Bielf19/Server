@@ -1,6 +1,7 @@
 package Model.BaseDades.DAO;
 
 import Model.BaseDades.DataBase;
+import Model.Song;
 import Model.UserSongs;
 import Model.Usuari;
 
@@ -15,6 +16,27 @@ public class UserSongsDAO {
         DataBase.getInstance().insertQuery(query);
     }
 
+
+    public LinkedList<String> getUserSongs_titols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
+        SongDAO sd = new SongDAO();
+        int count = 0;
+        for (int i = 0; i < usList.size(); i++) {
+            if (usList.get(i).getUser_id() == user_id) {
+                Song song = sd.getSong(usList.get(i).getSong_id(), null);
+                if (song.isPrivat() == true) {
+                    titols.add(song.getTitol());
+                }
+                count ++;
+            }
+        }
+        return titols;
+    }
+
+
+    /**
+     * Aquesta funció retorna una llista amb l'id de cada cançó associat a l'id de l'usuari que és propietari
+     * @return llista de UserSongs
+     */
     public LinkedList<UserSongs> getAllUserSongs () {
         LinkedList<UserSongs> usList = new LinkedList<>();
         UserSongs us = new UserSongs();
