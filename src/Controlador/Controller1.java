@@ -67,7 +67,7 @@ public class Controller1 implements ActionListener {
 
         }
 
-        songFiles = new ArrayList<Song>();
+        //songFiles = new ArrayList<Song>();
         //songFiles = ompleLlistaFitxers; Funcio que agafara els fitxers de la base de dades i els dipositara a la llista
 
         //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
