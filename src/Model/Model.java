@@ -89,6 +89,12 @@ public class Model {
 
     }
 
+    //Retirna tots els usuaris de la base de dades
+    public LinkedList<Usuari> getAllUsers () {
+        UserDAO ud = new UserDAO();
+        return ud.getAllUsers();
+    }
+
 //**********************************************AUTENTIFICACIO********************************************************//
 
     //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió

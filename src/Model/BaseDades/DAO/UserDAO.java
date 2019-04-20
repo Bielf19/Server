@@ -17,7 +17,27 @@ public class UserDAO {
     }
 
 
-    /**
+
+    public LinkedList<Usuari> getAllUsers() {
+        LinkedList<Usuari> usuaris = new LinkedList<>();
+        Usuari user = new Usuari();
+        String query = "SELECT * FROM Usuaris;";
+        ResultSet result = DataBase.getInstance().selectQuery(query);
+        try {
+            while (result.next()) {
+                int id = result.getInt("user_id");
+                user = getUser(id, null, null, null);
+                usuaris.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuaris;
+    }
+
+
+        /**
      * Mètode amb el que podrem obtindre un usuari de la BBDD necessitant només 1 dels paràmetres que trobem a continuació
      * @param id
      * @param nomUsuari
@@ -90,11 +110,7 @@ public class UserDAO {
             LinkedList <Integer> amics = ad.getAmics(user.getUser_id());
             user.setAmics(amics);
 
-
-
-            /**
-             * Falta afegir amics i songs i teclat, i controlar si el que ens introdueixen no existeix
-             */
+            user.setTecles(getTeclat(user.getLogin().getCorreu()));
 
         } catch (SQLException e) {
             e.printStackTrace();
