@@ -19,14 +19,12 @@ public class UserSongsDAO {
 
     public LinkedList<String> getUserSongs_titols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
         SongDAO sd = new SongDAO();
-        int count = 0;
         for (int i = 0; i < usList.size(); i++) {
             if (usList.get(i).getUser_id() == user_id) {
                 Song song = sd.getSong(usList.get(i).getSong_id(), null);
                 if (song.isPrivat() == true) {
                     titols.add(song.getTitol());
                 }
-                count ++;
             }
         }
         return titols;
@@ -39,16 +37,18 @@ public class UserSongsDAO {
      */
     public LinkedList<UserSongs> getAllUserSongs () {
         LinkedList<UserSongs> usList = new LinkedList<>();
-        UserSongs us = new UserSongs();
+
         String query = "SELECT user_id, song_id FROM UserSongs;";
         ResultSet resultat = DataBase.getInstance().selectQuery(query);
         try {
             while (resultat.next()) {
-                us.setUser_id(resultat.getInt("user_id"));
-                us.setSong_id(resultat.getInt("song_id"));
+                int user_id = resultat.getInt("user_id");
+                int song_id = resultat.getInt("song_id");
+                UserSongs us = new UserSongs();
+                us.setUser_id(user_id);
+                us.setSong_id(song_id);
                 usList.add(us);
             }
-
             return usList;
         } catch (SQLException e) {
             e.printStackTrace();

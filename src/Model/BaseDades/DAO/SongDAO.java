@@ -66,7 +66,7 @@ public class SongDAO {
 
     public LinkedList<Song> getAllSongs() {
         LinkedList<Song> songs = new LinkedList<>();
-        String query = "SELECT song_id FROM Usuaris;";
+        String query = "SELECT song_id FROM Song;";
         ResultSet result = DataBase.getInstance().selectQuery(query);
         try {
             while (result.next()) {

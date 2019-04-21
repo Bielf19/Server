@@ -100,6 +100,7 @@ public class DataBase {
 
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            ex.printStackTrace();
         }
         return rs;
     }

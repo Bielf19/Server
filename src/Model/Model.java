@@ -23,7 +23,16 @@ public class Model {
 
     public LinkedList<String> getSongsPopularitat(LinkedList <String> nomSongs) {
 
-        //FALTA AFEGIR METODE ORDENACIO
+        //Metode d'ordenació
+        for (int i = 1; i < nomSongs.size(); i++) {
+            for (int j = nomSongs.size() - 1; j >= i; j--) {
+                if (getSong(nomSongs.get(j-1)).getnReproduccions() < getSong(nomSongs.get(j)).getnReproduccions()) {
+                    String aux = nomSongs.get(j-1);
+                    nomSongs.set(j-1, nomSongs.get(j));
+                    nomSongs.set(j, aux);
+                }
+            }
+        }
         return nomSongs;
 
     }
@@ -191,7 +200,7 @@ public class Model {
 
 
     //Funció que extreu les cançons disponibles que té cada usuari
-    public LinkedList<String> songs_titols (int user_id, LinkedList<Integer> amics, LinkedList<Song> songs) {
+    public LinkedList<String> getTitolsDisponibles (int user_id, LinkedList<Integer> amics, LinkedList<Song> songs) {
         LinkedList<String> titols = new LinkedList<>();
         LinkedList<UserSongs> usList = getAllUserSongs();
         //Afegim les cançons del propi usuari

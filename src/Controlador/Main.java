@@ -32,6 +32,10 @@ public class Main {
                     for (int i = 0; i < usuaris.size(); i++) {
                         System.out.println(usuaris.get(i).getUser_id());
                     }*/
+                    LinkedList<String> titols = model.getTitolsDisponibles(2,model.getAmics(2), model.getAllSongs());
+                    for (int i = 0; i < titols.size(); i++) {
+                        System.out.println(titols.get(i));
+                    }
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 

@@ -44,7 +44,7 @@ public class ServidorDedicat extends Thread{
             ObjectInputStream oi = new ObjectInputStream(s.getInputStream());
             int id = (int)oi.readObject();
             //REVISAR !!!!!!!!!!!!!!!!!!!!!!!!!! això no pot anar aquí hauria d'anar dintre de login i registre
-            LinkedList<String> nomSongs = model.songs_titols(id, model.getAmics(id), model.getAllSongs());
+            LinkedList<String> nomSongs = model.getTitolsDisponibles(id, model.getAmics(id), model.getAllSongs());
             oo.writeObject(nomSongs);
 
             while(true) {
@@ -86,6 +86,9 @@ public class ServidorDedicat extends Thread{
                                 if (passwordOK) {
                                     //Passem la configuració del teclat d'aquell usuari
                                     oo.writeObject(user.getTecles());
+                                    /**
+                                     * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
+                                     */
                                 }
                             }
                             break;
@@ -114,6 +117,7 @@ public class ServidorDedicat extends Thread{
                                 //Enviem un false al client per a que canvïin el títol de la cançó
                                 oo.writeObject(false);
                             } else {
+                                //Associem la canço amb l'usuari
                                 song.setPropietari(""+user_id);
                                 model.addSong(song);
                                 song = model.getSong(song.getTitol());
@@ -121,18 +125,15 @@ public class ServidorDedicat extends Thread{
                                 //Enviem un true al client confirmant que s'ha afegit la cançó
                                 oo.writeObject(true);
                                 //Enviem una llista amb els titols de les cançons disponibles per a aquest usuari
-                                oo.writeObject(model.songs_titols(user_id, model.getAmics(user_id), model.getAllSongs()));
+                                oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
                             }
-                            /**
-                             * Afegim canço a la BBDD  i associem la canço a l'usuari
-                             */
-                            /**
-                             * Actualitzar cançons disponibles
-                             */
                             break;
 
                         case "4":
                             oo.writeObject("4");
+                            /**
+                             * Potser no caldria, parlar-ho
+                             */
                             //Passem una llista amb els noms de cançons ordenades per popularitat
                             //S'ha d'inicialitzar al principi de la vista de client
                             //LinkedList<String> nomSongs = model.getSongsPopularitat();
@@ -203,6 +204,9 @@ public class ServidorDedicat extends Thread{
                                 model.addUser(login.getNomUsuari(), login.getCorreu(), login.getPassword());
                                 //Passem la configuració del teclat
                                 oo.writeObject(model.getTeclat(login.getCorreu()));
+                                /**
+                                 * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
+                                 */
                             }
 
 
