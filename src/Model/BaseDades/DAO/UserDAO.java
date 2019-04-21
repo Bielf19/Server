@@ -301,4 +301,14 @@ public class UserDAO {
         }
         return amic_id;
     }
+
+
+    /**
+     * Funció que permet eliminar un usuari a partir del seu id
+     * @param user_id
+     */
+    public void deleteUser(int user_id) {
+        String query = "DELETE FROM Usuaris WHERE user_id = '"+user_id+"';";
+        DataBase.getInstance().deleteQuery(query);
+    }
 }

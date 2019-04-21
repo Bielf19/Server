@@ -63,7 +63,10 @@ public class SongDAO {
     }
 
 
-
+    /**
+     * Aquest mètode permet obtindre una llista amb totes les cançons disponibles a la base de dades
+     * @return
+     */
     public LinkedList<Song> getAllSongs() {
         LinkedList<Song> songs = new LinkedList<>();
         String query = "SELECT song_id FROM Song;";
@@ -80,4 +83,16 @@ public class SongDAO {
         }
         return songs;
     }
+
+
+    /**
+     * Funció amb la que eliminarem una canço de la base de dades a partir de  l'id de la canço
+     * @param song_id
+     */
+    public void deleteSong(int song_id) {
+        String query = "DELETE FROM Song WHERE song_id = '"+song_id+"';";
+        DataBase.getInstance().deleteQuery(query);
+    }
+
+
 }

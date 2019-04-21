@@ -13,13 +13,15 @@ public class AmicsDAO {
      * @param CodiAmistat
      * @param user_id
      */
-    public void addAmic (String CodiAmistat, int user_id) {
+    public boolean addAmic (String CodiAmistat, int user_id) {
         UserDAO ud = new UserDAO();
         int id_amic = ud.searchCodiAmistat(CodiAmistat);
         if (id_amic != 0 && id_amic != user_id) {
             String query = "INSERT INTO Amic (user_id1, user_id2) VALUES ('"+user_id+"', '"+id_amic+"');";
             DataBase.getInstance().insertQuery(query);
+            return true;
         }
+        return false;
     }
 
 
@@ -39,7 +41,7 @@ public class AmicsDAO {
                  int user_id2 = result.getInt("user_id2");
                  //Mirem si algun dels 2 coincideix per a afegir a l'altra a la llista d'amics
                  if (user_id1 == user_id) {
-                     //COmprovem que no l'hàgim afegit ja
+                     //Comprovem que no l'hàgim afegit ja
                      if (!amics.contains(user_id2)) {
                          amics.add(user_id2);
                      }
@@ -54,5 +56,15 @@ public class AmicsDAO {
             e.printStackTrace();
         }
         return amics;
+    }
+
+
+    /**
+     * Funció que elimina totes les associacions d'amics d'un usuari determinat
+     * @param user_id
+     */
+    public void deleteAmic(int user_id) {
+        String query = "DELETE FROM Amic WHERE user_id1 = '"+user_id+"' OR user_id2 = '"+user_id+"';";
+        DataBase.getInstance().deleteQuery(query);
     }
 }

@@ -17,7 +17,14 @@ public class UserSongsDAO {
     }
 
 
-    public LinkedList<String> getUserSongs_titols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
+    /**
+     * Funció que permet obtindre els titols de totes les cançons privades d'un usuari
+     * @param user_id
+     * @param titols
+     * @param usList
+     * @return
+     */
+    public LinkedList<String> getUserSongs_titolsPrivats (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
         SongDAO sd = new SongDAO();
         for (int i = 0; i < usList.size(); i++) {
             if (usList.get(i).getUser_id() == user_id) {
@@ -29,6 +36,24 @@ public class UserSongsDAO {
         }
         return titols;
     }
+
+
+    /**
+     * Funció que permet obtindre els song_id de cada canço que conté un usuari determinat
+     * @param user_id
+     * @param usList
+     * @return
+     */
+    public LinkedList<Integer> getAllUserSongs_id (int user_id, LinkedList<UserSongs> usList) {
+        LinkedList<Integer> song_ids = new LinkedList<>();
+        for (int i = 0; i < usList.size(); i++) {
+            if (usList.get(i).getUser_id() == user_id) {
+                song_ids.add(usList.get(i).getSong_id());
+            }
+        }
+        return song_ids;
+    }
+
 
 
     /**
@@ -54,5 +79,15 @@ public class UserSongsDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    /**
+     * Aquest mètode elimina totes les associacions a diferentes cançons que té un usuari a partir del seu id
+     * @param user_id
+     */
+    public void deleteUserSong(int user_id) {
+        String query = "DELETE FROM UserSongs WHERE user_id = '"+user_id+"';";
+        DataBase.getInstance().deleteQuery(query);
     }
 }

@@ -147,8 +147,8 @@ public class Model {
 
     //Estableix una amistat segons el codi d'Amistat
 
-    public void addAmic (String CodiAmistat, int user_id) {
-        ad.addAmic(CodiAmistat, user_id);
+    public boolean addAmic (String CodiAmistat, int user_id) {
+        return ad.addAmic(CodiAmistat, user_id);
     }
 
     //Llista de tots els amics d'un usuari
@@ -204,10 +204,10 @@ public class Model {
         LinkedList<String> titols = new LinkedList<>();
         LinkedList<UserSongs> usList = getAllUserSongs();
         //Afegim les cançons del propi usuari
-        titols = getUserSongs_titols(user_id, titols, usList);
+        titols = getUserSongs_titolsPrivats(user_id, titols, usList);
         //Afegm el titol de les cançons privades dels amics
         for (int i = 0; i < amics.size(); i++) {
-            titols = getUserSongs_titols(amics.get(i), titols, usList);
+            titols = getUserSongs_titolsPrivats(amics.get(i), titols, usList);
         }
         //Afegim el títol de les cançons públiques
         for (int i = 0; i < songs.size(); i++) {
@@ -230,8 +230,37 @@ public class Model {
 
 
     //Funció que permet obtindre el títol de les cançons privades d'un usuari determinat
-    public LinkedList<String> getUserSongs_titols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
-        return usd.getUserSongs_titols(user_id, titols, usList);
+    public LinkedList<String> getUserSongs_titolsPrivats (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
+        return usd.getUserSongs_titolsPrivats(user_id, titols, usList);
+    }
+
+
+    //Funció que permet obtindre els song_id de cada canço que conté un usuari determinat
+    public LinkedList<Integer> getAllUserSongs_id (int user_id, LinkedList<UserSongs> usList) {
+        return usd.getAllUserSongs_id(user_id, usList);
+    }
+
+
+    //Funció amb la que eliminarem una canço de la base de dades a partir de  l'id de la canço
+    public void deleteSong(int song_id) {
+        sd.deleteSong(song_id);
+    }
+
+    //Funció que permet eliminar un usuari a partir del seu id
+    public void deleteUser(int user_id) {
+        ud.deleteUser(user_id);
+    }
+
+
+    //Aquest mètode elimina totes les associacions a diferentes cançons que té un usuari a partir del seu id
+    public void deleteUserSong(int user_id) {
+        usd.deleteUserSong(user_id);
+    }
+
+
+    //Funció que elimina totes les associacions d'amics d'un usuari determinat
+    public void deleteAmic(int user_id) {
+        ad.deleteAmic(user_id);
     }
 
 //**********************************************AUTENTIFICACIO********************************************************//

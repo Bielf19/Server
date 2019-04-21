@@ -148,39 +148,47 @@ public class ServidorDedicat extends Thread{
                              * Extreiem de la base de dades el fitxer de la canço
                              * S'ha d'incrementar el numero de reproduccions
                              */
-                            //Aquesta línia no existirà, s'haurà extret de la BBDD
-                            String fitxer = new String("");
-                            oo.writeObject(fitxer);
+                            //Extreiem de la base de dades el fitxer de la canço i incrementem el numero de reproduccions
+                            song = model.getSong(nom);
+                            song.setnReproduccions(song.getnReproduccions() + 1);
+                            //Passem el fitxer pel socket
+                            oo.writeObject(song.getFitxer());
 
                             break;
 
                         case "6":
                             oo.writeObject("6");
-                            //Rebem el codi d'amistat i comprovem que coincideixi amb algun usuari de la BBDD
-                            boolean existeix = false;
+                            //Rebem el codi d'amistat i l'id de l'usuari que l'envia i comprovem que coincideixi amb algun usuari de la BBDD
                             String codi = (String) oi.readObject();
-                            /**
-                             * Busquem el codi a la base de dades
-                             */
+                            user_id = (int) oi.readObject();
+                            //Busquem el codi a la BBDD i si el trobem afegim l'usuari del codi com amic
+                            boolean existeix = model.addAmic(codi, user_id);
                             if (existeix) {
-                                /**
-                                 * Extreiem les noves cançons que podra escoltar l'usuari
-                                 */
                                 //Passem un booleà que indica si s'ha afegit l'amic correctament
-                                oo.writeObject(existeix);
+                                oo.writeObject(true);
                                 //Passem la llista de noms de cançons que ara pot escoltar
-                                //DOS LINIES SEGÑUENTS S?HAN DE DESCOMENTAR
-                                //LinkedList<String> updateSongs = model.songs_titols()
-                                //oo.writeObject(updateSongs);
+                                oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
+
                             } else {
-                                oo.writeObject(existeix);
+                                //Passem un booleà indicant que no s'ha afegit l'amic
+                                oo.writeObject(false);
                             }
                             break;
 
                         case "7":
                             oo.writeObject("7");
+                            /**
+                             * PODRIA SER NOMES EL user_id
+                             */
                             //Rebem un usuari per eliminar-lo
                             user = (Usuari) oi.readObject();
+                            LinkedList<Integer> song_ids = model.getAllUserSongs_id(user.getUser_id(), model.getAllUserSongs());
+                            for (int i = 0; i < song_ids.size(); i++ ) {
+                                model.deleteSong(song_ids.get(i));
+                            }
+                            model.deleteUserSong(user.getUser_id());
+                            model.deleteAmic(user.getUser_id());
+                            model.deleteUser(user.getUser_id());
                             break;
 
                         case "8":
