@@ -17,7 +17,7 @@ import Model.Login;
  * El servidor dedicat obrirà un fil d'execució per a cada client que es connecti i permetrà realitzar qualsevol tasca
  * que impliqui accedir o emmagatzemar a la base de dades.
  */
-public class ServidorDedicat extends Thread{
+public class  ServidorDedicat extends Thread{
 
     private Model model;
     private Socket s;
@@ -86,6 +86,9 @@ public class ServidorDedicat extends Thread{
                                 if (passwordOK) {
                                     //Passem la configuració del teclat d'aquell usuari
                                     oo.writeObject(user.getTecles());
+                                    oo.writeObject(user.getAmics());
+                                    oo.writeObject(user.getSongs());
+
                                     /**
                                      * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
                                      */
