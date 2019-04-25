@@ -51,13 +51,15 @@ public class  ServidorDedicat extends Thread{
                 try {
                     //Rebem un String que indicarà quina de les opcions volem realitzar
                     String option = (String) oi.readObject();
-
+                    System.out.println("Prova1");
                     switch (option) {
 
                         case "1":
                             //Rebem un login
                             oo.writeObject("1");
+                            System.out.println("Prova2");
                             Login login = (Login) oi.readObject();
+                            System.out.println("Prova3 " + login.getNomUsuari());
                             boolean loginOK;
                             Usuari user = new Usuari();
                             LinkedList<Usuari> users = model.getAllUsers();
@@ -76,6 +78,7 @@ public class  ServidorDedicat extends Thread{
                             if (!loginOK) {
                                 //Passem un boolea per a que el programa client sàpiga si s'ha fet bé el login
                                 oo.writeObject(false);
+                                System.out.println("Prova4");
                             } else {
 
                                 //Comprovem que la contrasenya sigui correcte
@@ -83,11 +86,15 @@ public class  ServidorDedicat extends Thread{
 
                                 //Passem un boolea per a que el programa client sàpiga si s'ha fet bé el login
                                 oo.writeObject(passwordOK);
+                                System.out.println("Prova5");
                                 if (passwordOK) {
                                     //Passem la configuració del teclat d'aquell usuari
                                     oo.writeObject(user.getTecles());
+                                    System.out.println("Prova6");
                                     oo.writeObject(user.getAmics());
+                                    System.out.println("Prova7");
                                     oo.writeObject(user.getSongs());
+                                    System.out.println("Prova8");
 
                                     /**
                                      * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
