@@ -1,6 +1,7 @@
 package Controlador;
 
 import Model.BaseDades.DAO.AmicsDAO;
+import Model.BaseDades.DAO.EvolucioDAO;
 import Model.BaseDades.DAO.UserDAO;
 import Model.BaseDades.DAO.UserSongsDAO;
 import Model.Model;
@@ -28,6 +29,8 @@ public class Main {
                     Controller1 controller1 = new Controller1(model,window1);
                     Servidor servidor = new Servidor(model);
                     servidor.start();
+                    EvolucioDAO ed = new EvolucioDAO();
+                    ed.add_Dies();
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 
