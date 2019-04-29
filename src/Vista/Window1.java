@@ -28,6 +28,7 @@ public class Window1 extends JFrame {
     private JButton jbDeleteFile;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
     //EVOLUTION
+    private JTabbedPane jtpEvolutionTabs;
 
 
     public Window1() {
@@ -96,7 +97,7 @@ public class Window1 extends JFrame {
         //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
 
         //Creem el panell
-        JTabbedPane jtpEvolutionTabs = new JTabbedPane();
+        jtpEvolutionTabs = new JTabbedPane();
 
         //Components del panell
         JPanel jpWeekEvolution = new JPanel();
@@ -108,6 +109,7 @@ public class Window1 extends JFrame {
 
         //Afegim el panell al nostre conjunt de pestanyes
         getContentPane().add("Users evolution", jtpEvolutionTabs);
+
 
         //**********************************PANELL DEL TOP 5 DE CANCONS MES POPULARS**********************************//
 
@@ -268,6 +270,8 @@ public class Window1 extends JFrame {
             conjuntDeleteFile.get(i).addActionListener(controller1);
 
         }
+
+        jtpEvolutionTabs.addMouseListener(controller1);
 
     }
 
