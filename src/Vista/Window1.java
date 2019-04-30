@@ -149,8 +149,9 @@ public class Window1 extends JFrame {
 
         }
 
-        jpScrollAllFiles.add(jpAllFiles);
-        jpScrollPublicFiles.add(jpPublicFiles);
+        jpScrollAllFiles.setViewportView(jpAllFiles);
+        jpScrollPublicFiles.setViewportView(jpPublicFiles);
+        jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
         jtpSongFiles.add("Private files", jpScrollPrivateFiles);
         jtpSongFiles.add("Public files", jpScrollPublicFiles);
         jtpSongFiles.add("All files", jpScrollAllFiles);
