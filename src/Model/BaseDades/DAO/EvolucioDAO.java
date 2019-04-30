@@ -29,8 +29,8 @@ public class EvolucioDAO {
                 addData(e.getDates(counter));
             }
         }
-        int n = get_nUsuaris(e.getDates(0));
-        String query = "UPDATE Evolucio SET nUsuaris = '" + n + 1 + "' WHERE data = '" + e.getDates(0) + "';";
+        int n = get_nUsuaris(e.getDates(0)) + 1;
+        String query = "UPDATE Evolucio SET nUsuaris = '" + n + "' WHERE data = '" + e.getDates(0) + "';";
         DataBase.getInstance().updateQuery(query);
     }
 

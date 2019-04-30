@@ -100,6 +100,8 @@ public class Window1 extends JFrame {
 
         //Components del panell
         JPanel jpWeekEvolution = new JPanel();
+        //System.out.println("Prova2");
+        jpWeekEvolution.paintComponents(getGraphics());
         JPanel jpMonthEvolution = new JPanel();
         JPanel jpYearEvolution = new JPanel();
         jtpEvolutionTabs.add("Last week evolution", jpWeekEvolution);
@@ -269,6 +271,16 @@ public class Window1 extends JFrame {
             conjuntDeleteFile.get(i).addActionListener(controller1);
 
         }
+
+    }
+
+
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+       // System.out.println("Prova1");
+        g.setColor(Color.GREEN);
+        g.fillOval(30,102,321,89);
+        g.drawLine(30,200,300,50);
 
     }
 

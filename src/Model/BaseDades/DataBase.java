@@ -78,6 +78,7 @@ public class DataBase {
 
         } catch (SQLException ex) {
             System.out.println("Problema al Modificar --> " + ex.getSQLState());
+            ex.printStackTrace();
         }
     }
 
