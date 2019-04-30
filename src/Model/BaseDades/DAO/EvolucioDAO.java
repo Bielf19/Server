@@ -11,21 +11,27 @@ import java.util.LinkedList;
 
 public class EvolucioDAO {
 
-    public void add_Dies () {
+    public void add_nUsuaris () {
         LinkedList<Evolution> evolucio = getDadesEvolucio();
         Evolution e = new Evolution();
         if (evolucio.size() == 0) {
             String date = e.getDates(0);
             addData(date);
         } else {
-            String date = e.getDates(0);
-            while (date != evolucio.getLast().getDate()) {
-
+            int counter = 0;
+            String date = e.getDates(counter);
+            while (!date.equals(evolucio.getLast().getDate())) {
+                counter ++;
+                date = e.getDates(counter);
+            }
+            while (counter != 0) {
+                counter --;
+                addData(e.getDates(counter));
             }
         }
-        /*String date = e.getDates(0);
-        String query = "INSERT INTO Evolucio (data) VALUES ('"+date+"');";
-        DataBase.getInstance().insertQuery(query);*/
+        int n = get_nUsuaris(e.getDates(0));
+        String query = "UPDATE Evolucio SET nUsuaris = '" + n + 1 + "' WHERE data = '" + e.getDates(0) + "';";
+        DataBase.getInstance().updateQuery(query);
     }
 
 
@@ -45,8 +51,6 @@ public class EvolucioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(evolucio.size());
-
         return evolucio;
     }
 
@@ -58,8 +62,19 @@ public class EvolucioDAO {
     }
 
 
-
-
+    public int get_nUsuaris (String date) {
+        int n = 0;
+        String query = "SELECT nUsuaris FROM Evolucio;";
+        ResultSet result = DataBase.getInstance().selectQuery(query);
+        try {
+            while (result.next()) {
+                n = result.getInt("nUsuaris");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
 
 
 }
