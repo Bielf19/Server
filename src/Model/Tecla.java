@@ -1,6 +1,8 @@
 package Model;
 
-public class Tecla {
+import java.io.Serializable;
+
+public class Tecla implements Serializable {
     private String nota;
     private char tecla;
 

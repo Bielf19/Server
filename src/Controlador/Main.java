@@ -30,7 +30,7 @@ public class Main {
                     Servidor servidor = new Servidor(model);
                     servidor.start();
                     EvolucioDAO ed = new EvolucioDAO();
-                    ed.add_Dies();
+                    ed.add_nUsuaris();
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 

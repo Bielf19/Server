@@ -101,6 +101,8 @@ public class Window1 extends JFrame {
 
         //Components del panell
         JPanel jpWeekEvolution = new JPanel();
+        //System.out.println("Prova2");
+        jpWeekEvolution.paintComponents(getGraphics());
         JPanel jpMonthEvolution = new JPanel();
         JPanel jpYearEvolution = new JPanel();
         jtpEvolutionTabs.add("Last week evolution", jpWeekEvolution);
@@ -151,8 +153,9 @@ public class Window1 extends JFrame {
 
         }
 
-        jpScrollAllFiles.add(jpAllFiles);
-        jpScrollPublicFiles.add(jpPublicFiles);
+        jpScrollAllFiles.setViewportView(jpAllFiles);
+        jpScrollPublicFiles.setViewportView(jpPublicFiles);
+        jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
         jtpSongFiles.add("Private files", jpScrollPrivateFiles);
         jtpSongFiles.add("Public files", jpScrollPublicFiles);
         jtpSongFiles.add("All files", jpScrollAllFiles);
@@ -272,6 +275,16 @@ public class Window1 extends JFrame {
         }
 
         jtpEvolutionTabs.addMouseListener(controller1);
+
+    }
+
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+       System.out.println("Prova1");
+        g.setColor(Color.GREEN);
+        g.fillOval(30,102,321,89);
+        g.drawLine(30,200,300,50);
 
     }
 

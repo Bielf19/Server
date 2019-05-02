@@ -263,6 +263,12 @@ public class Model {
         ad.deleteAmic(user_id);
     }
 
+
+    //Funció per obtindre el nom d'usuari de tots els amics
+    public LinkedList<String> getNomAmics (int user_id) {
+        return ad.getNomAmics(user_id);
+    }
+
 //**********************************************AUTENTIFICACIO********************************************************//
 
     //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió
