@@ -79,6 +79,7 @@ public class  ServidorDedicat extends Thread{
                                 //Comprovem que la contrasenya sigui correcte
                                 boolean passwordOK = model.authenticationPassword(user.getLogin().getNomUsuari(), login.getPassword(), users);
 
+
                                 //Passem un boolea per a que el programa client sàpiga si s'ha fet bé el login
                                 oo.writeObject(passwordOK);
                                 if (passwordOK) {
