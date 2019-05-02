@@ -42,7 +42,7 @@ public class Controller1 implements ActionListener, MouseListener {
             String userPassword = window1.getUserPassword();
 
             nicknameOk = model.comprovaNickname(userNickname,users);
-            emailOk = model.comprovaEmail (userEmail,users);
+            emailOk = model.comprovaEmail(userEmail,users);
 
             if (nicknameOk && emailOk) {
 
