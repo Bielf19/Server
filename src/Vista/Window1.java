@@ -277,7 +277,7 @@ public class Window1 extends JFrame {
 
     public void paintComponents(Graphics g) {
         super.paintComponents(g);
-       // System.out.println("Prova1");
+       System.out.println("Prova1");
         g.setColor(Color.GREEN);
         g.fillOval(30,102,321,89);
         g.drawLine(30,200,300,50);

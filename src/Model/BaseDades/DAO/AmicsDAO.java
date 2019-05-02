@@ -59,6 +59,17 @@ public class AmicsDAO {
     }
 
 
+    public LinkedList<String> getNomAmics (int user_id) {
+       LinkedList<Integer> idAmics = getAmics(user_id);
+       LinkedList<String> nomAmics = new LinkedList<>();
+       UserDAO ud = new UserDAO();
+       for (int i = 0; i < idAmics.size(); i++) {
+           nomAmics.add(ud.getUser(idAmics.get(i),null, null, null).getLogin().getNomUsuari());
+       }
+       return nomAmics;
+    }
+
+
     /**
      * Funció que elimina totes les associacions d'amics d'un usuari determinat
      * @param user_id
