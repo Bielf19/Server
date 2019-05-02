@@ -85,7 +85,13 @@ public class  ServidorDedicat extends Thread{
                                     //Passem la configuració del teclat d'aquell usuari
                                     oo.writeObject(user.getTecles());
                                     oo.writeObject(model.getNomAmics(user.getUser_id()));
-                                    oo.writeObject(user.getSongs());
+                                    LinkedList<Integer> idsongs = model.getAllUserSongs_id(user.getUser_id(),model.getAllUserSongs());
+                                    LinkedList<String> songs = new LinkedList<>();
+                                    for (int i = 0; i < idsongs.size(); i++) {
+                                        songs.add(model.getSong(idsongs.get(i)).getTitol());
+                                    }
+                                    songs = model.getSongsPopularitat(songs);
+                                    oo.writeObject(songs);
 
 
                                     /**

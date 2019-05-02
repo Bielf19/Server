@@ -274,7 +274,7 @@ public class Window1 extends JFrame {
 
     }
 
-
+    @Override
     public void paintComponents(Graphics g) {
         super.paintComponents(g);
        System.out.println("Prova1");
