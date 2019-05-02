@@ -5,12 +5,15 @@ import Model.Usuari;
 import Vista.Window1;
 import Model.Song;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Controller1 implements ActionListener {
+public class Controller1 implements ActionListener, MouseListener {
 
     private Model model;
     private Window1 window1;
@@ -39,7 +42,7 @@ public class Controller1 implements ActionListener {
             String userPassword = window1.getUserPassword();
 
             nicknameOk = model.comprovaNickname(userNickname,users);
-            emailOk = model.comprovaEmail (userEmail,users);
+            emailOk = model.comprovaEmail(userEmail,users);
 
             if (nicknameOk && emailOk) {
 
@@ -73,6 +76,55 @@ public class Controller1 implements ActionListener {
         //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
 
         //window1.consultaDelete();
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        Object o = e.getSource();
+        Integer index = 0;
+
+        if (o instanceof JTabbedPane) {
+
+            index = ((JTabbedPane) o).getSelectedIndex();
+
+            if (index == 0) {
+
+            }
+
+            if (index == 1) {
+
+            }
+
+            if (index == 2) {
+
+            }
+            System.out.println("Index = "+((JTabbedPane) o).getSelectedIndex());
+
+
+
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }
