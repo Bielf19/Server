@@ -42,10 +42,7 @@ public class  ServidorDedicat extends Thread{
             //Creo els streams
             ObjectOutputStream oo = new ObjectOutputStream(s.getOutputStream());
             ObjectInputStream oi = new ObjectInputStream(s.getInputStream());
-            int id = (int)oi.readObject();
-            //REVISAR !!!!!!!!!!!!!!!!!!!!!!!!!! això no pot anar aquí hauria d'anar dintre de login i registre
-            LinkedList<String> nomSongs = model.getTitolsDisponibles(id, model.getAmics(id), model.getAllSongs());
-            oo.writeObject(nomSongs);
+
 
             while(true) {
                 try {
@@ -57,19 +54,21 @@ public class  ServidorDedicat extends Thread{
                             //Rebem un login
                             oo.writeObject("1");
                             Login login = (Login) oi.readObject();
+                            System.out.println("PROVAPROVA");
+                            System.out.println(login.getNomUsuari());
                             boolean loginOK;
                             Usuari user = new Usuari();
                             LinkedList<Usuari> users = model.getAllUsers();
                             //Mirem si el camp correu es ple o no per a saber si fa login per nomUsuari o per correu
                             if (login.getCorreu() == null) {
-                                loginOK = model.authenticationEmail(login.getCorreu(), users);
+                                loginOK = model.authenticationNickname(login.getNomUsuari(), users);
                                 if(loginOK) {
-                                    user = model.getUser(login.getCorreu());
+                                    user = model.getUser(login.getNomUsuari(), 0);
                                 }
                             } else {
-                                loginOK = model.authenticationNickname(login.getNomUsuari(), users);
+                                loginOK = model.authenticationEmail(login.getCorreu(), users);
                                 if (loginOK) {
-                                    user = model.getUser(login.getNomUsuari(), 0);
+                                    user = model.getUser(login.getCorreu());
                                 }
                             }
                             if (!loginOK) {
@@ -236,8 +235,7 @@ public class  ServidorDedicat extends Thread{
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
         }
 
     }
