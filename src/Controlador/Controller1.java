@@ -32,6 +32,7 @@ public class Controller1 implements ActionListener, MouseListener {
         boolean emailOk;
         Integer fitxer_trobat;
         ArrayList<Song> songFiles;
+        boolean clientOk;
 
         if (actionCommand.equals("ADD_USER")){
 
@@ -41,30 +42,40 @@ public class Controller1 implements ActionListener, MouseListener {
             String userEmail = window1.getUserEmail();
             String userPassword = window1.getUserPassword();
 
-            nicknameOk = model.comprovaNickname(userNickname,users);
-            emailOk = model.comprovaEmail(userEmail,users);
+            clientOk = model.comprovaClient(userNickname,userEmail,userPassword,users);
 
-            if (nicknameOk && emailOk) {
+            if (clientOk) {
 
-                window1.cleanJTextfields();
-                model.addUser(userNickname, userEmail, userPassword);
-                window1.addSuccessful();
+                nicknameOk = model.comprovaNickname(userNickname,users);
+                emailOk = model.comprovaEmail(userEmail,users);
+
+                if (nicknameOk && emailOk) {
+
+                    window1.cleanJTextfields();
+                    model.addUser(userNickname, userEmail, userPassword);
+                    window1.addSuccessful();
+
+                } else {
+
+                    if (!nicknameOk) {
+
+                        window1.cleanJTextfields();
+                        window1.nicknameError();
+
+                    }
+
+                    if (!emailOk) {
+
+                        window1.cleanJTextfields();
+                        window1.emailError();
+
+                    }
+
+                }
 
             } else {
 
-                if (!nicknameOk) {
-
-                    window1.cleanJTextfields();
-                    window1.nicknameError();
-
-                }
-
-                if (!emailOk) {
-
-                    window1.cleanJTextfields();
-                    window1.emailError();
-
-                }
+                System.out.println("Error");
 
             }
 
@@ -83,7 +94,7 @@ public class Controller1 implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
 
         Object o = e.getSource();
-        Integer index = 0;
+        Integer index;
 
         if (o instanceof JTabbedPane) {
 
@@ -100,9 +111,8 @@ public class Controller1 implements ActionListener, MouseListener {
             if (index == 2) {
 
             }
+
             System.out.println("Index = "+((JTabbedPane) o).getSelectedIndex());
-
-
 
         }
 

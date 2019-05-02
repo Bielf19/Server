@@ -348,10 +348,15 @@ public class Model {
 
     }
 
+    public boolean comprovaClient (String user, String email, String password, LinkedList<Usuari> users) {
+
+        boolean comprovacioOk = false;
 
 
 
+        return comprovacioOk;
 
+    }
 
 //**************************************************MOSTRAR FITXERS***************************************************//
 
