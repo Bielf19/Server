@@ -1,9 +1,6 @@
 package Model;
 
-import Model.BaseDades.DAO.AmicsDAO;
-import Model.BaseDades.DAO.SongDAO;
-import Model.BaseDades.DAO.UserDAO;
-import Model.BaseDades.DAO.UserSongsDAO;
+import Model.BaseDades.DAO.*;
 
 import java.util.LinkedList;
 
@@ -13,12 +10,14 @@ public class Model {
     private UserSongsDAO usd;
     private SongDAO sd;
     private AmicsDAO ad;
+    private EvolucioDAO ed;
 
     public Model () {
         ud = new UserDAO();
         sd = new SongDAO();
         usd = new UserSongsDAO();
         ad = new AmicsDAO();
+        ed = new EvolucioDAO();
     }
 
     public LinkedList<String> getSongsPopularitat(LinkedList <String> nomSongs) {
@@ -267,6 +266,34 @@ public class Model {
     //Funció per obtindre el nom d'usuari de tots els amics
     public LinkedList<String> getNomAmics (int user_id) {
         return ad.getNomAmics(user_id);
+    }
+
+    //Actualitza les dates i afegeix 1 usuari si a addUser es posa un 1. Si es posa un 0 simplement s'actualitzen les dades
+    public void update_nUsuaris (int addUser) {
+        ed.update_nUsuaris(addUser);
+    }
+
+
+    public LinkedList<Evolution> getDadesEvolucio () {
+        return ed.getDadesEvolucio();
+    }
+
+
+    //Metode per a obtenir
+    public LinkedList<Evolution> getPeriodEvolucio(int nDies) {
+        update_nUsuaris(0);
+        LinkedList<Evolution> e = getDadesEvolucio();
+        System.out.println("size: " + e.size());
+        LinkedList<Evolution> e_dies = new LinkedList<Evolution>();
+        //Ens creem una llista auxiliar ja que obtindrem
+        LinkedList<Evolution> aux = new LinkedList<Evolution>();
+        for (int i = e.size() - 1; i >= e.size() - nDies && i >= 0; i--) {
+            aux.add(e.get(i));
+        }
+        for (int i = aux.size() -1 ; i >= 0; i--) {
+            e_dies.add(aux.get(i));
+        }
+        return e_dies;
     }
 
 //**********************************************AUTENTIFICACIO********************************************************//

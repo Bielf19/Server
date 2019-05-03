@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.Controller1;
+import Model.Evolution;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -27,8 +28,13 @@ public class Window1 extends JFrame {
     private JPanel jpFile;
     private JButton jbDeleteFile;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
+    private JPanel jpWeekEvolution;
     //EVOLUTION
     private JTabbedPane jtpEvolutionTabs;
+    private LinkedList<Evolution> lastWeekEvolucio;
+    private LinkedList<Evolution> lastMonthEvolucio;
+    private LinkedList<Evolution> lastYearEvolucio;
+    private JTabbedPane serverTabs;
 
 
     public Window1() {
@@ -40,7 +46,7 @@ public class Window1 extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //Creem el conjunt de pestanyes
-        JTabbedPane serverTabs = new JTabbedPane();
+        serverTabs = new JTabbedPane();
 
         //Definim el Content Pane com a JTabbedPane
         setContentPane(serverTabs);
@@ -98,16 +104,16 @@ public class Window1 extends JFrame {
 
         //Creem el panell
         jtpEvolutionTabs = new JTabbedPane();
-
-        //Components del panell
-        JPanel jpWeekEvolution = new JPanel();
-        //System.out.println("Prova2");
-        jpWeekEvolution.paintComponents(getGraphics());
-        JPanel jpMonthEvolution = new JPanel();
-        JPanel jpYearEvolution = new JPanel();
-        jtpEvolutionTabs.add("Last week evolution", jpWeekEvolution);
-        jtpEvolutionTabs.add("Last month evolution", jpMonthEvolution);
-        jtpEvolutionTabs.add("Last year evolution", jpYearEvolution);
+        LinkedList<Evolution> inicial = new LinkedList<>();
+        /*setLastWeekEvolucio(lastWeekEvolucio);
+        setLastMonthEvolucio(lastMonthEvolucio);
+        setLastYearEvolucio(lastYearEvolucio);
+        System.out.println(lastWeekEvolucio.size());
+        System.out.println(lastMonthEvolucio.size());
+        System.out.println(lastYearEvolucio.size());*/
+        jtpEvolutionTabs.add("Last week evolution", new Graphic(inicial));
+        jtpEvolutionTabs.add("Last month evolution", new Graphic(inicial));
+        jtpEvolutionTabs.add("Last year evolution", new Graphic(inicial));
 
         //Afegim el panell al nostre conjunt de pestanyes
         getContentPane().add("Users evolution", jtpEvolutionTabs);
@@ -273,19 +279,50 @@ public class Window1 extends JFrame {
             conjuntDeleteFile.get(i).addActionListener(controller1);
 
         }
-
+        serverTabs.addMouseListener(controller1);
         jtpEvolutionTabs.addMouseListener(controller1);
+
 
     }
 
     @Override
     public void paintComponents(Graphics g) {
-        super.paintComponents(g);
-       System.out.println("Prova1");
+        //super.paintComponents(g);
+        jpWeekEvolution.removeAll();
+        System.out.println("Prova1");
         g.setColor(Color.GREEN);
         g.fillOval(30,102,321,89);
         g.drawLine(30,200,300,50);
+        jpWeekEvolution.repaint();
+        jpWeekEvolution.revalidate();
+        jpWeekEvolution.setOpaque(false);
+        super.paintComponents(g);
 
     }
 
+    public void setLastWeekEvolucio(LinkedList<Evolution> dadesEvolucio) {
+        lastWeekEvolucio = dadesEvolucio;
+    }
+
+    public void setLastMonthEvolucio(LinkedList<Evolution> dadesEvolucio) {
+        lastMonthEvolucio = dadesEvolucio;
+    }
+
+    public void setLastYearEvolucio(LinkedList<Evolution> dadesEvolucio) {
+        lastYearEvolucio = dadesEvolucio;
+    }
+
+    public void getLlistes() {
+        System.out.println("prova6");
+        setLastWeekEvolucio(lastWeekEvolucio);
+        setLastMonthEvolucio(lastMonthEvolucio);
+        setLastYearEvolucio(lastYearEvolucio);
+        System.out.println(lastWeekEvolucio.size());
+        System.out.println(lastMonthEvolucio.size());
+        System.out.println(lastYearEvolucio.size());
+        jtpEvolutionTabs.removeAll();
+        jtpEvolutionTabs.add("Last week evolution", new Graphic(lastWeekEvolucio));
+        jtpEvolutionTabs.add("Last month evolution", new Graphic(lastMonthEvolucio));
+        jtpEvolutionTabs.add("Last year evolution", new Graphic(lastYearEvolucio));
+    }
 }

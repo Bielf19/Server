@@ -4,7 +4,7 @@ import Model.Model;
 import Model.Usuari;
 import Vista.Window1;
 import Model.Song;
-
+import Model.Evolution;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +21,11 @@ public class Controller1 implements ActionListener, MouseListener {
     public Controller1 (Model model, Window1 window1) {
         this.model = model;
         this.window1 = window1;
+        System.out.println("prova4");
+        window1.setLastWeekEvolucio(model.getPeriodEvolucio(7));
+        System.out.println("prova5");
+        window1.setLastMonthEvolucio(model.getPeriodEvolucio(30));
+        window1.setLastYearEvolucio(model.getPeriodEvolucio(365));
     }
 
     @Override
@@ -96,20 +101,52 @@ public class Controller1 implements ActionListener, MouseListener {
         Object o = e.getSource();
         Integer index;
 
+
+
         if (o instanceof JTabbedPane) {
 
             index = ((JTabbedPane) o).getSelectedIndex();
-
+            System.out.println("tabcount: " + ((JTabbedPane) o).getTitleAt(1));
             if (index == 0) {
+                //Reconeixem en quin tabbedPane ens trobem mitjançant el getTitleAt
+                if (((JTabbedPane) o).getTitleAt(0).equals("Add user")) {
+
+                }
+
+                if (((JTabbedPane) o).getTitleAt(0).equals("Last week evolution")) {
+
+                }
 
             }
 
             if (index == 1) {
+                if (((JTabbedPane) o).getTitleAt(1).equals("Song files")) {
+
+                }
+
+                if (((JTabbedPane) o).getTitleAt(1).equals("Last month evolution")) {
+
+                }
 
             }
 
             if (index == 2) {
+                if (((JTabbedPane) o).getTitleAt(2).equals("Users evolution")) {
+                    //Enviem les llistes d'evolucio per a poder pintar les gràfiques
+                    window1.getLlistes();
 
+                }
+
+                if (((JTabbedPane) o).getTitleAt(2).equals("Last year evolution")) {
+
+                }
+
+            }
+
+            if (index == 3) {
+                if (((JTabbedPane) o).getTitleAt(3).equals("Top 5 songs")) {
+
+                }
             }
 
             System.out.println("Index = "+((JTabbedPane) o).getSelectedIndex());
@@ -137,4 +174,6 @@ public class Controller1 implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+
 }

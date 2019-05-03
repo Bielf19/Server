@@ -26,11 +26,12 @@ public class Main {
 
                     Model model = new Model();
                     Window1 window1 = new Window1();
+                    System.out.println("prova1");
                     Controller1 controller1 = new Controller1(model,window1);
+                    System.out.println("prova2");
                     Servidor servidor = new Servidor(model);
                     servidor.start();
-                    EvolucioDAO ed = new EvolucioDAO();
-                    ed.add_nUsuaris();
+                    System.out.println("prova3");
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
 

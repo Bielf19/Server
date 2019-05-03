@@ -11,7 +11,10 @@ import java.util.LinkedList;
 
 public class EvolucioDAO {
 
-    public void add_nUsuaris () {
+    /**
+     * Aquest mètode permet comptabilitzar usuaris a més d'actualitzar la data a la base de dades
+     */
+    public void update_nUsuaris (int addUser) {
         LinkedList<Evolution> evolucio = getDadesEvolucio();
         Evolution e = new Evolution();
         if (evolucio.size() == 0) {
@@ -29,7 +32,7 @@ public class EvolucioDAO {
                 addData(e.getDates(counter));
             }
         }
-        int n = get_nUsuaris(e.getDates(0)) + 1;
+        int n = get_nUsuaris(e.getDates(0)) + addUser;
         String query = "UPDATE Evolucio SET nUsuaris = '" + n + "' WHERE data = '" + e.getDates(0) + "';";
         DataBase.getInstance().updateQuery(query);
     }
