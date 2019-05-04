@@ -36,6 +36,22 @@ public class Model {
 
     }
 
+
+    public LinkedList<Song> getTop5 () {
+        LinkedList<Song> songs = getAllSongs();
+        LinkedList<String> titols = new LinkedList<>();
+        for (int i = 0; i < songs.size(); i++) {
+            titols.add(songs.get(i).getTitol());
+        }
+
+        LinkedList<String> t = getSongsPopularitat(titols);
+        LinkedList<Song> top5 = new LinkedList<>();
+        for (int i = 0; i < 5 && i < t.size(); i++) {
+            Song song = getSong(t.get(i));
+            top5.add(song);
+        }
+        return top5;
+    }
 //*************************************************REGISTRE***********************************************************//
 
     //Comrpova que el nickname introduit en el registre no estigui repetit

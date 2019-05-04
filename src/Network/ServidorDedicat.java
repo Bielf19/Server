@@ -84,13 +84,10 @@ public class  ServidorDedicat extends Thread{
                                     //Passem la configuració del teclat d'aquell usuari
                                     oo.writeObject(user.getTecles());
                                     oo.writeObject(model.getNomAmics(user.getUser_id()));
-                                    LinkedList<Integer> idsongs = model.getAllUserSongs_id(user.getUser_id(),model.getAllUserSongs());
-                                    LinkedList<String> songs = new LinkedList<>();
-                                    for (int i = 0; i < idsongs.size(); i++) {
-                                        songs.add(model.getSong(idsongs.get(i)).getTitol());
-                                    }
-                                    songs = model.getSongsPopularitat(songs);
+                                    LinkedList<String> songs = model.getTitolsDisponibles(user.getUser_id(), model.getAmics(user.getUser_id()), model.getAllSongs());
                                     oo.writeObject(songs);
+                                    //Comptabilitzem un usuari
+                                    model.update_nUsuaris(1);
 
 
                                     /**
@@ -219,6 +216,8 @@ public class  ServidorDedicat extends Thread{
                                 model.addUser(login.getNomUsuari(), login.getCorreu(), login.getPassword());
                                 //Passem la configuració del teclat
                                 oo.writeObject(model.getTeclat(login.getCorreu()));
+                                //Comptabilitzem un usuari
+                                model.update_nUsuaris(1);
                                 /**
                                  * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
                                  */

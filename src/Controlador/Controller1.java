@@ -106,7 +106,7 @@ public class Controller1 implements ActionListener, MouseListener {
         if (o instanceof JTabbedPane) {
 
             index = ((JTabbedPane) o).getSelectedIndex();
-            System.out.println("tabcount: " + ((JTabbedPane) o).getTitleAt(1));
+
             if (index == 0) {
                 //Reconeixem en quin tabbedPane ens trobem mitjançant el getTitleAt
                 if (((JTabbedPane) o).getTitleAt(0).equals("Add user")) {
@@ -145,6 +145,11 @@ public class Controller1 implements ActionListener, MouseListener {
 
             if (index == 3) {
                 if (((JTabbedPane) o).getTitleAt(3).equals("Top 5 songs")) {
+                    //Top5Thread thread = new Top5Thread(model, window1);
+                    //thread.start();
+                    System.out.println("TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5");
+                    window1.setTop5(model.getTop5());
+                    window1.generaTaulaTop5();
 
                 }
             }

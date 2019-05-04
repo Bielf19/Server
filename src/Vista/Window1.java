@@ -2,6 +2,7 @@ package Vista;
 
 import Controlador.Controller1;
 import Model.Evolution;
+import Model.Song;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 
 public class Window1 extends JFrame {
 
+    private JTabbedPane serverTabs;
     //AFEGIR USUARIS
     private JTextField jtfNickname;
     private JTextField jtfEmail;
@@ -34,7 +36,9 @@ public class Window1 extends JFrame {
     private LinkedList<Evolution> lastWeekEvolucio;
     private LinkedList<Evolution> lastMonthEvolucio;
     private LinkedList<Evolution> lastYearEvolucio;
-    private JTabbedPane serverTabs;
+    //TOP 5
+    private JPanel jpTopFiveSongs;
+    private LinkedList<Song> top5;
 
 
     public Window1() {
@@ -122,7 +126,8 @@ public class Window1 extends JFrame {
         //**********************************PANELL DEL TOP 5 DE CANCONS MES POPULARS**********************************//
 
         //Creem el panell
-        JPanel jpTopFiveSongs = new JPanel();
+        LinkedList<Song> inici = new LinkedList<>();
+        jpTopFiveSongs = new Top5(inici);
 
         //Components del panell
 
@@ -285,20 +290,7 @@ public class Window1 extends JFrame {
 
     }
 
-    @Override
-    public void paintComponents(Graphics g) {
-        //super.paintComponents(g);
-        jpWeekEvolution.removeAll();
-        System.out.println("Prova1");
-        g.setColor(Color.GREEN);
-        g.fillOval(30,102,321,89);
-        g.drawLine(30,200,300,50);
-        jpWeekEvolution.repaint();
-        jpWeekEvolution.revalidate();
-        jpWeekEvolution.setOpaque(false);
-        super.paintComponents(g);
 
-    }
 
     public void setLastWeekEvolucio(LinkedList<Evolution> dadesEvolucio) {
         lastWeekEvolucio = dadesEvolucio;
@@ -324,5 +316,25 @@ public class Window1 extends JFrame {
         jtpEvolutionTabs.add("Last week evolution", new Graphic(lastWeekEvolucio));
         jtpEvolutionTabs.add("Last month evolution", new Graphic(lastMonthEvolucio));
         jtpEvolutionTabs.add("Last year evolution", new Graphic(lastYearEvolucio));
+    }
+
+    public void setTop5(LinkedList<Song> top5) {
+        this.top5 = top5;
+    }
+
+
+    public synchronized void generaTaulaTop5() {
+        serverTabs.setComponentAt(3, new Top5(top5));
+        jpTopFiveSongs.updateUI();
+
+
+
+    }
+
+    public synchronized void updateTop5() {
+        System.out.println("PROVA10");
+        //jpTopFiveSongs.removeAll();
+        serverTabs.setComponentAt(3, new Top5(top5));
+        jpTopFiveSongs.updateUI();
     }
 }

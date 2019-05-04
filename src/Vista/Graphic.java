@@ -27,7 +27,6 @@ public class Graphic extends JPanel {
             int Y = (int)Math.round(espaiY);
             double espaiX = 400/(e.size()-1);
             int X = (int)Math.round(espaiX);
-            System.out.println(X + "  " + max);
             //Eix de coordenades
             g.drawLine(75,250,X * (e.size()-1),250);
             g.drawLine(75,250,75,250 - Y * max);

@@ -16,6 +16,26 @@ public class UserSongsDAO {
         DataBase.getInstance().insertQuery(query);
     }
 
+/*
+    /**
+     * Funció que permetrà obtindre el títol de totes les cançons que té un usuari disponibles, tant públiques com privades
+     * @param user_id
+     * @param titols
+     * @param usList
+     * @return
+
+    public LinkedList<String> getUserSongs_AllTitols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
+        SongDAO sd = new SongDAO();
+        LinkedList<String> t = getUserSongs_titolsPrivats(user_id, titols,  usList);
+        LinkedList<Song> songs = sd.getAllSongs();
+        for (int i = 0; i < songs.size(); i++) {
+            if (!songs.get(i).isPrivat()) {
+                t.add(songs.get(i).getTitol());
+            }
+        }
+        return t;
+    }*/
+
 
     /**
      * Funció que permet obtindre els titols de totes les cançons privades d'un usuari
