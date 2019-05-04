@@ -19,6 +19,8 @@ public class Top5 extends JPanel {
     public synchronized void paint(Graphics g) {
         if (top5.size() > 0) {
             g.drawLine(75, 290, 495, 290);
+            //Establim l'espai que tindrà cada unitat del nombre de reproduccions. Com l'espai és limitat i no podem posar eixos decimals, si ens
+            //introdueixen nombre grans, posarem 2 unitats en cada espai, si encara així no cap, posarem 4, i així successivament
             double espaiY = 250/getMaxnReproduccions();
             double max = getMaxnReproduccions();
             int count = 1;
@@ -26,11 +28,8 @@ public class Top5 extends JPanel {
                 max = max/2;
                 count = count *2;
                 espaiY = 250/max;
-                System.out.println("espaiY = " + espaiY);
-                System.out.println("count = " + count);
             }
             int Y = (int)(espaiY * 1000);
-            System.out.println("Y = " + Y);
             for (int i = 0; i < top5.size(); i++) {
                 g.fillRect(95 + i*80, 290 - top5.get(i).getnReproduccions() * Y/(count * 1000), 60, top5.get(i).getnReproduccions() * Y/(1000*count));
                 if(parell(i)) {

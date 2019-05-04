@@ -18,32 +18,39 @@ public class Graphic extends JPanel {
     public void paint(Graphics g) {
 
         //Eixos de coordenades
-        g.drawLine(75,250,475,250);
+        g.drawLine(75,250,440,250);
         g.drawLine(75,250,75,25);
 
         if (e.size() >= 1) {
-            int max = getMaxnUser();
+            //Establim l'espai que tindrà cada unitat del nombre de reproduccions. Com l'espai és limitat i no podem posar eixos decimals, si ens
+            //introdueixen nombre grans, posarem 2 unitats en cada espai, si encara així no cap, posarem 4, i així successivament
+            double max = getMaxnUser();
             double espaiY = 225/max;
-            int Y = (int)Math.round(espaiY);
-            double espaiX = 400/(e.size()-1);
-            int X = (int)Math.round(espaiX);
+            int count = 1;
+            while(espaiY < 1) {
+                max = max/2;
+                count = count *2;
+                espaiY = 225/max;
+            }
+            int Y = (int)(espaiY * 1000);
+            double espaiX = 365/(e.size()-1);
+            int X = (int)(espaiX * 1000);
             //Eix de coordenades
-            g.drawLine(75,250,X * (e.size()-1),250);
-            g.drawLine(75,250,75,250 - Y * max);
+            g.drawLine(75,250,X/1000 * (e.size()-1),250);
+            g.drawLine(75,250,75,250 - Y/1000 * getMaxnUser()/count);
             for (int i = 0; i < e.size(); i++) {
                 g.setColor(Color.RED);
                 try {
 
-                    g.drawLine(75 + X * i, 250 - e.get(i).getnUsers() * Y, 75 + X * (i + 1), 250 - e.get(i + 1).getnUsers() * Y);
+                    g.drawLine(75 + X/1000 * i, 250 - e.get(i).getnUsers() * Y/1000/count, 75 + X/1000 * (i + 1), 250 - e.get(i + 1).getnUsers() * Y/1000/count);
                 } catch (Exception ex) {
 
                 }
             }
-            String m = "" + max;
             g.setColor(Color.BLACK);
             g.drawString(e.getFirst().getDate(), 55, 270);
-            g.drawString(e.getLast().getDate(),455, 270);
-            g.drawString(m, 40, 250 - Y*max + 10);
+            g.drawString(e.getLast().getDate(),440, 270);
+            g.drawString(("" + getMaxnUser()), 40, 250 - getMaxnUser() * Y/1000/count + 10);
 
 
         }
