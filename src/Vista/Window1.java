@@ -42,6 +42,7 @@ public class Window1 extends JFrame {
     private LinkedList<Song> top5;
 
 
+
     public Window1() {
 
         //Inicialitzem la finestra grafica
@@ -104,6 +105,13 @@ public class Window1 extends JFrame {
         jpScrollPrivateFiles = new JScrollPane();
 
         songFiles = new LinkedList<Song>();
+        jpScrollAllFiles.setViewportView(jpAllFiles);
+        jpScrollPublicFiles.setViewportView(jpPublicFiles);
+        jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
+        jtpSongFiles.add("Private files", jpScrollPrivateFiles);
+        jtpSongFiles.add("Public files", jpScrollPublicFiles);
+        jtpSongFiles.add("All files", jpScrollAllFiles);
+        getContentPane().add(jtpSongFiles);
         generaLlistaFiles(songFiles);
 
         //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
@@ -181,16 +189,20 @@ public class Window1 extends JFrame {
 
         }
 
-        jpScrollAllFiles.setViewportView(jpAllFiles);
+        /*jtpSongFiles.setComponentAt(0, jpPrivateFiles);
+        jtpSongFiles.setComponentAt(1,jpFile);
+        jtpSongFiles.setComponentAt(2, jpAllFiles);
+
+        /*jpScrollAllFiles.setViewportView(jpAllFiles);
         jpScrollPublicFiles.setViewportView(jpPublicFiles);
         jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
         jtpSongFiles.add("Private files", jpScrollPrivateFiles);
         jtpSongFiles.add("Public files", jpScrollPublicFiles);
         jtpSongFiles.add("All files", jpScrollAllFiles);
-        getContentPane().add("Song files", jtpSongFiles);
+        //serverTabs.setComponentAt(1, new Top5(top5));*/
 
-        jtpSongFiles.revalidate();
-        this.repaint();
+        //jtpSongFiles.revalidate();
+        //this.repaint();
 
     }
 
@@ -305,8 +317,22 @@ public class Window1 extends JFrame {
 
 
     public synchronized void generaTaulaTop5() {
+        String[] columnNames = {"Song",
+                "# Playback"};
+        Object[][] data = new Object[5][2];
+        for (int i = 0; i < top5.size(); i++) {
+
+                data[i][0] = top5.get(i).getTitol();
+                data[i][1] = top5.get(i).getnReproduccions();
+
+        }
+
+
+        JTable table = new JTable();
+
         serverTabs.setComponentAt(3, new Top5(top5));
         jpTopFiveSongs.updateUI();
+
 
 
 

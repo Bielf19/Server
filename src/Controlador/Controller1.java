@@ -147,7 +147,7 @@ public class Controller1 implements ActionListener, MouseListener {
                     //thread.start();
                     System.out.println("TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5");
                     window1.setTop5(model.getTop5());
-                    window1.generaTaulaTop5();
+                    //window1.generaTaulaTop5();
 
                 }
             }
