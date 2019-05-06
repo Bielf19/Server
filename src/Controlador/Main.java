@@ -5,6 +5,7 @@ import Model.BaseDades.DAO.EvolucioDAO;
 import Model.BaseDades.DAO.UserDAO;
 import Model.BaseDades.DAO.UserSongsDAO;
 import Model.Model;
+import Model.Song;
 import Network.Servidor;
 import Vista.Window1;
 import Model.Configuracio;

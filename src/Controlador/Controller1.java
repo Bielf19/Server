@@ -36,7 +36,6 @@ public class Controller1 implements ActionListener, MouseListener {
         boolean nicknameOk;
         boolean emailOk;
         Integer fitxer_trobat;
-        ArrayList<Song> songFiles;
         boolean clientOk;
 
         if (actionCommand.equals("ADD_USER")){
@@ -86,9 +85,6 @@ public class Controller1 implements ActionListener, MouseListener {
 
         }
 
-        //songFiles = new ArrayList<Song>();
-        //songFiles = ompleLlistaFitxers; Funcio que agafara els fitxers de la base de dades i els dipositara a la llista
-
         //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
 
         //window1.consultaDelete();
@@ -100,8 +96,7 @@ public class Controller1 implements ActionListener, MouseListener {
 
         Object o = e.getSource();
         Integer index;
-
-
+        LinkedList<Song> songFiles;
 
         if (o instanceof JTabbedPane) {
 
@@ -121,6 +116,9 @@ public class Controller1 implements ActionListener, MouseListener {
 
             if (index == 1) {
                 if (((JTabbedPane) o).getTitleAt(1).equals("Song files")) {
+
+                    songFiles = model.getAllSongs();
+                    window1.generaLlistaFiles(songFiles);
 
                 }
 

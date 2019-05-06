@@ -31,6 +31,7 @@ public class Window1 extends JFrame {
     private JButton jbDeleteFile;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
     private JPanel jpWeekEvolution;
+    private LinkedList<Song> songFiles;
     //EVOLUTION
     private JTabbedPane jtpEvolutionTabs;
     private LinkedList<Evolution> lastWeekEvolucio;
@@ -102,7 +103,8 @@ public class Window1 extends JFrame {
         jpScrollPublicFiles = new JScrollPane();
         jpScrollPrivateFiles = new JScrollPane();
 
-        fitxersPredeterminats();
+        songFiles = new LinkedList<Song>();
+        generaLlistaFiles(songFiles);
 
         //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
 
@@ -137,9 +139,12 @@ public class Window1 extends JFrame {
 
     }
 
-    public void fitxersPredeterminats() {
+    public void generaLlistaFiles (LinkedList<Song> songFiles) {
 
-        for (int i=0; i < 3; i++) {
+        jtpSongFiles.removeAll();
+        conjuntDeleteFile.clear();
+
+        for (int i=0; i< songFiles.size(); i++){
 
             jpFile = new JPanel ();
             jpFile.setLayout (new GridLayout(1,2));
@@ -147,17 +152,29 @@ public class Window1 extends JFrame {
             jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
 
             //Nom del fitxer
-            JLabel jlFileName = new JLabel("Song name: DEFAULT NAME "+(i+1));
+            JLabel jlFileName = new JLabel("Song name: "+songFiles.get(i).getTitol());
             jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
             jpFile.add(jlFileName);
 
             //Borrar fitxer
             jbDeleteFile = new JButton("Delete");
-            jbDeleteFile.setEnabled(false);
-            jpFile.add(jbDeleteFile);
 
-            jbDeleteFile.setActionCommand(""+(i+1));
-            conjuntDeleteFile.add(jbDeleteFile);
+            if (i <= 2) {
+
+                jbDeleteFile.setEnabled(false);
+                jpFile.add(jbDeleteFile);
+
+                jbDeleteFile.setActionCommand(""+(i+1));
+                conjuntDeleteFile.add(jbDeleteFile);
+
+            } else {
+
+                jpFile.add(jbDeleteFile);
+
+                jtpSongFiles.add(jpFile);
+                conjuntDeleteFile.add(jbDeleteFile);
+
+            }
 
             jpAllFiles.add(jpFile);
             jpPublicFiles.add(jpFile);
@@ -172,40 +189,6 @@ public class Window1 extends JFrame {
         jtpSongFiles.add("All files", jpScrollAllFiles);
         getContentPane().add("Song files", jtpSongFiles);
 
-    }
-
-    public void generaLlistaFiles (LinkedList<File> files) {
-
-        jtpSongFiles.removeAll();
-        conjuntDeleteFile.clear();
-
-        fitxersPredeterminats();
-
-        for (int i=0; i< files.size(); i++){
-
-            JPanel jpFile = new JPanel ();
-            jpFile.setLayout (new BoxLayout(jpFile,BoxLayout.PAGE_AXIS));
-
-            jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+i+4));
-
-            //Nom del fitxer
-            JLabel jlFileName = new JLabel("Song name: "+files.get(i).getName());
-            jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
-            jpFile.add(jlFileName);
-
-            //Borrar fitxer
-            jbDeleteFile = new JButton("Delete");
-            jpFile.add(jbDeleteFile);
-
-            jtpSongFiles.add(jpFile);
-
-            conjuntDeleteFile.add(jbDeleteFile);
-
-        }
-
-        //jpScrollFiles.add(jtpSongFiles);
-
-        //getContentPane().add("Song files", jpScrollFiles);
         jtpSongFiles.revalidate();
         this.repaint();
 
@@ -289,8 +272,6 @@ public class Window1 extends JFrame {
 
 
     }
-
-
 
     public void setLastWeekEvolucio(LinkedList<Evolution> dadesEvolucio) {
         lastWeekEvolucio = dadesEvolucio;
