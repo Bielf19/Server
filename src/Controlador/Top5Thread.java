@@ -28,8 +28,8 @@ public class Top5Thread extends Thread {
             }
             System.out.println("PROVA12");
             //window1.setTop5(top5);
-            //window1.generaTaulaTop5();
-            window1.updateTop5();
+            window1.generaTaulaTop5();
+            //window1.updateTop5();
         }
     }
 }

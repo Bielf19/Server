@@ -6,6 +6,8 @@ import Model.Song;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class Window1 extends JFrame {
     private LinkedList<Evolution> lastMonthEvolucio;
     private LinkedList<Evolution> lastYearEvolucio;
     //TOP 5
-    private JPanel jpTopFiveSongs;
+    private JScrollPane jpTopFiveSongs;
     private LinkedList<Song> top5;
 
 
@@ -136,8 +138,8 @@ public class Window1 extends JFrame {
         //**********************************PANELL DEL TOP 5 DE CANCONS MES POPULARS**********************************//
 
         //Creem el panell
-        LinkedList<Song> inici = new LinkedList<>();
-        jpTopFiveSongs = new Top5(inici);
+        jpTopFiveSongs = new JScrollPane();
+
 
         //Components del panell
 
@@ -317,21 +319,34 @@ public class Window1 extends JFrame {
 
 
     public synchronized void generaTaulaTop5() {
-        String[] columnNames = {"Song",
+        String[] columnNames = {"Ranking","Song",
                 "# Playback"};
-        Object[][] data = new Object[5][2];
+        Object[][] data = new Object[5][3];
         for (int i = 0; i < top5.size(); i++) {
 
-                data[i][0] = top5.get(i).getTitol();
-                data[i][1] = top5.get(i).getnReproduccions();
+                data[i][0] = "#" + (i+1);
+                data[i][1] = top5.get(i).getTitol();
+                data[i][2] = top5.get(i).getnReproduccions();
 
         }
+        System.out.println("Prova20");
+
+        JTable table = new JTable(data, columnNames);
+        table.getColumnModel().getColumn(0).setMaxWidth(100);
+        table.getColumnModel().getColumn(1).setMaxWidth(200);
+        table.getColumnModel().getColumn(2).setMaxWidth(100);
 
 
-        JTable table = new JTable();
 
-        serverTabs.setComponentAt(3, new Top5(top5));
+
+        jpTopFiveSongs.removeAll();
+        jpTopFiveSongs = new JScrollPane(table);
+        //jpTopFiveSongs.add(table);
+        table.setFillsViewportHeight(true);
+        System.out.println("Prova21");
+        serverTabs.setComponentAt(3, jpTopFiveSongs);
         jpTopFiveSongs.updateUI();
+        System.out.println("Prova22");
 
 
 
@@ -344,4 +359,6 @@ public class Window1 extends JFrame {
         serverTabs.setComponentAt(3, new Top5(top5));
         jpTopFiveSongs.updateUI();
     }
+
+
 }
