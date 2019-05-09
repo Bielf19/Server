@@ -117,6 +117,7 @@ public class Controller1 implements ActionListener, MouseListener {
             if (index == 1) {
                 if (((JTabbedPane) o).getTitleAt(1).equals("Song files")) {
 
+                    System.out.println("ENTRAAAAA");
                     songFiles = model.getAllSongs();
                     window1.generaLlistaFiles(songFiles);
 

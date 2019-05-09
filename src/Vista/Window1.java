@@ -29,9 +29,15 @@ public class Window1 extends JFrame {
     private JPanel jpAllFiles;
     private JPanel jpPrivateFiles;
     private JPanel jpPublicFiles;
-    private JPanel jpFile;
-    private JButton jbDeleteFile;
-    private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
+    private JPanel jpFilePrivat;
+    private JPanel jpFilePublic;
+    private JPanel jpFileAll;
+    private JButton jbDeleteFilePrivat;
+    private JButton jbDeleteFilePublic;
+    private JButton jbDeleteFileAll;
+    private ArrayList<JButton> conjuntDeleteFilePrivat = new ArrayList<>();
+    private ArrayList<JButton> conjuntDeleteFilePublic = new ArrayList<>();
+    private ArrayList<JButton> conjuntDeleteFileAll = new ArrayList<>();
     private JPanel jpWeekEvolution;
     private LinkedList<Song> songFiles;
     //EVOLUTION
@@ -113,7 +119,7 @@ public class Window1 extends JFrame {
         jtpSongFiles.add("Private files", jpScrollPrivateFiles);
         jtpSongFiles.add("Public files", jpScrollPublicFiles);
         jtpSongFiles.add("All files", jpScrollAllFiles);
-        getContentPane().add(jtpSongFiles);
+        getContentPane().add("Song files",jtpSongFiles);
         generaLlistaFiles(songFiles);
 
         //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
@@ -152,59 +158,96 @@ public class Window1 extends JFrame {
     public void generaLlistaFiles (LinkedList<Song> songFiles) {
 
         jtpSongFiles.removeAll();
-        conjuntDeleteFile.clear();
+        conjuntDeleteFilePrivat.clear();
+        conjuntDeleteFilePublic.clear();
+        conjuntDeleteFileAll.clear();
 
         for (int i=0; i< songFiles.size(); i++){
 
-            jpFile = new JPanel ();
-            jpFile.setLayout (new GridLayout(1,2));
+            jpFilePrivat = new JPanel ();
+            jpFilePublic = new JPanel ();
+            jpFileAll = new JPanel ();
 
-            jpFile.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
+            jpFilePrivat.setLayout (new GridLayout(1,2));
+            jpFilePublic.setLayout (new GridLayout(1,2));
+            jpFileAll.setLayout (new GridLayout(1,2));
+
+            jpFilePrivat.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
+            jpFilePublic.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
+            jpFileAll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
 
             //Nom del fitxer
-            JLabel jlFileName = new JLabel("Song name: "+songFiles.get(i).getTitol());
-            jlFileName.setHorizontalAlignment(SwingConstants.LEFT);
-            jpFile.add(jlFileName);
+            JLabel jlFileNamePrivat = new JLabel("Song name: "+songFiles.get(i).getTitol());
+            JLabel jlFileNamePublic = new JLabel("Song name: "+songFiles.get(i).getTitol());
+            JLabel jlFileNameAll = new JLabel("Song name: "+songFiles.get(i).getTitol());
+            jlFileNamePrivat.setHorizontalAlignment(SwingConstants.LEFT);
+            jlFileNamePublic.setHorizontalAlignment(SwingConstants.LEFT);
+            jlFileNameAll.setHorizontalAlignment(SwingConstants.LEFT);
+            jpFilePrivat.add(jlFileNamePrivat);
+            jpFilePublic.add(jlFileNamePublic);
+            jpFileAll.add(jlFileNameAll);
 
             //Borrar fitxer
-            jbDeleteFile = new JButton("Delete");
+            jbDeleteFilePrivat = new JButton("Delete");
+            jbDeleteFilePublic = new JButton("Delete");
+            jbDeleteFileAll = new JButton("Delete");
 
             if (i <= 2) {
 
-                jbDeleteFile.setEnabled(false);
-                jpFile.add(jbDeleteFile);
+                jbDeleteFilePublic.setEnabled(false);
+                jbDeleteFileAll.setEnabled(false);
+                jpFilePublic.add(jbDeleteFilePublic);
+                jpFileAll.add(jbDeleteFileAll);
 
-                jbDeleteFile.setActionCommand(""+(i+1));
-                conjuntDeleteFile.add(jbDeleteFile);
+                jbDeleteFilePublic.setActionCommand(""+(i+1));
+                jbDeleteFileAll.setActionCommand(""+(i+1));
+
+                jpPublicFiles.add(jpFilePublic);
+                jpAllFiles.add(jpFileAll);
+
+                conjuntDeleteFilePublic.add(jbDeleteFilePublic);
+                conjuntDeleteFileAll.add(jbDeleteFileAll);
+
 
             } else {
 
-                jpFile.add(jbDeleteFile);
+                if (songFiles.get(i).isPrivat()) {
 
-                jtpSongFiles.add(jpFile);
-                conjuntDeleteFile.add(jbDeleteFile);
+                    jpFilePrivat.add(jbDeleteFilePublic);
+                    jpFileAll.add(jbDeleteFileAll);
+
+                    jbDeleteFilePrivat.setActionCommand(""+(i+1));
+                    jbDeleteFileAll.setActionCommand(""+(i+1));
+
+                    jpPrivateFiles.add(jpFilePrivat);
+                    jpAllFiles.add(jpFileAll);
+
+                } else {
+
+                    jpFilePublic.add(jbDeleteFilePublic);
+                    jpFileAll.add(jbDeleteFileAll);
+
+                    jbDeleteFilePublic.setActionCommand(""+(i+1));
+                    jbDeleteFileAll.setActionCommand(""+(i+1));
+
+                    jpPublicFiles.add(jpFilePrivat);
+                    jpAllFiles.add(jpFileAll);
+
+                }
 
             }
 
-            jpAllFiles.add(jpFile);
-            jpPublicFiles.add(jpFile);
-
         }
 
-        /*jtpSongFiles.setComponentAt(0, jpPrivateFiles);
-        jtpSongFiles.setComponentAt(1,jpFile);
-        jtpSongFiles.setComponentAt(2, jpAllFiles);
-
-        /*jpScrollAllFiles.setViewportView(jpAllFiles);
+        jpScrollAllFiles.setViewportView(jpAllFiles);
         jpScrollPublicFiles.setViewportView(jpPublicFiles);
         jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
         jtpSongFiles.add("Private files", jpScrollPrivateFiles);
         jtpSongFiles.add("Public files", jpScrollPublicFiles);
         jtpSongFiles.add("All files", jpScrollAllFiles);
-        //serverTabs.setComponentAt(1, new Top5(top5));*/
 
-        //jtpSongFiles.revalidate();
-        //this.repaint();
+        jtpSongFiles.revalidate();
+        this.repaint();
 
     }
 
@@ -275,12 +318,27 @@ public class Window1 extends JFrame {
         jbAddUser.addActionListener(controller1);
         jbAddUser.setActionCommand("ADD_USER");
 
-        for (int i = 0; i < conjuntDeleteFile.size(); i++) {
+        for (int i = 0; i < conjuntDeleteFilePrivat.size(); i++) {
 
-            conjuntDeleteFile.get(i).removeActionListener(controller1);
-            conjuntDeleteFile.get(i).addActionListener(controller1);
+            conjuntDeleteFilePrivat.get(i).removeActionListener(controller1);
+            conjuntDeleteFilePrivat.get(i).addActionListener(controller1);
 
         }
+
+        for (int i = 0; i < conjuntDeleteFilePublic.size(); i++) {
+
+            conjuntDeleteFilePublic.get(i).removeActionListener(controller1);
+            conjuntDeleteFilePublic.get(i).addActionListener(controller1);
+
+        }
+
+        for (int i = 0; i < conjuntDeleteFileAll.size(); i++) {
+
+            conjuntDeleteFileAll.get(i).removeActionListener(controller1);
+            conjuntDeleteFileAll.get(i).addActionListener(controller1);
+
+        }
+
         serverTabs.addMouseListener(controller1);
         jtpEvolutionTabs.addMouseListener(controller1);
 
