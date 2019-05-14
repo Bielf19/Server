@@ -13,6 +13,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.JTable;
+import javax.swing.DefaultCellEditor;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
 public class Window1 extends JFrame {
 
     private JTabbedPane serverTabs;
@@ -40,6 +45,10 @@ public class Window1 extends JFrame {
     private ArrayList<JButton> conjuntDeleteFileAll = new ArrayList<>();
     private JPanel jpWeekEvolution;
     private LinkedList<Song> songFiles;
+
+    private JScrollPane jspSongFiles;
+    private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
+
     //EVOLUTION
     private JTabbedPane jtpEvolutionTabs;
     private LinkedList<Evolution> lastWeekEvolucio;
@@ -96,6 +105,14 @@ public class Window1 extends JFrame {
         //*************************************PANELL DELS FITXERS DE LES CANCONS*************************************//
 
         //Creem el panell
+        jspSongFiles = new JScrollPane();
+
+        //Components del panell
+
+        getContentPane().add("Song files",jspSongFiles);
+
+        /*
+        //Creem el panell
         jtpSongFiles = new JTabbedPane();
 
         //Components del panell
@@ -121,6 +138,7 @@ public class Window1 extends JFrame {
         jtpSongFiles.add("All files", jpScrollAllFiles);
         getContentPane().add("Song files",jtpSongFiles);
         generaLlistaFiles(songFiles);
+        */
 
         //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
 
@@ -154,6 +172,61 @@ public class Window1 extends JFrame {
 
 
     }
+
+    public synchronized void generaLlistaFiles (LinkedList<Song> songFiles){
+
+        String[] columnNames = {"Song Name", "Owner", "Private/Public", "Delete"};
+        Object[][] information = new Object[5][4];
+
+        for (int i = 0; i < songFiles.size(); i++) {
+
+            JButton jbDeleteFile = new JButton("Delete");
+            conjuntDeleteFile.add(jbDeleteFile);
+
+            information [i][0] = songFiles.get(i).getTitol();
+
+            if (i <= 2) {
+
+                information [i][1] = "Server";
+
+                jbDeleteFile.setEnabled(false);
+                information [i][3] = jbDeleteFile;
+
+            } else {
+
+                information [i][1] = songFiles.get(i).getPropietari();
+                information [i][3] = jbDeleteFile;
+
+            }
+
+            if (songFiles.get(i).isPrivat()) {
+
+                information [i][2] = "Privat";
+
+            } else {
+
+                information [i][2] = "Public";
+
+            }
+
+        }
+
+        JTable table = new JTable(information, columnNames);
+        table.getColumnModel().getColumn(0).setMaxWidth(100);
+        table.getColumnModel().getColumn(1).setMaxWidth(200);
+        table.getColumnModel().getColumn(2).setMaxWidth(100);
+        table.getColumnModel().getColumn(3).setMaxWidth(100);
+
+        jspSongFiles.removeAll();
+        jspSongFiles = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+        table.getColumn("Delete").setCellRenderer(buttonRenderer);
+        serverTabs.setComponentAt(1, jspSongFiles);
+
+    }
+
+    /*
 
     public void generaLlistaFiles (LinkedList<Song> songFiles) {
 
@@ -245,6 +318,8 @@ public class Window1 extends JFrame {
 
     }
 
+    */
+
     public void consultaDelete () {
 
         JDialog missatge = new JDialog();
@@ -270,7 +345,7 @@ public class Window1 extends JFrame {
     public void clientError () {
 
         JDialog missatge = new JDialog();
-        JOptionPane.showMessageDialog(missatge, "Error! Invalid information from client detected. Please, try to reintroduce a valid format.", "Error - Invalid information from client", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(missatge, "Error! Invalid information from client patterns detected. Please, try to reintroduce a valid information format.", "Error - Invalid information from client", JOptionPane.ERROR_MESSAGE);
 
     }
 
@@ -319,6 +394,15 @@ public class Window1 extends JFrame {
         jbAddUser.addActionListener(controller1);
         jbAddUser.setActionCommand("ADD_USER");
 
+        for (int i = 0; i < conjuntDeleteFile.size(); i++) {
+
+            conjuntDeleteFile.get(i).removeActionListener(controller1);
+            conjuntDeleteFile.get(i).addActionListener(controller1);
+
+        }
+
+        /*
+
         for (int i = 0; i < conjuntDeleteFilePrivat.size(); i++) {
 
             conjuntDeleteFilePrivat.get(i).removeActionListener(controller1);
@@ -339,6 +423,8 @@ public class Window1 extends JFrame {
             conjuntDeleteFileAll.get(i).addActionListener(controller1);
 
         }
+
+        */
 
         serverTabs.addMouseListener(controller1);
         jtpEvolutionTabs.addMouseListener(controller1);

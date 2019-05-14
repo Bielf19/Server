@@ -95,6 +95,7 @@ public class Controller1 implements ActionListener, MouseListener {
         Object o = e.getSource();
         Integer index;
         LinkedList<Song> songFiles;
+        JTable table = new JTable();
 
         if (o instanceof JTabbedPane) {
 
@@ -113,6 +114,7 @@ public class Controller1 implements ActionListener, MouseListener {
             }
 
             if (index == 1) {
+
                 if (((JTabbedPane) o).getTitleAt(1).equals("Song files")) {
 
                     System.out.println("ENTRAAAAA");
