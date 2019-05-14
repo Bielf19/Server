@@ -7,7 +7,7 @@ public class Song implements Serializable {
     private int song_id;
     private boolean privat;
     private int nReproduccions;
-    private String fitxer;
+    private File fitxer;
     private String propietari;
     private String titol;
 
@@ -35,11 +35,11 @@ public class Song implements Serializable {
         this.nReproduccions = nReproduccions;
     }
 
-    public String getFitxer() {
+    public File getFitxer() {
         return fitxer;
     }
 
-    public void setFitxer(String fitxer) {
+    public void setFitxer(File fitxer) {
         this.fitxer = fitxer;
     }
 

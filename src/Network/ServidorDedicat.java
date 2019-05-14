@@ -102,7 +102,8 @@ public class  ServidorDedicat extends Thread{
                             //Preguntar com identificarem quin usuari és. (ho podriem fer amb el correu)
                             //Rebem una llista amb la nova configuració del teclat que guardrem a la BBDD
                             //Rebem l'id de l'usuari que canvia la configuració
-                            int user_id = (int) oi.readObject();
+                            String user_name = (String) oi.readObject();
+                            int user_id = model.getIdUsuari(user_name);
                             LinkedList<Tecla> teclat = (LinkedList<Tecla>) oi.readObject();
                             //Guardem nova configuaració a la BBDD
                             model.updateTeclat(user_id, teclat);
@@ -113,7 +114,8 @@ public class  ServidorDedicat extends Thread{
                         case "3":
                             oo.writeObject("3");
                             //Rebem el user_id de l'usuari que fa la cançó
-                            user_id = (int) oi.readObject();
+                            user_name = (String) oi.readObject();
+                            user_id = model.getIdUsuari(user_name);
                             //Rebem una canço que hagi creat un usuari i la guardem a la BBDD
                             Song song = (Song) oi.readObject();
                             boolean titolOk = model.comprovaTitol(song.getTitol(), model.getAllSongs());
@@ -164,7 +166,8 @@ public class  ServidorDedicat extends Thread{
                             oo.writeObject("6");
                             //Rebem el codi d'amistat i l'id de l'usuari que l'envia i comprovem que coincideixi amb algun usuari de la BBDD
                             String codi = (String) oi.readObject();
-                            user_id = (int) oi.readObject();
+                            user_name = (String) oi.readObject();
+                            user_id = model.getIdUsuari(user_name);
                             //Busquem el codi a la BBDD i si el trobem afegim l'usuari del codi com amic
                             boolean existeix = model.addAmic(codi, user_id);
                             if (existeix) {

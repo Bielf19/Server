@@ -312,6 +312,13 @@ public class Model {
         return e_dies;
     }
 
+
+    //Obtenim id a partir del nom
+    public int getIdUsuari (String nom) {
+        Usuari u = ud.getUser(0, nom,null, null);
+        return u.getUser_id();
+    }
+
 //**********************************************AUTENTIFICACIO********************************************************//
 
     //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió
@@ -391,7 +398,7 @@ public class Model {
 
     }
 
-    public boolean comprovaClient (String user, String email, String password) {
+    /*public boolean comprovaClient (String user, String email, String password) {
 
         boolean comprovacioOk;
         ValidaDades vd = new ValidaDades();
@@ -408,7 +415,7 @@ public class Model {
 
         return comprovacioOk;
 
-    }
+    }*/
 
 //**************************************************MOSTRAR FITXERS***************************************************//
 
