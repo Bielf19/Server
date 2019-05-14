@@ -49,7 +49,7 @@ public class SongDAO {
                 } catch (Exception e) {
                     song.setSong_id(song_id);
                 }
-                song.setFitxer((File) result.getObject("fitxer"));
+                song.setFitxer((String) result.getObject("fitxer"));
                 song.setnReproduccions(result.getInt("nReproduccions"));
                 song.setPropietari(result.getString("propietari"));
                 try {
