@@ -40,13 +40,11 @@ public class Controller1 implements ActionListener, MouseListener {
 
         if (actionCommand.equals("ADD_USER")){
 
-            //usuaris = getUsers(); Agafariem els usuaris de la base de dades
-
             String userNickname = window1.getUserNickname();
             String userEmail = window1.getUserEmail();
             String userPassword = window1.getUserPassword();
 
-            clientOk = model.comprovaClient(userNickname,userEmail,userPassword,users);
+            clientOk = model.comprovaClient(userNickname,userEmail,userPassword);
 
             if (clientOk) {
 
@@ -79,14 +77,14 @@ public class Controller1 implements ActionListener, MouseListener {
 
             } else {
 
-                System.out.println("Error");
+                window1.cleanJTextfields();
+                window1.clientError();
 
             }
 
         }
 
         //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
-
         //window1.consultaDelete();
 
     }

@@ -211,27 +211,21 @@ public class Window1 extends JFrame {
 
             } else {
 
+                jpFileAll.add(jbDeleteFileAll);
+                jbDeleteFileAll.setActionCommand(""+(i+1));
+                jpAllFiles.add(jpFileAll);
+
                 if (songFiles.get(i).isPrivat()) {
 
                     jpFilePrivat.add(jbDeleteFilePublic);
-                    jpFileAll.add(jbDeleteFileAll);
-
                     jbDeleteFilePrivat.setActionCommand(""+(i+1));
-                    jbDeleteFileAll.setActionCommand(""+(i+1));
-
                     jpPrivateFiles.add(jpFilePrivat);
-                    jpAllFiles.add(jpFileAll);
 
                 } else {
 
                     jpFilePublic.add(jbDeleteFilePublic);
-                    jpFileAll.add(jbDeleteFileAll);
-
                     jbDeleteFilePublic.setActionCommand(""+(i+1));
-                    jbDeleteFileAll.setActionCommand(""+(i+1));
-
                     jpPublicFiles.add(jpFilePrivat);
-                    jpAllFiles.add(jpFileAll);
 
                 }
 
@@ -262,14 +256,21 @@ public class Window1 extends JFrame {
     public void nicknameError () {
 
         JDialog missatge = new JDialog();
-        JOptionPane.showMessageDialog(missatge, "Error! Invalid user nickname: The nickname is currently in use. Please, ", "Error - Invalid user nickname", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(missatge, "Error! Invalid user nickname: The nickname is currently in use. Please, try to reintroduce a valid nickname.", "Error - Invalid user nickname", JOptionPane.ERROR_MESSAGE);
 
     }
 
     public void emailError () {
 
         JDialog missatge = new JDialog();
-        JOptionPane.showMessageDialog(missatge, "Error! Invalid email address: The address is currently in use. Please, ", "Error - Invalid email address", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(missatge, "Error! Invalid email address: The address is currently in use. Please, try to reintroduce a valid address.", "Error - Invalid email address", JOptionPane.ERROR_MESSAGE);
+
+    }
+
+    public void clientError () {
+
+        JDialog missatge = new JDialog();
+        JOptionPane.showMessageDialog(missatge, "Error! Invalid information from client detected. Please, try to reintroduce a valid format.", "Error - Invalid information from client", JOptionPane.ERROR_MESSAGE);
 
     }
 

@@ -398,11 +398,20 @@ public class Model {
 
     }
 
-    public boolean comprovaClient (String user, String email, String password, LinkedList<Usuari> users) {
+    public boolean comprovaClient (String user, String email, String password) {
 
-        boolean comprovacioOk = false;
+        boolean comprovacioOk;
+        ValidaDades vd = new ValidaDades();
 
+        if (vd.usernameOK(user) && vd.passwordOK(password) && vd.emailOK(email) && vd.isValidEmailAddress(email) && vd.formatPassword(password)) {
 
+            comprovacioOk = true;
+
+        } else {
+
+            comprovacioOk = false;
+
+        }
 
         return comprovacioOk;
 
