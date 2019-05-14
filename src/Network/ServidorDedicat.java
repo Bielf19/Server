@@ -4,10 +4,7 @@ import Model.Model;
 import Model.Tecla;
 import Model.Song;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
 
@@ -118,11 +115,14 @@ public class  ServidorDedicat extends Thread{
                             user_id = model.getIdUsuari(user_name);
                             //Rebem una canço que hagi creat un usuari i la guardem a la BBDD
                             Song song = (Song) oi.readObject();
+                            File file = (File) oi.readObject();
                             boolean titolOk = model.comprovaTitol(song.getTitol(), model.getAllSongs());
                             if (!titolOk) {
                                 //Enviem un false al client per a que canvïin el títol de la cançó
                                 oo.writeObject(false);
                             } else {
+                                //Guardem el fitxer
+
                                 //Associem la canço amb l'usuari
                                 song.setPropietari(""+user_id);
                                 model.addSong(song);

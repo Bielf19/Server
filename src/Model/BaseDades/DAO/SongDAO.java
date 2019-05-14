@@ -33,11 +33,13 @@ public class SongDAO {
         Song song = new Song();
         String query = "";
         if (song_id != 0) {
-            query = "SELECT privat, fitxer, nReproduccions, propietari, titol FROM Song WHERE song_id = '" + song_id + "';";
+            query = "SELECT privat, fitxer, nReproduccions, propietari, titol FROM Song WHERE song_id = " + song_id + ";";
         }
         if (titol != null) {
             query = "SELECT * FROM Song WHERE titol = '" + titol + "';";
         }
+        System.out.println("PROVO: "+query);
+        //System.out.println(song_id+" "+titol);
         ResultSet result = DataBase.getInstance().selectQuery(query);
         try {
             while (result.next()) {
