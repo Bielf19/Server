@@ -398,7 +398,7 @@ public class Model {
 
     }
 
-    public boolean comprovaClient (String user, String email, String password) {
+    /*public boolean comprovaClient (String user, String email, String password) {
 
         boolean comprovacioOk;
         ValidaDades vd = new ValidaDades();
@@ -415,7 +415,7 @@ public class Model {
 
         return comprovacioOk;
 
-    }
+    }*/
 
 //**************************************************MOSTRAR FITXERS***************************************************//
 

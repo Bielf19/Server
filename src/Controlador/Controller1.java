@@ -38,7 +38,7 @@ public class Controller1 implements ActionListener, MouseListener {
         Integer fitxer_trobat;
         boolean clientOk;
 
-        if (actionCommand.equals("ADD_USER")){
+        /*if (actionCommand.equals("ADD_USER")){
 
             String userNickname = window1.getUserNickname();
             String userEmail = window1.getUserEmail();
@@ -82,7 +82,7 @@ public class Controller1 implements ActionListener, MouseListener {
 
             }
 
-        }
+        }*/
 
         //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
         //window1.consultaDelete();
