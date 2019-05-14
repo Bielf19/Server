@@ -132,6 +132,9 @@ public class Controller1 implements ActionListener, MouseListener {
             if (index == 2) {
                 if (((JTabbedPane) o).getTitleAt(2).equals("Users evolution")) {
                     //Enviem les llistes d'evolucio per a poder pintar les gràfiques
+                    window1.setLastWeekEvolucio(model.getPeriodEvolucio(7));
+                    window1.setLastMonthEvolucio(model.getPeriodEvolucio(30));
+                    window1.setLastYearEvolucio(model.getPeriodEvolucio(365));
                     window1.getLlistes();
 
                 }

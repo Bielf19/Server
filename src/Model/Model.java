@@ -312,6 +312,13 @@ public class Model {
         return e_dies;
     }
 
+
+    //Obtenim id a partir del nom
+    public int getIdUsuari (String nom) {
+        Usuari u = ud.getUser(0, nom,null, null);
+        return u.getUser_id();
+    }
+
 //**********************************************AUTENTIFICACIO********************************************************//
 
     //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió

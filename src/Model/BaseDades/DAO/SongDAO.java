@@ -4,6 +4,7 @@ import Model.BaseDades.DataBase;
 import Model.Song;
 import Model.Usuari;
 
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -46,7 +47,7 @@ public class SongDAO {
                 } catch (Exception e) {
                     song.setSong_id(song_id);
                 }
-                song.setFitxer(result.getString("fitxer"));
+                song.setFitxer((File) result.getObject("fitxer"));
                 song.setnReproduccions(result.getInt("nReproduccions"));
                 song.setPropietari(result.getString("propietari"));
                 try {
