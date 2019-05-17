@@ -17,7 +17,8 @@ public class SongDAO {
      * @param song
      */
     public void addSong (Song song) {
-        String query = "INSERT INTO Song (privat, fitxer, propietari, titol) VALUES ('"+song.isPrivat()+"', '"+song.getFitxer()+"', '"+song.getPropietari()+"', '"+song.getTitol()+"';";
+        String query = "INSERT INTO Song (privat, fitxer, propietari, titol) VALUES ("+song.isPrivat()+", '"+song.getFitxer()+"', '"+song.getPropietari()+"', '"+song.getTitol()+"');";
+        System.out.println("PROVO: " + query);
         DataBase.getInstance().insertQuery(query);
     }
 
@@ -38,7 +39,6 @@ public class SongDAO {
         if (titol != null) {
             query = "SELECT * FROM Song WHERE titol = '" + titol + "';";
         }
-        System.out.println("PROVO: "+query);
         //System.out.println(song_id+" "+titol);
         ResultSet result = DataBase.getInstance().selectQuery(query);
         try {
@@ -49,7 +49,7 @@ public class SongDAO {
                 } catch (Exception e) {
                     song.setSong_id(song_id);
                 }
-                song.setFitxer((File) result.getObject("fitxer"));
+                song.setFitxer((String) result.getObject("fitxer"));
                 song.setnReproduccions(result.getInt("nReproduccions"));
                 song.setPropietari(result.getString("propietari"));
                 try {
