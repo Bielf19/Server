@@ -17,6 +17,7 @@ public class AmicsDAO {
         UserDAO ud = new UserDAO();
         int id_amic = ud.searchCodiAmistat(CodiAmistat);
         if (id_amic != 0 && id_amic != user_id) {
+
             String query = "INSERT INTO Amic (user_id1, user_id2) VALUES ('"+user_id+"', '"+id_amic+"');";
             DataBase.getInstance().insertQuery(query);
             return true;
