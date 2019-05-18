@@ -35,7 +35,7 @@ public class Main {
                     System.out.println("prova3");
                     window1.registraControlador(controller1);
                     window1.setVisible(true);
-                    System.out.println("PROVA: " + model.getAllUsers().getFirst().getUser_id());
+                    System.out.println("PROVA: " + model.getAllUsers().getFirst().getLogin().getNomUsuari());
 
                 } catch (Exception e) {
 

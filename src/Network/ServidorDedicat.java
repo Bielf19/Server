@@ -4,11 +4,12 @@ import Model.Model;
 import Model.Tecla;
 import Model.Song;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
 
 import Model.Login;
@@ -118,6 +119,7 @@ public class  ServidorDedicat extends Thread{
                             user_id = model.getIdUsuari(user_name);
                             //Rebem una canço que hagi creat un usuari i la guardem a la BBDD
                             Song song = (Song) oi.readObject();
+
                             boolean titolOk = model.comprovaTitol(song.getTitol(), model.getAllSongs());
                             if (!titolOk) {
                                 //Enviem un false al client per a que canvïin el títol de la cançó
@@ -129,6 +131,7 @@ public class  ServidorDedicat extends Thread{
                                 song = model.getSong(song.getTitol());
                                 model.addSongToUser(user_id, song.getSong_id());
                                 //Enviem un true al client confirmant que s'ha afegit la cançó
+                                System.out.println("Socket3: " + s.isClosed());
                                 oo.writeObject(true);
                                 //Enviem una llista amb els titols de les cançons disponibles per a aquest usuari
                                 oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
@@ -158,6 +161,7 @@ public class  ServidorDedicat extends Thread{
                             song = model.getSong(nom);
                             song.setnReproduccions(song.getnReproduccions() + 1);
                             //Passem el fitxer pel socket
+                            oo.writeObject(nom);
                             oo.writeObject(song.getFitxer());
 
                             break;
@@ -166,15 +170,25 @@ public class  ServidorDedicat extends Thread{
                             oo.writeObject("6");
                             //Rebem el codi d'amistat i l'id de l'usuari que l'envia i comprovem que coincideixi amb algun usuari de la BBDD
                             String codi = (String) oi.readObject();
+                            System.out.println("CODI: " + codi);
                             user_name = (String) oi.readObject();
+                            System.out.println("User: " + user_name);
                             user_id = model.getIdUsuari(user_name);
                             //Busquem el codi a la BBDD i si el trobem afegim l'usuari del codi com amic
                             boolean existeix = model.addAmic(codi, user_id);
                             if (existeix) {
                                 //Passem un booleà que indica si s'ha afegit l'amic correctament
                                 oo.writeObject(true);
-                                //Passem la llista de noms de cançons que ara pot escoltar
-                                oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
+                                //Mirem si esta repetit, es a dir, ja son amics
+                                boolean repetit = model.amicsRepetits(user_id);
+                                System.out.println("Repe: " + repetit);
+                                oo.writeObject(repetit);
+                                if (!repetit) {
+                                    //Passem la llista de noms de cançons que ara pot escoltar
+                                    oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
+                                    //Passem llista d'amics
+                                    oo.writeObject(model.getNomAmics(user_id));
+                                }
 
                             } else {
                                 //Passem un booleà indicant que no s'ha afegit l'amic
@@ -217,8 +231,12 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(true);
                                 //Afegim l'usuari a la BBDD
                                 model.addUser(login.getNomUsuari(), login.getCorreu(), login.getPassword());
+                                user_id = model.getIdUsuari(login.getNomUsuari());
                                 //Passem la configuració del teclat
                                 oo.writeObject(model.getTeclat(login.getCorreu()));
+                                oo.writeObject(model.getNomAmics(user_id));
+                                LinkedList<String> songs = model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs());
+                                oo.writeObject(songs);
                                 //Comptabilitzem un usuari
                                 model.update_nUsuaris(1);
                                 /**
@@ -228,6 +246,24 @@ public class  ServidorDedicat extends Thread{
 
 
                             break;
+                        case "9":
+                            oo.writeObject("9");
+                            //Rebem l'usuari que vol eliminar l'amic i el nom de l'amic
+                            String user_name1 = (String)oi.readObject();
+                            String user_name2 = (String)oi.readObject();
+                            int id1 = model.getIdUsuari(user_name1);
+                            int id2 = model.getIdUsuari(user_name2);
+                            model.deleteOneFriend(id1,id2);
+                            //Passem la llista de noms de cançons que ara pot escoltar
+                            oo.writeObject(model.getTitolsDisponibles(id1, model.getAmics(id1), model.getAllSongs()));
+                            //Passem llista d'amics
+                            oo.writeObject(model.getNomAmics(id1));
+
+
+                            break;
+
+
+
 
                     }
 

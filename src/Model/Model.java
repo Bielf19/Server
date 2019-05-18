@@ -319,6 +319,18 @@ public class Model {
         return u.getUser_id();
     }
 
+
+    //Funcio que mira si els amics estan repetits, si ja son amics
+    public boolean amicsRepetits (int user_id) {
+        return ad.getRepetitsAmics(user_id);
+    }
+
+
+    //Funcio que esborra l'enllaç entre 2 amics
+    public void deleteOneFriend (int user_id1, int user_id2) {
+        ad.deleteOneFriend(user_id1, user_id2);
+    }
+
 //**********************************************AUTENTIFICACIO********************************************************//
 
     //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió
