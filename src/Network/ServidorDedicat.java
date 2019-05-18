@@ -87,6 +87,8 @@ public class  ServidorDedicat extends Thread{
                                     oo.writeObject(model.getNomAmics(user.getUser_id()));
                                     LinkedList<String> songs = model.getTitolsDisponibles(user.getUser_id(), model.getAmics(user.getUser_id()), model.getAllSongs());
                                     oo.writeObject(songs);
+                                    oo.writeObject(user.getUser_id());
+                                    oo.writeObject(user.getCodiAmistat());
                                     //Comptabilitzem un usuari
                                     model.update_nUsuaris(1);
 
@@ -192,6 +194,7 @@ public class  ServidorDedicat extends Thread{
 
                             } else {
                                 //Passem un booleà indicant que no s'ha afegit l'amic
+                                oo.writeObject(false);
                                 oo.writeObject(false);
                             }
                             break;

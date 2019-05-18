@@ -176,7 +176,8 @@ public class Window1 extends JFrame {
     public synchronized JTable generaLlistaFiles (LinkedList<Song> songFiles){
 
         String[] columnNames = {"Song Name", "Owner", "Private/Public", "Delete"};
-        Object[][] information = new Object[5][4];
+        Object[][] information = new Object[songFiles.size()][4];
+        System.out.println("Size songFiles: " + songFiles.size());
 
         for (int i = 0; i < songFiles.size(); i++) {
 
@@ -210,7 +211,7 @@ public class Window1 extends JFrame {
             }
 
         }
-
+        System.out.println("N Deletes: " + conjuntDeleteFile.size() );
         JTable table = new JTable(information, columnNames);
         table.getColumnModel().getColumn(0).setMaxWidth(100);
         table.getColumnModel().getColumn(1).setMaxWidth(200);
@@ -223,6 +224,7 @@ public class Window1 extends JFrame {
         TableCellRenderer buttonRenderer = new JTableButtonRenderer();
         table.getColumn("Delete").setCellRenderer(buttonRenderer);
         serverTabs.setComponentAt(1, jspSongFiles);
+        jspSongFiles.updateUI();
 
         return table;
 

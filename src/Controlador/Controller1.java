@@ -36,15 +36,15 @@ public class Controller1 implements ActionListener, MouseListener {
         boolean nicknameOk;
         boolean emailOk;
         Integer fitxer_trobat;
-        boolean clientOk;
+        boolean clientOk = true;
 
-        /*if (actionCommand.equals("ADD_USER")){
+        if (actionCommand.equals("ADD_USER")){
 
             String userNickname = window1.getUserNickname();
             String userEmail = window1.getUserEmail();
             String userPassword = window1.getUserPassword();
 
-            clientOk = model.comprovaClient(userNickname,userEmail,userPassword);
+            //clientOk = model.comprovaClient(userNickname,userEmail,userPassword);
 
             if (clientOk) {
 
@@ -82,7 +82,7 @@ public class Controller1 implements ActionListener, MouseListener {
 
             }
 
-        }*/
+        }
 
         //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
         //window1.consultaDelete();
