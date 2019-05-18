@@ -173,7 +173,7 @@ public class Window1 extends JFrame {
 
     }
 
-    public synchronized void generaLlistaFiles (LinkedList<Song> songFiles){
+    public synchronized JTable generaLlistaFiles (LinkedList<Song> songFiles){
 
         String[] columnNames = {"Song Name", "Owner", "Private/Public", "Delete"};
         Object[][] information = new Object[5][4];
@@ -223,6 +223,8 @@ public class Window1 extends JFrame {
         TableCellRenderer buttonRenderer = new JTableButtonRenderer();
         table.getColumn("Delete").setCellRenderer(buttonRenderer);
         serverTabs.setComponentAt(1, jspSongFiles);
+
+        return table;
 
     }
 
@@ -427,7 +429,7 @@ public class Window1 extends JFrame {
         */
 
         serverTabs.addMouseListener(controller1);
-        jtpEvolutionTabs.addMouseListener(controller1);
+        jspSongFiles.addMouseListener(controller1);
 
 
     }

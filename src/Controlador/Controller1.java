@@ -119,7 +119,19 @@ public class Controller1 implements ActionListener, MouseListener {
 
                     System.out.println("ENTRAAAAA");
                     songFiles = model.getAllSongs();
-                    window1.generaLlistaFiles(songFiles);
+                    table = window1.generaLlistaFiles(songFiles);
+
+                    int column = table.getColumnModel().getColumnIndexAtX(e.getX()); // get the coloum of the button
+                    int row    = e.getY()/table.getRowHeight(); //get the row of the button
+
+                    /*Checking the row or column is valid or not*/
+                    if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
+                        Object value = table.getValueAt(row, column);
+                        if (value instanceof JButton) {
+                            /*perform a click event*/
+                            ((JButton)value).doClick();
+                        }
+                    }
 
                 }
 
