@@ -87,6 +87,8 @@ public class  ServidorDedicat extends Thread{
                                     oo.writeObject(model.getNomAmics(user.getUser_id()));
                                     LinkedList<String> songs = model.getTitolsDisponibles(user.getUser_id(), model.getAmics(user.getUser_id()), model.getAllSongs());
                                     oo.writeObject(songs);
+                                    oo.writeObject(user.getUser_id());
+                                    oo.writeObject(user.getCodiAmistat());
                                     //Comptabilitzem un usuari
                                     model.update_nUsuaris(1);
 
@@ -210,6 +212,7 @@ public class  ServidorDedicat extends Thread{
                             model.deleteUserSong(user.getUser_id());
                             model.deleteAmic(user.getUser_id());
                             model.deleteUser(user.getUser_id());
+
                             break;
 
                         case "8":
@@ -231,12 +234,17 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(true);
                                 //Afegim l'usuari a la BBDD
                                 model.addUser(login.getNomUsuari(), login.getCorreu(), login.getPassword());
+                                Usuari usuari = model.getUser(login.getNomUsuari(), 0);
+
                                 user_id = model.getIdUsuari(login.getNomUsuari());
                                 //Passem la configuració del teclat
                                 oo.writeObject(model.getTeclat(login.getCorreu()));
                                 oo.writeObject(model.getNomAmics(user_id));
                                 LinkedList<String> songs = model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs());
                                 oo.writeObject(songs);
+                                oo.writeObject(usuari.getUser_id());
+                                oo.writeObject(usuari.getCodiAmistat());
+
                                 //Comptabilitzem un usuari
                                 model.update_nUsuaris(1);
                                 /**
