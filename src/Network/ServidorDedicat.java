@@ -202,14 +202,14 @@ public class  ServidorDedicat extends Thread{
                              * PODRIA SER NOMES EL user_id
                              */
                             //Rebem un usuari per eliminar-lo
-                            user_id = (int) oi.readObject();
-                            LinkedList<Integer> song_ids = model.getAllUserSongs_id(user_id, model.getAllUserSongs());
+                            user = (Usuari) oi.readObject();
+                            LinkedList<Integer> song_ids = model.getAllUserSongs_id(user.getUser_id(), model.getAllUserSongs());
                             for (int i = 0; i < song_ids.size(); i++ ) {
                                 model.deleteSong(song_ids.get(i));
                             }
-                            model.deleteUserSong(user_id);
-                            model.deleteAmic(user_id);
-                            model.deleteUser(user_id);
+                            model.deleteUserSong(user.getUser_id());
+                            model.deleteAmic(user.getUser_id());
+                            model.deleteUser(user.getUser_id());
                             break;
 
                         case "8":
@@ -231,12 +231,16 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(true);
                                 //Afegim l'usuari a la BBDD
                                 model.addUser(login.getNomUsuari(), login.getCorreu(), login.getPassword());
+                                Usuari usuari = model.getUser(login.getNomUsuari(), 0);
+
                                 user_id = model.getIdUsuari(login.getNomUsuari());
                                 //Passem la configuració del teclat
                                 oo.writeObject(model.getTeclat(login.getCorreu()));
                                 oo.writeObject(model.getNomAmics(user_id));
                                 LinkedList<String> songs = model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs());
                                 oo.writeObject(songs);
+                                oo.writeObject(usuari.getUser_id());
+                                oo.writeObject(usuari.getCodiAmistat());
 
                                 //Comptabilitzem un usuari
                                 model.update_nUsuaris(1);
