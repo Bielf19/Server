@@ -170,15 +170,25 @@ public class  ServidorDedicat extends Thread{
                             oo.writeObject("6");
                             //Rebem el codi d'amistat i l'id de l'usuari que l'envia i comprovem que coincideixi amb algun usuari de la BBDD
                             String codi = (String) oi.readObject();
+                            System.out.println("CODI: " + codi);
                             user_name = (String) oi.readObject();
+                            System.out.println("User: " + user_name);
                             user_id = model.getIdUsuari(user_name);
                             //Busquem el codi a la BBDD i si el trobem afegim l'usuari del codi com amic
                             boolean existeix = model.addAmic(codi, user_id);
                             if (existeix) {
                                 //Passem un booleà que indica si s'ha afegit l'amic correctament
                                 oo.writeObject(true);
-                                //Passem la llista de noms de cançons que ara pot escoltar
-                                oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
+                                //Mirem si esta repetit, es a dir, ja son amics
+                                boolean repetit = model.amicsRepetits(user_id);
+                                System.out.println("Repe: " + repetit);
+                                oo.writeObject(repetit);
+                                if (!repetit) {
+                                    //Passem la llista de noms de cançons que ara pot escoltar
+                                    oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
+                                    //Passem llista d'amics
+                                    oo.writeObject(model.getNomAmics(user_id));
+                                }
 
                             } else {
                                 //Passem un booleà indicant que no s'ha afegit l'amic
@@ -221,8 +231,12 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(true);
                                 //Afegim l'usuari a la BBDD
                                 model.addUser(login.getNomUsuari(), login.getCorreu(), login.getPassword());
+                                user_id = model.getIdUsuari(login.getNomUsuari());
                                 //Passem la configuració del teclat
                                 oo.writeObject(model.getTeclat(login.getCorreu()));
+                                oo.writeObject(model.getNomAmics(user_id));
+                                LinkedList<String> songs = model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs());
+                                oo.writeObject(songs);
                                 //Comptabilitzem un usuari
                                 model.update_nUsuaris(1);
                                 /**
@@ -232,6 +246,24 @@ public class  ServidorDedicat extends Thread{
 
 
                             break;
+                        case "9":
+                            oo.writeObject("9");
+                            //Rebem l'usuari que vol eliminar l'amic i el nom de l'amic
+                            String user_name1 = (String)oi.readObject();
+                            String user_name2 = (String)oi.readObject();
+                            int id1 = model.getIdUsuari(user_name1);
+                            int id2 = model.getIdUsuari(user_name2);
+                            model.deleteOneFriend(id1,id2);
+                            //Passem la llista de noms de cançons que ara pot escoltar
+                            oo.writeObject(model.getTitolsDisponibles(id1, model.getAmics(id1), model.getAllSongs()));
+                            //Passem llista d'amics
+                            oo.writeObject(model.getNomAmics(id1));
+
+
+                            break;
+
+
+
 
                     }
 

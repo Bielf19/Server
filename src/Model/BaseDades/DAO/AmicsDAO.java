@@ -60,6 +60,39 @@ public class AmicsDAO {
     }
 
 
+    public boolean getRepetitsAmics(int user_id) {
+        LinkedList<Integer> amics = new LinkedList<>();
+        //Obtenim les parelles d'id
+        String query = "SELECT user_id1, user_id2 FROM Amic;";
+        ResultSet result = DataBase.getInstance().selectQuery(query);
+        try {
+            while (result.next()) {
+                int user_id1 = result.getInt("user_id1");
+                int user_id2 = result.getInt("user_id2");
+                //Mirem si algun dels 2 coincideix per a afegir a l'altra a la llista d'amics
+                if (user_id1 == user_id) {
+                    //Comprovem que no l'hàgim afegit ja
+                    if (!amics.contains(user_id2)) {
+                        amics.add(user_id2);
+                    } else {
+                        return true;
+                    }
+                }
+                if (user_id2 == user_id) {
+                    if (!amics.contains(user_id1)) {
+                        amics.add(user_id1);
+                    }else {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
     public LinkedList<String> getNomAmics (int user_id) {
        LinkedList<Integer> idAmics = getAmics(user_id);
        LinkedList<String> nomAmics = new LinkedList<>();
@@ -79,4 +112,15 @@ public class AmicsDAO {
         String query = "DELETE FROM Amic WHERE user_id1 = '"+user_id+"' OR user_id2 = '"+user_id+"';";
         DataBase.getInstance().deleteQuery(query);
     }
+
+    public void deleteOneFriend (int user_id1, int user_id2) {
+        String query = "DELETE FROM Amic WHERE user_id1 = '"+user_id1+"' AND user_id2 = '"+user_id2+"';";
+        DataBase.getInstance().deleteQuery(query);
+        query = "DELETE FROM Amic WHERE user_id1 = '"+user_id2+"' OR user_id2 = '"+user_id1+"';";
+        DataBase.getInstance().deleteQuery(query);
+    }
+
+
+
+
 }
