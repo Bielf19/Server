@@ -202,14 +202,14 @@ public class  ServidorDedicat extends Thread{
                              * PODRIA SER NOMES EL user_id
                              */
                             //Rebem un usuari per eliminar-lo
-                            user = (Usuari) oi.readObject();
-                            LinkedList<Integer> song_ids = model.getAllUserSongs_id(user.getUser_id(), model.getAllUserSongs());
+                            user_id = (int) oi.readObject();
+                            LinkedList<Integer> song_ids = model.getAllUserSongs_id(user_id, model.getAllUserSongs());
                             for (int i = 0; i < song_ids.size(); i++ ) {
                                 model.deleteSong(song_ids.get(i));
                             }
-                            model.deleteUserSong(user.getUser_id());
-                            model.deleteAmic(user.getUser_id());
-                            model.deleteUser(user.getUser_id());
+                            model.deleteUserSong(user_id);
+                            model.deleteAmic(user_id);
+                            model.deleteUser(user_id);
                             break;
 
                         case "8":
@@ -237,6 +237,7 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(model.getNomAmics(user_id));
                                 LinkedList<String> songs = model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs());
                                 oo.writeObject(songs);
+
                                 //Comptabilitzem un usuari
                                 model.update_nUsuaris(1);
                                 /**
