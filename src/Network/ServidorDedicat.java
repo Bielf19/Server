@@ -215,6 +215,7 @@ public class  ServidorDedicat extends Thread{
 
                             break;
 
+
                         case "8":
                             oo.writeObject("8");
                             //Rebem un login
