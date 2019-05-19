@@ -269,10 +269,6 @@ public class  ServidorDedicat extends Thread{
 
                             break;
 
-                        case "10":
-                            oo.close();
-                            oi.close();
-                            s.close();
 
 
 
