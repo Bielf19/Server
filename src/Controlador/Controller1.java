@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 /**
  * La classe Controller1 s'utilitzarà per a gestionar la comunicacio i la transmissio de dades entre la finestra i la
- * resta del sistema
+ * resta del sistema.
  */
 
 public class Controller1 implements ActionListener, MouseListener {
@@ -97,7 +97,7 @@ public class Controller1 implements ActionListener, MouseListener {
     /**
      * Procediment que s'encarregara d'interpretar i gestionar les accions que duugui a terme l'usuari a través de
      * la interficie grafica, concretament en les que hi interve el mouse de l'ordinador.
-     * @param e MouseEvent
+     * @param e MouseEvent; variable que conté el tipus d'accio que ha duut a terme l'usuari.
      */
 
     @Override
