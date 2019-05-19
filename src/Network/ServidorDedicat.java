@@ -222,13 +222,12 @@ public class  ServidorDedicat extends Thread{
                             //Rebem un login
                             users = model.getAllUsers();
                             login = (Login) oi.readObject();
+                            boolean clientOk = model.comprovaClient(login.getNomUsuari(),login.getCorreu(),login.getPassword());
                             boolean nomUsuariOK = model.comprovaNickname(login.getNomUsuari(),users);
                             boolean correuOk = model.comprovaEmail(login.getCorreu(), users);
-                            /**
-                             * Falta afegir tot el que va fer la ona
-                             */
+
                             boolean passwordOk = true;
-                            if (!(nomUsuariOK && correuOk && passwordOk)) {
+                            if (!(nomUsuariOK && correuOk && passwordOk && clientOk)) {
                                 //Passem un false per a que el programa client sàpiga que no s'ha fet be el registre
                                 oo.writeObject(false);
                             } else {
@@ -249,9 +248,7 @@ public class  ServidorDedicat extends Thread{
 
                                 //Comptabilitzem un usuari
                                 model.update_nUsuaris(1);
-                                /**
-                                 * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
-                                 */
+
                             }
 
 
@@ -271,6 +268,11 @@ public class  ServidorDedicat extends Thread{
 
 
                             break;
+
+                        case "10":
+                            oo.close();
+                            oi.close();
+                            s.close();
 
 
 

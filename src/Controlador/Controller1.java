@@ -34,7 +34,7 @@ public class Controller1 implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
 
         String actionCommand = e.getActionCommand();
-        LinkedList<Usuari> users = new LinkedList<Usuari>();
+        LinkedList<Usuari> users = model.getAllUsers();
         boolean nicknameOk;
         boolean emailOk;
         Integer fitxer_trobat;
@@ -46,7 +46,7 @@ public class Controller1 implements ActionListener, MouseListener {
             String userEmail = window1.getUserEmail();
             String userPassword = window1.getUserPassword();
 
-            //clientOk = model.comprovaClient(userNickname,userEmail,userPassword);
+            clientOk = model.comprovaClient(userNickname,userEmail,userPassword);
 
             if (clientOk) {
 
