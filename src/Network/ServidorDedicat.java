@@ -194,6 +194,8 @@ public class  ServidorDedicat extends Thread{
 
                             } else {
                                 //Passem un booleà indicant que no s'ha afegit l'amic
+                                System.out.println("peta");
+                                oo.writeObject(false);
                                 oo.writeObject(false);
                                 oo.writeObject(false);
                             }
