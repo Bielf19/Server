@@ -19,49 +19,36 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+/**
+ * El servidor dedicat obrirà un fil d'execució per a cada client que es connecti i permetrà realitzar qualsevol tasca
+ * que impliqui accedir o emmagatzemar a la base de dades.
+ */
+
 public class Window1 extends JFrame {
 
     private JTabbedPane serverTabs;
-    //AFEGIR USUARIS
+
+    //VARIBALES: AFEGIR USUARIS
     private JTextField jtfNickname;
     private JTextField jtfEmail;
     private JPasswordField jpfPassword;
     private JButton jbAddUser;
-    //SONG FILES
-    private JTabbedPane jtpSongFiles;
-    private JScrollPane jpScrollAllFiles;
-    private JScrollPane jpScrollPublicFiles;
-    private JScrollPane jpScrollPrivateFiles;
-    private JPanel jpAllFiles;
-    private JPanel jpPrivateFiles;
-    private JPanel jpPublicFiles;
-    private JPanel jpFilePrivat;
-    private JPanel jpFilePublic;
-    private JPanel jpFileAll;
-    private JButton jbDeleteFilePrivat;
-    private JButton jbDeleteFilePublic;
-    private JButton jbDeleteFileAll;
-    private ArrayList<JButton> conjuntDeleteFilePrivat = new ArrayList<>();
-    private ArrayList<JButton> conjuntDeleteFilePublic = new ArrayList<>();
-    private ArrayList<JButton> conjuntDeleteFileAll = new ArrayList<>();
-    private JPanel jpWeekEvolution;
-    private LinkedList<Song> songFiles;
 
+    //VARIABLES: SONG FILES
     private JScrollPane jspSongFiles;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
     private JTable table;
     private TableCellRenderer buttonRenderer;
 
-    //EVOLUTION
+    //VARIABLES: USERS EVOLUTION
     private JTabbedPane jtpEvolutionTabs;
     private LinkedList<Evolution> lastWeekEvolucio;
     private LinkedList<Evolution> lastMonthEvolucio;
     private LinkedList<Evolution> lastYearEvolucio;
-    //TOP 5
+
+    //VARIABLES: TOP 5 SONGS
     private JScrollPane jpTopFiveSongs;
     private LinkedList<Song> top5;
-
-
 
     public Window1() {
 
@@ -100,9 +87,9 @@ public class Window1 extends JFrame {
         jpAddUser.add(new JPanel(),7);
         jbAddUser = new JButton("Add user");
         jpAddUser.add(jbAddUser, 8);
+        jpUsers.add(jpAddUser, BorderLayout.NORTH);
 
         //Afegim el panell al nostre conjunt de pestanyes
-        jpUsers.add(jpAddUser, BorderLayout.NORTH);
         getContentPane().add("Add user", jpUsers);
 
         //*************************************PANELL DELS FITXERS DE LES CANCONS*************************************//
@@ -112,48 +99,14 @@ public class Window1 extends JFrame {
 
         //Components del panell
 
+        //Afegim el panell al nostre conjunt de pestanyes
         getContentPane().add("Song files",jspSongFiles);
-
-        /*
-        //Creem el panell
-        jtpSongFiles = new JTabbedPane();
-
-        //Components del panell
-        jpAllFiles = new JPanel();
-        jpPrivateFiles = new JPanel();
-        jpPublicFiles = new JPanel();
-        jpAllFiles.setLayout(new BoxLayout(jpAllFiles,BoxLayout.PAGE_AXIS));
-        jpAllFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
-        jpPrivateFiles.setLayout(new BoxLayout(jpPrivateFiles,BoxLayout.PAGE_AXIS));
-        jpPrivateFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
-        jpPublicFiles.setLayout(new BoxLayout(jpPublicFiles,BoxLayout.PAGE_AXIS));
-        jpPublicFiles.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"Song files"));
-        jpScrollAllFiles = new JScrollPane();
-        jpScrollPublicFiles = new JScrollPane();
-        jpScrollPrivateFiles = new JScrollPane();
-
-        songFiles = new LinkedList<Song>();
-        jpScrollAllFiles.setViewportView(jpAllFiles);
-        jpScrollPublicFiles.setViewportView(jpPublicFiles);
-        jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
-        jtpSongFiles.add("Private files", jpScrollPrivateFiles);
-        jtpSongFiles.add("Public files", jpScrollPublicFiles);
-        jtpSongFiles.add("All files", jpScrollAllFiles);
-        getContentPane().add("Song files",jtpSongFiles);
-        generaLlistaFiles(songFiles);
-        */
 
         //**************************************PANELL DE L'EVOLUCIO DELS USUARIS*************************************//
 
         //Creem el panell
         jtpEvolutionTabs = new JTabbedPane();
         LinkedList<Evolution> inicial = new LinkedList<>();
-        /*setLastWeekEvolucio(lastWeekEvolucio);
-        setLastMonthEvolucio(lastMonthEvolucio);
-        setLastYearEvolucio(lastYearEvolucio);
-        System.out.println(lastWeekEvolucio.size());
-        System.out.println(lastMonthEvolucio.size());
-        System.out.println(lastYearEvolucio.size());*/
         jtpEvolutionTabs.add("Last week evolution", new Graphic(inicial));
         jtpEvolutionTabs.add("Last month evolution", new Graphic(inicial));
         jtpEvolutionTabs.add("Last year evolution", new Graphic(inicial));
@@ -167,14 +120,17 @@ public class Window1 extends JFrame {
         //Creem el panell
         jpTopFiveSongs = new JScrollPane();
 
-
-        //Components del panell
-
         //Afegim el panell al nostre conjunt de pestanyes
         getContentPane().add("Top 5 songs", jpTopFiveSongs);
 
 
     }
+
+    /**
+     *
+     * @param songFiles LinkedList<Song>; conté la llista amb totes les cançons dels usuaris.
+     * @return Taula que conté les cançons de tots els usuaris registrats al servidor
+     */
 
     public synchronized JTable generaLlistaFiles (LinkedList<Song> songFiles){
 
