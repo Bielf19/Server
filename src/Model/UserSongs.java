@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * La classe UserSongs s'utilitzarà per a relacionar directamaent una canço amb l'usuari que l'ha afegit
+ */
+
 public class UserSongs {
     private int user_id;
     private int song_id;
