@@ -19,7 +19,7 @@ public class ValidaDades {
     }
 
     /**
-     * Procediment que s'utilitzara per a comprovar que el camp del usuari a l'hora de realitzar el registre no estigui
+     * Funcio que s'utilitzara per a comprovar que el camp del usuari a l'hora de realitzar el registre no estigui
      * buit.
      * @param nom String; conte el nickname a comprovar.
      * @return Un boolea que indica si el nickname es correcte o no.
@@ -39,7 +39,7 @@ public class ValidaDades {
     }
 
     /**
-     * Procediment que s'utilitzara per a comprovar que el camp de la contrasenya a l'hora de realitzar el registre no
+     * Funcio que s'utilitzara per a comprovar que el camp de la contrasenya a l'hora de realitzar el registre no
      * estigui buit.
      * @param password String; conte la contrasenya a comprovar.
      * @return Un boolea que indica si la contrasenya es correcte o no.
@@ -59,7 +59,7 @@ public class ValidaDades {
     }
 
     /**
-     * Procediment que s'utilitzara per a comprovar que el camp de la direccio de correu electronic a l'hora de
+     * Funcio que s'utilitzara per a comprovar que el camp de la direccio de correu electronic a l'hora de
      * realitzar el registre no esta buida.
      * @param email String; conte la direccio de correu electronic a comprovar
      * @return Un boolea que indica si la direccio de correu electronic es correcte o no.
@@ -101,7 +101,7 @@ public class ValidaDades {
      * @return Un boolea que indica si la contrasenya es correcte o no.
      */
 
-    public  boolean formatPassword(String pass) {
+    public boolean formatPassword(String pass) {
 
         String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
         return pass.matches(pattern);
