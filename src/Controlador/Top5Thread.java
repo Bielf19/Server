@@ -28,9 +28,6 @@ public class Top5Thread extends Thread {
         while (true) {
             LinkedList<Song> top5 = model.getTop5();
             window1.setTop5(top5);
-            for (int i = 0; i < top5.size(); i++) {
-                System.out.println(top5.get(i).getTitol());
-            }
             window1.generaTaulaTop5();
         }
     }

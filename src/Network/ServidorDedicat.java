@@ -56,8 +56,6 @@ public class  ServidorDedicat extends Thread{
                             //Rebem un login
                             oo.writeObject("1");
                             Login login = (Login) oi.readObject();
-                            System.out.println("PROVAPROVA");
-                            System.out.println(login.getNomUsuari());
                             boolean loginOK;
                             Usuari user = new Usuari();
                             LinkedList<Usuari> users = model.getAllUsers();
@@ -130,7 +128,6 @@ public class  ServidorDedicat extends Thread{
                                 song = model.getSong(song.getTitol());
                                 model.addSongToUser(user_id, song.getSong_id());
                                 //Enviem un true al client confirmant que s'ha afegit la cançó
-                                System.out.println("Socket3: " + s.isClosed());
                                 oo.writeObject(true);
                                 //Enviem una llista amb els titols de les cançons disponibles per a aquest usuari
                                 oo.writeObject(model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs()));
@@ -159,9 +156,7 @@ public class  ServidorDedicat extends Thread{
                             oo.writeObject("6");
                             //Rebem el codi d'amistat i l'id de l'usuari que l'envia i comprovem que coincideixi amb algun usuari de la BBDD
                             String codi = (String) oi.readObject();
-                            System.out.println("CODI: " + codi);
                             user_name = (String) oi.readObject();
-                            System.out.println("User: " + user_name);
                             user_id = model.getIdUsuari(user_name);
                             //Busquem el codi a la BBDD i si el trobem afegim l'usuari del codi com amic
                             boolean existeix = model.addAmic(codi, user_id);
@@ -170,7 +165,6 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(true);
                                 //Mirem si esta repetit, es a dir, ja son amics
                                 boolean repetit = model.amicsRepetits(user_id);
-                                System.out.println("Repe: " + repetit);
                                 oo.writeObject(repetit);
                                 if (!repetit) {
                                     //Passem la llista de noms de cançons que ara pot escoltar
@@ -181,7 +175,6 @@ public class  ServidorDedicat extends Thread{
 
                             } else {
                                 //Passem un booleà indicant que no s'ha afegit l'amic
-                                System.out.println("peta");
                                 oo.writeObject(false);
                                 oo.writeObject(false);
                                 oo.writeObject(false);

@@ -428,7 +428,6 @@ public class Model {
     public LinkedList<Evolution> getPeriodEvolucio(int nDies) {
         update_nUsuaris(0);
         LinkedList<Evolution> e = getDadesEvolucio();
-        System.out.println("size: " + e.size());
         LinkedList<Evolution> e_dies = new LinkedList<Evolution>();
         //Ens creem una llista auxiliar ja que obtindrem
         LinkedList<Evolution> aux = new LinkedList<Evolution>();

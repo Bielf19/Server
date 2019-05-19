@@ -288,7 +288,7 @@ public class UserDAO {
                 codiAmistat = codiAmistat + c;
 
         }
-        System.out.println(codiAmistat);
+
         return codiAmistat;
     }
 
