@@ -8,7 +8,10 @@ import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.LinkedList;
 
-
+/**
+ * Classe que gestiona la taula de base de dades Evolucio
+ * Autors: Pol Caubet, Dani Ulied, Ona Rof, Anna Aguareles, Enric Sasselli, Biel Fernández
+ */
 public class EvolucioDAO {
 
     /**
@@ -38,6 +41,10 @@ public class EvolucioDAO {
     }
 
 
+    /**
+     * Funcio que extreu de la base de dades la data i el nombre d'usuaris
+     * @return LinkedList<Evolution> amb la data i el nombre d'usuaris
+     */
     public LinkedList<Evolution> getDadesEvolucio () {
         LinkedList<Evolution> evolucio = new LinkedList<>();
         String query = "SELECT data, nUsuaris FROM Evolucio;";
@@ -57,6 +64,11 @@ public class EvolucioDAO {
         return evolucio;
     }
 
+
+    /**
+     * Inserir data al camp Evolucio
+     * @param date String
+     */
     public void addData (String date) {
 
         String query = "INSERT INTO Evolucio (data) VALUES ('"+date+"');";
@@ -65,6 +77,11 @@ public class EvolucioDAO {
     }
 
 
+    /**
+     * Seleccionar el nombre d'usuaris del camp Evolucio
+     * @param date String
+     * @return int nombre d'usuaris
+     */
     public int get_nUsuaris (String date) {
         int n = 0;
         String query = "SELECT nUsuaris FROM Evolucio;";

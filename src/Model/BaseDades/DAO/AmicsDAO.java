@@ -6,12 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+/**
+ * Classe que gestiona la taula de base de dades Amic
+ * Autors: Pol Caubet, Dani Ulied, Ona Rof, Anna Aguareles, Enric Sasselli, Biel Fernández
+ */
 public class AmicsDAO {
 
     /**
      * Mètode que permet afegir parelles d'amics a la BBDD rebent el codi d'amistat i l'id de l'usuari que ha enviat el codi d'amistat
-     * @param CodiAmistat
+     * @param CodiAmistat String; codi d'amistat de l'amic
      * @param user_id
+     * @return boolean; mirem si s'ha afegit l'amic
      */
     public boolean addAmic (String CodiAmistat, int user_id) {
         UserDAO ud = new UserDAO();
@@ -27,9 +32,9 @@ public class AmicsDAO {
 
 
     /**
-     * Aquest mètode ens permet obtindre una llista d'eneters amb totes els id dels amics d'un usuari
-     * @param user_id
-     * @return llista d'eneters
+     * Aquest mètode ens permet obtindre una llista d'enters amb tots els id dels amics d'un usuari
+     * @param user_id int
+     * @return llista de id's
      */
     public LinkedList<Integer> getAmics (int user_id){
         LinkedList<Integer> amics = new LinkedList<>();
@@ -60,6 +65,11 @@ public class AmicsDAO {
     }
 
 
+    /**
+     * Funció que permet veure si hi ha amics repetits per a un usuari determinat
+     * @param user_id int
+     * @return boolean; indica si té algun amic repetit o no
+     */
     public boolean getRepetitsAmics(int user_id) {
         LinkedList<Integer> amics = new LinkedList<>();
         //Obtenim les parelles d'id
@@ -92,7 +102,11 @@ public class AmicsDAO {
         return false;
     }
 
-
+    /**
+     * Funció per obtindre el nom d'usuari de tots els amics
+     * @param user_id
+     * @return LinkedList<String> amb el nom d'usuari dels amics
+     */
     public LinkedList<String> getNomAmics (int user_id) {
        LinkedList<Integer> idAmics = getAmics(user_id);
        LinkedList<String> nomAmics = new LinkedList<>();
@@ -106,13 +120,19 @@ public class AmicsDAO {
 
     /**
      * Funció que elimina totes les associacions d'amics d'un usuari determinat
-     * @param user_id
+     * @param user_id int
      */
     public void deleteAmic(int user_id) {
         String query = "DELETE FROM Amic WHERE user_id1 = '"+user_id+"' OR user_id2 = '"+user_id+"';";
         DataBase.getInstance().deleteQuery(query);
     }
 
+
+    /**
+     * Funció que permet eliminar un enllaç d'amics a partir dels id's
+     * @param user_id1 int
+     * @param user_id2 int
+     */
     public void deleteOneFriend (int user_id1, int user_id2) {
         String query = "DELETE FROM Amic WHERE user_id1 = '"+user_id1+"' AND user_id2 = '"+user_id2+"';";
         DataBase.getInstance().deleteQuery(query);

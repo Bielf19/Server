@@ -4,6 +4,10 @@ import Model.Configuracio;
 import java.io.FileNotFoundException;
 import java.sql.*;
 
+/**
+ * Inicialitzem la base de dades i indiquem quines son les principals queries
+ * Autors: Pol Caubet, Dani Ulied, Ona Rof, Anna Aguareles, Enric Sasselli, Biel Fernández
+ */
 public class DataBase {
 
     private static String NOM_BBDD;
@@ -26,6 +30,10 @@ public class DataBase {
 
     }
 
+    /**
+     * Inicialitzacio de la BBDD
+     * @return DataBase
+     */
     public static DataBase getInstance(){
         Configuracio config = new Configuracio();
         try {
@@ -42,6 +50,9 @@ public class DataBase {
         return  instance;
     }
 
+    /**
+     * Establim la connexió amb la base de dades
+     */
     public void connect() {
         try {
             Class.forName("com.mysql.jdbc.Connection");
@@ -61,6 +72,10 @@ public class DataBase {
 
     }
 
+    /**
+     * Query que permet inserir dades
+     * @param query
+     */
     public void insertQuery(String query){
         try {
             s =(Statement) conn.createStatement();
@@ -71,6 +86,10 @@ public class DataBase {
         }
     }
 
+    /**
+     * Actualitzem dades de la BBDD
+     * @param query
+     */
     public void updateQuery(String query){
         try {
             s =(Statement) conn.createStatement();
@@ -82,6 +101,10 @@ public class DataBase {
         }
     }
 
+    /**
+     * Esborrem dades de la BBDD
+     * @param query
+     */
     public void deleteQuery(String query){
         try {
             s =(Statement) conn.createStatement();
@@ -93,6 +116,12 @@ public class DataBase {
 
     }
 
+
+    /**
+     * Seleccionem dades de la BBDD
+     * @param query
+     * @return
+     */
     public ResultSet selectQuery(String query){
         ResultSet rs = null;
         try {
@@ -106,6 +135,9 @@ public class DataBase {
         return rs;
     }
 
+    /**
+     * Ens desconnectem de la BBDD
+     */
     public void disconnect(){
         try {
             conn.close();
