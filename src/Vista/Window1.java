@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * El servidor dedicat obrirà un fil d'execució per a cada client que es connecti i permetrà realitzar qualsevol tasca
- * que impliqui accedir o emmagatzemar a la base de dades.
+ * La classe Window1 gestionarà tots els procediments i funcions que tinguin a veure amb la interfície gràfica
+ * del servidor a través de la qual l'usuari hi podra interactuar.
  */
 
 public class Window1 extends JFrame {
@@ -129,7 +129,7 @@ public class Window1 extends JFrame {
     /**
      *
      * @param songFiles LinkedList<Song>; conté la llista amb totes les cançons dels usuaris.
-     * @return Taula que conté les cançons de tots els usuaris registrats al servidor
+     * @return JTable que conté les cançons de tots els usuaris registrats al servidor
      */
 
     public synchronized JTable generaLlistaFiles (LinkedList<Song> songFiles){
@@ -189,99 +189,11 @@ public class Window1 extends JFrame {
 
     }
 
-    /*
-
-    public void generaLlistaFiles (LinkedList<Song> songFiles) {
-
-        jtpSongFiles.removeAll();
-        conjuntDeleteFilePrivat.clear();
-        conjuntDeleteFilePublic.clear();
-        conjuntDeleteFileAll.clear();
-
-        for (int i=0; i< songFiles.size(); i++){
-
-            jpFilePrivat = new JPanel ();
-            jpFilePublic = new JPanel ();
-            jpFileAll = new JPanel ();
-
-            jpFilePrivat.setLayout (new GridLayout(1,2));
-            jpFilePublic.setLayout (new GridLayout(1,2));
-            jpFileAll.setLayout (new GridLayout(1,2));
-
-            jpFilePrivat.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
-            jpFilePublic.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
-            jpFileAll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"File number "+(i+1)));
-
-            //Nom del fitxer
-            JLabel jlFileNamePrivat = new JLabel("Song name: "+songFiles.get(i).getTitol());
-            JLabel jlFileNamePublic = new JLabel("Song name: "+songFiles.get(i).getTitol());
-            JLabel jlFileNameAll = new JLabel("Song name: "+songFiles.get(i).getTitol());
-            jlFileNamePrivat.setHorizontalAlignment(SwingConstants.LEFT);
-            jlFileNamePublic.setHorizontalAlignment(SwingConstants.LEFT);
-            jlFileNameAll.setHorizontalAlignment(SwingConstants.LEFT);
-            jpFilePrivat.add(jlFileNamePrivat);
-            jpFilePublic.add(jlFileNamePublic);
-            jpFileAll.add(jlFileNameAll);
-
-            //Borrar fitxer
-            jbDeleteFilePrivat = new JButton("Delete");
-            jbDeleteFilePublic = new JButton("Delete");
-            jbDeleteFileAll = new JButton("Delete");
-
-            if (i <= 2) {
-
-                jbDeleteFilePublic.setEnabled(false);
-                jbDeleteFileAll.setEnabled(false);
-                jpFilePublic.add(jbDeleteFilePublic);
-                jpFileAll.add(jbDeleteFileAll);
-
-                jbDeleteFilePublic.setActionCommand(""+(i+1));
-                jbDeleteFileAll.setActionCommand(""+(i+1));
-
-                jpPublicFiles.add(jpFilePublic);
-                jpAllFiles.add(jpFileAll);
-
-                conjuntDeleteFilePublic.add(jbDeleteFilePublic);
-                conjuntDeleteFileAll.add(jbDeleteFileAll);
-
-
-            } else {
-
-                jpFileAll.add(jbDeleteFileAll);
-                jbDeleteFileAll.setActionCommand(""+(i+1));
-                jpAllFiles.add(jpFileAll);
-
-                if (songFiles.get(i).isPrivat()) {
-
-                    jpFilePrivat.add(jbDeleteFilePublic);
-                    jbDeleteFilePrivat.setActionCommand(""+(i+1));
-                    jpPrivateFiles.add(jpFilePrivat);
-
-                } else {
-
-                    jpFilePublic.add(jbDeleteFilePublic);
-                    jbDeleteFilePublic.setActionCommand(""+(i+1));
-                    jpPublicFiles.add(jpFilePrivat);
-
-                }
-
-            }
-
-        }
-
-        jpScrollAllFiles.setViewportView(jpAllFiles);
-        jpScrollPublicFiles.setViewportView(jpPublicFiles);
-        jpScrollPrivateFiles.setViewportView(jpPrivateFiles);
-        jtpSongFiles.add("Private files", jpScrollPrivateFiles);
-        jtpSongFiles.add("Public files", jpScrollPublicFiles);
-        jtpSongFiles.add("All files", jpScrollAllFiles);
-
-        jtpSongFiles.revalidate();
-        this.repaint();
-
-    }
-
-    */
+    /**
+     * Procediment que, a través d'un JDialog, s'utilitzatrà per a consultar a l'usuari si es vol eliminar el fitxer de
+     * canço.
+     * @return Integer que adoptarà el valor d'1 o de 0 en funció de la resposta de l'usuari
+     */
 
     public int consultaDelete () {
 
@@ -291,12 +203,20 @@ public class Window1 extends JFrame {
 
     }
 
+    /**
+     * Procediment que mostra un missatge d'error si el nickname del usuari es invalid.
+     */
+
     public void nicknameError () {
 
         JDialog missatge = new JDialog();
         JOptionPane.showMessageDialog(missatge, "Error! Invalid user nickname: The nickname is currently in use. Please, try to reintroduce a valid nickname.", "Error - Invalid user nickname", JOptionPane.ERROR_MESSAGE);
 
     }
+
+    /**
+     * Procediment que mostra un missatge d'error si la direcció de correu electronic del usuari es invalida.
+     */
 
     public void emailError () {
 
@@ -305,12 +225,20 @@ public class Window1 extends JFrame {
 
     }
 
+    /**
+     * Procediment que mostra un missatge d'error si el registre de l'usuari no supera les comprovacions del client.
+     */
+
     public void clientError () {
 
         JDialog missatge = new JDialog();
         JOptionPane.showMessageDialog(missatge, "Error! Invalid information from client patterns detected. Please, try to reintroduce a valid information format.", "Error - Invalid information from client", JOptionPane.ERROR_MESSAGE);
 
     }
+
+    /**
+     * Procediment que mostra un missatge informatiu conforme un usuari ha sigut registrat amb exit.
+     */
 
     public void addSuccessful(){
 
@@ -319,17 +247,32 @@ public class Window1 extends JFrame {
 
     }
 
+    /**
+     * Funcio que retorna el nickname introduit per l'usuari.
+     * @return String que conte el nickname introduit per l'usuari.
+     */
+
     public String getUserNickname (){
 
         return jtfNickname.getText();
 
     }
 
+    /**
+     * Funcio que retorna la direccio de correu electrnic introduida per l'usuari.
+     * @return String que conte la direccio de correu electrnic introduida per l'usuari.
+     */
+
     public String getUserEmail () {
 
         return jtfEmail.getText();
 
     }
+
+    /**
+     * Funcio que retorna la contrasenya introduida per l'usuari.
+     * @return String que conte la contrasenya introduida per l'usuari.
+     */
 
     public String getUserPassword () {
 
@@ -343,6 +286,11 @@ public class Window1 extends JFrame {
 
     }
 
+    /**
+     * Procediment que, un cop registrat l'usuari, esborra els JTextfields de l'usuari, la direccio de correu electronic
+     * i la contrasenya.
+     */
+
     public void cleanJTextfields () {
 
         jtfNickname.setText("");
@@ -350,6 +298,11 @@ public class Window1 extends JFrame {
         jpfPassword.setText("");
 
     }
+
+    /**
+     * Procediment que s'utilitza per a relacionar les accions que es duuen a terme a la finestra amb el primer controlador.
+     * @param controller1 Controller1; variable que conté el primer controlador.
+     */
 
     public void registraControlador(Controller1 controller1) {
 
@@ -364,36 +317,14 @@ public class Window1 extends JFrame {
 
         }
 
-        /*
-
-        for (int i = 0; i < conjuntDeleteFilePrivat.size(); i++) {
-
-            conjuntDeleteFilePrivat.get(i).removeActionListener(controller1);
-            conjuntDeleteFilePrivat.get(i).addActionListener(controller1);
-
-        }
-
-        for (int i = 0; i < conjuntDeleteFilePublic.size(); i++) {
-
-            conjuntDeleteFilePublic.get(i).removeActionListener(controller1);
-            conjuntDeleteFilePublic.get(i).addActionListener(controller1);
-
-        }
-
-        for (int i = 0; i < conjuntDeleteFileAll.size(); i++) {
-
-            conjuntDeleteFileAll.get(i).removeActionListener(controller1);
-            conjuntDeleteFileAll.get(i).addActionListener(controller1);
-
-        }
-
-        */
-
         serverTabs.addMouseListener(controller1);
 
-
-
     }
+
+    /**
+     * Procediment que s'utilitza per a relacionar les accions que es duuen a terme a la finestra amb el segon controlador.
+     * @param controller2 Controller2; variable que conté el primer controlador.
+     */
 
     public void registraControlador2(Controller2 controller2) {
         jspSongFiles.addMouseListener(controller2);
@@ -401,36 +332,62 @@ public class Window1 extends JFrame {
 
     }
 
+    /**
+     * Procediment que s'utilitza per organitzar la informacio de l'evolucio
+     * d'usuaris de l'ultima setmana en una LinkedList.
+     * @param dadesEvolucio LinkedLIst; conte informació sobre l'activtat dels usuaris durant la darera setmana
+     */
+
     public void setLastWeekEvolucio(LinkedList<Evolution> dadesEvolucio) {
         lastWeekEvolucio = dadesEvolucio;
     }
+
+    /**
+     * Procediment que s'utilitza per organitzar la informacio de l'evolucio
+     * d'usuaris de l'ultim mes en una LinkedList.
+     * @param dadesEvolucio LinkedLIst; conte informació sobre l'activtat dels usuaris durant el darrer mes.
+     */
 
     public void setLastMonthEvolucio(LinkedList<Evolution> dadesEvolucio) {
         lastMonthEvolucio = dadesEvolucio;
     }
 
+    /**
+     * Procediment que s'utilitza per organitzar la informacio de l'evolucio
+     * d'usuaris de l'ultim any en una LinkedList
+     * @param dadesEvolucio LinkedLIst; conte informació sobre l'activtat dels usuaris durant l'ultim any
+     */
+
     public void setLastYearEvolucio(LinkedList<Evolution> dadesEvolucio) {
         lastYearEvolucio = dadesEvolucio;
     }
 
+    /**
+     * Procediment que s'utilitzarà per obtenir les llistes dels tres procediments anteriors
+     */
+
     public void getLlistes() {
-        System.out.println("prova6");
         setLastWeekEvolucio(lastWeekEvolucio);
         setLastMonthEvolucio(lastMonthEvolucio);
         setLastYearEvolucio(lastYearEvolucio);
-        System.out.println(lastWeekEvolucio.size());
-        System.out.println(lastMonthEvolucio.size());
-        System.out.println(lastYearEvolucio.size());
         jtpEvolutionTabs.removeAll();
         jtpEvolutionTabs.add("Last week evolution", new Graphic(lastWeekEvolucio));
         jtpEvolutionTabs.add("Last month evolution", new Graphic(lastMonthEvolucio));
         jtpEvolutionTabs.add("Last year evolution", new Graphic(lastYearEvolucio));
     }
 
+    /**
+     * Procediment que s'utilitzara per dipositar una canço en la LinkedList que contindra el top 5 de canccons mes escoltades
+     * @param top5 LinkedList;
+     */
+
     public void setTop5(LinkedList<Song> top5) {
         this.top5 = top5;
     }
 
+    /**
+     * Procediment que s'utilitzara per generar una JTable amb les cinc cançons mes escoltades.
+     */
 
     public synchronized void generaTaulaTop5() {
         String[] columnNames = {"Ranking","Song",
@@ -443,37 +400,24 @@ public class Window1 extends JFrame {
                 data[i][2] = top5.get(i).getnReproduccions();
 
         }
-        System.out.println("Prova20");
 
         JTable table = new JTable(data, columnNames);
         table.getColumnModel().getColumn(0).setMaxWidth(100);
         table.getColumnModel().getColumn(1).setMaxWidth(200);
         table.getColumnModel().getColumn(2).setMaxWidth(100);
 
-
-
-
         jpTopFiveSongs.removeAll();
         jpTopFiveSongs = new JScrollPane(table);
-        //jpTopFiveSongs.add(table);
         table.setFillsViewportHeight(true);
-        System.out.println("Prova21");
         serverTabs.setComponentAt(3, jpTopFiveSongs);
         jpTopFiveSongs.updateUI();
-        System.out.println("Prova22");
-
-
-
 
     }
 
-    public synchronized void updateTop5() {
-        System.out.println("PROVA10");
-        //jpTopFiveSongs.removeAll();
-        serverTabs.setComponentAt(3, new Top5(top5));
-        jpTopFiveSongs.updateUI();
-    }
-
+    /**
+     * Procediment que s'utilitza per a obtenir els botons registrats a l'ArrayList corresponent
+     * @return
+     */
 
     public ArrayList getBotons() {
         return conjuntDeleteFile;
