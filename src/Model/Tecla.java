@@ -2,6 +2,11 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * La classe Tecla s'utilitzarà per a emmagatzemar tota la informacio necessària per a relacionar una tecla de
+ * l'ordinador amb una nota musical.
+ */
+
 public class Tecla implements Serializable {
     private String nota;
     private char tecla;
