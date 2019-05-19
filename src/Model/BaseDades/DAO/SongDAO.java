@@ -14,7 +14,7 @@ public class SongDAO {
 
     /**
      * Funció que permet afegir una cançó a la BBDD
-     * @param song
+     * @param song Song
      */
     public void addSong (Song song) {
         String query = "INSERT INTO Song (privat, fitxer, propietari, titol) VALUES ("+song.isPrivat()+", '"+song.getFitxer()+"', '"+song.getPropietari()+"', '"+song.getTitol()+"');";
@@ -26,8 +26,8 @@ public class SongDAO {
 
     /**
      * Funció que permet obtenir de la BBDD una cançó ja sigui segons el títol o segons l'id de la cançó a la BBDD
-     * @param song_id
-     * @param titol
+     * @param song_id int
+     * @param titol String
      * @return retorna una Song
      */
     public Song getSong (int song_id, String titol) {
@@ -68,7 +68,7 @@ public class SongDAO {
 
     /**
      * Aquest mètode permet obtindre una llista amb totes les cançons disponibles a la base de dades
-     * @return
+     * @return LinkedList<Song>
      */
     public LinkedList<Song> getAllSongs() {
         LinkedList<Song> songs = new LinkedList<>();
@@ -90,7 +90,7 @@ public class SongDAO {
 
     /**
      * Funció amb la que eliminarem una canço de la base de dades a partir de  l'id de la canço
-     * @param song_id
+     * @param song_id int
      */
     public void deleteSong(int song_id) {
         String query = "DELETE FROM Song WHERE song_id = '"+song_id+"';";

@@ -17,6 +17,7 @@ import Model.Login;
 /**
  * El servidor dedicat obrirà un fil d'execució per a cada client que es connecti i permetrà realitzar qualsevol tasca
  * que impliqui accedir o emmagatzemar a la base de dades.
+ * Autors: Pol Caubet, Dani Ulied, Ona Rof, Anna Aguareles, Enric Sasselli, Biel Fernández
  */
 public class  ServidorDedicat extends Thread{
 
@@ -25,8 +26,8 @@ public class  ServidorDedicat extends Thread{
 
     /**
      * Inicialitzem el Servidor dedicat
-     * @param s; rebem el socket
-     * @param model; rebem el model per gestionar la informació
+     * @param s Socket; rebem el socket
+     * @param model Model; rebem el model per gestionar la informació
      */
     public ServidorDedicat (Socket s, Model model) {
         this.model = model;
@@ -92,10 +93,6 @@ public class  ServidorDedicat extends Thread{
                                     //Comptabilitzem un usuari
                                     model.update_nUsuaris(1);
 
-
-                                    /**
-                                     * HAURIEM DE PASSAR ELS TITOLS DE LES CANÇONS QUE POT REPRODUIR
-                                     */
                                 }
                             }
                             break;
@@ -142,23 +139,13 @@ public class  ServidorDedicat extends Thread{
 
                         case "4":
                             oo.writeObject("4");
-                            /**
-                             * Potser no caldria, parlar-ho
-                             */
-                            //Passem una llista amb els noms de cançons ordenades per popularitat
-                            //S'ha d'inicialitzar al principi de la vista de client
-                            //LinkedList<String> nomSongs = model.getSongsPopularitat();
-                            //oo.writeObject(nomSongs);
+
                             break;
 
                         case "5":
                             oo.writeObject("5");
                             //Rebem el nom de la canço que es vol reproduir
                             String nom = (String) oi.readObject();
-                            /**
-                             * Extreiem de la base de dades el fitxer de la canço
-                             * S'ha d'incrementar el numero de reproduccions
-                             */
                             //Extreiem de la base de dades el fitxer de la canço i incrementem el numero de reproduccions
                             song = model.getSong(nom);
                             song.setnReproduccions(song.getnReproduccions() + 1);
@@ -203,9 +190,7 @@ public class  ServidorDedicat extends Thread{
 
                         case "7":
                             oo.writeObject("7");
-                            /**
-                             * PODRIA SER NOMES EL user_id
-                             */
+
                             //Rebem un usuari per eliminar-lo
                             user_id = (int) oi.readObject();
                             LinkedList<Integer> song_ids = model.getAllUserSongs_id(user_id, model.getAllUserSongs());

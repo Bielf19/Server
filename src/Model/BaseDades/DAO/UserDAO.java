@@ -9,7 +9,10 @@ import java.util.LinkedList;
 
 public class UserDAO {
 
-
+    /**
+     * Procediment que permet afegir un usuari a la BBDD
+     * @param user Usuari
+     */
     public void addUser(Usuari user) {
         String codiAmistat = generaCodiAmistat();
         String query = "INSERT INTO Usuaris (nomUsuari, password, correu, codiAmistat) VALUES ('"+user.getLogin().getNomUsuari()+"', '"+user.getLogin().getPassword()+"', '"+user.getLogin().getCorreu()+"', '"+codiAmistat+"');";
@@ -17,7 +20,10 @@ public class UserDAO {
     }
 
 
-
+    /**
+     * Retorna tots els usuaris de la base de dades
+     * @return LinkedList <Usuari>
+     */
     public LinkedList<Usuari> getAllUsers() {
         LinkedList<Usuari> usuaris = new LinkedList<>();
         Usuari user = new Usuari();
@@ -36,13 +42,12 @@ public class UserDAO {
         return usuaris;
     }
 
-
-        /**
+     /**
      * Mètode amb el que podrem obtindre un usuari de la BBDD necessitant només 1 dels paràmetres que trobem a continuació
-     * @param id
-     * @param nomUsuari
-     * @param correu
-     * @param codiAmistat
+     * @param id int
+     * @param nomUsuari String
+     * @param correu String
+     * @param codiAmistat String
      * @return usuari
      */
     public Usuari getUser(int id, String nomUsuari, String correu, String codiAmistat) {
@@ -121,8 +126,8 @@ public class UserDAO {
 
     /**
      * Aquest mètode permetrà actaulitzar a la BBDD la configuració del teclat
-     * @param id
-     * @param t
+     * @param id int
+     * @param t LinkedList<Tecla>
      */
     public void updateTeclat(int id, LinkedList<Tecla> t) {
         for (int i = 0; i < t.size(); i++) {
@@ -136,7 +141,7 @@ public class UserDAO {
     /**
      * Mètode on agafarem de la base de dades tota la configuració del teclat de l'usuari que correspongui el correu
      * @param correu
-     * @return llista de la classe tecla amb tota la configuració
+     * @return LinkedList<Tecla> llista de la classe tecla amb tota la configuració
      */
     public LinkedList<Tecla> getTeclat(String correu) {
         LinkedList<Tecla> tecles = new LinkedList<>();
@@ -305,7 +310,7 @@ public class UserDAO {
 
     /**
      * Funció que permet eliminar un usuari a partir del seu id
-     * @param user_id
+     * @param user_id int
      */
     public void deleteUser(int user_id) {
         String query = "DELETE FROM Usuaris WHERE user_id = '"+user_id+"';";

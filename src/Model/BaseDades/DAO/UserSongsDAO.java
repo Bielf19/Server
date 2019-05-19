@@ -11,38 +11,24 @@ import java.util.LinkedList;
 
 public class UserSongsDAO {
 
+    /**
+     * Associem una cançó a un usuari, indicant que ha sigut gravada per aquest
+     * @param user_id int
+     * @param song_id int
+     */
     public void addSongToUser (int user_id, int song_id) {
         String query = "INSERT INTO UserSongs (user_id, song_id) VALUES ('"+user_id+"', '"+song_id+"');";
         DataBase.getInstance().insertQuery(query);
     }
 
-/*
-    /**
-     * Funció que permetrà obtindre el títol de totes les cançons que té un usuari disponibles, tant públiques com privades
-     * @param user_id
-     * @param titols
-     * @param usList
-     * @return
-
-    public LinkedList<String> getUserSongs_AllTitols (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
-        SongDAO sd = new SongDAO();
-        LinkedList<String> t = getUserSongs_titolsPrivats(user_id, titols,  usList);
-        LinkedList<Song> songs = sd.getAllSongs();
-        for (int i = 0; i < songs.size(); i++) {
-            if (!songs.get(i).isPrivat()) {
-                t.add(songs.get(i).getTitol());
-            }
-        }
-        return t;
-    }*/
 
 
     /**
      * Funció que permet obtindre els titols de totes les cançons privades d'un usuari
-     * @param user_id
-     * @param titols
-     * @param usList
-     * @return
+     * @param user_id int
+     * @param titols String
+     * @param usList LinkedList<UserSongs> amb les associacions de cançons amb usuaris
+     * @return LinkedList<String> amb tots els titols privats
      */
     public LinkedList<String> getUserSongs_titolsPrivats (int user_id, LinkedList<String> titols, LinkedList<UserSongs> usList) {
         SongDAO sd = new SongDAO();
@@ -60,9 +46,9 @@ public class UserSongsDAO {
 
     /**
      * Funció que permet obtindre els song_id de cada canço que conté un usuari determinat
-     * @param user_id
-     * @param usList
-     * @return
+     * @param user_id int
+     * @param usList LinkedList<UserSongs>
+     * @return LinkedList<Integer> amb els id's de les cançons
      */
     public LinkedList<Integer> getAllUserSongs_id (int user_id, LinkedList<UserSongs> usList) {
         LinkedList<Integer> song_ids = new LinkedList<>();
@@ -78,7 +64,7 @@ public class UserSongsDAO {
 
     /**
      * Aquesta funció retorna una llista amb l'id de cada cançó associat a l'id de l'usuari que és propietari
-     * @return llista de UserSongs
+     * @return LinkedList<UserSongs>
      */
     public LinkedList<UserSongs> getAllUserSongs () {
         LinkedList<UserSongs> usList = new LinkedList<>();
@@ -104,16 +90,17 @@ public class UserSongsDAO {
 
     /**
      * Aquest mètode elimina totes les associacions a diferentes cançons que té un usuari a partir del seu id
-     * @param user_id
+     * @param user_id int
      */
     public void deleteUserSong(int user_id) {
         String query = "DELETE FROM UserSongs WHERE user_id = '"+user_id+"';";
         DataBase.getInstance().deleteQuery(query);
     }
 
+
     /**
      * Aquest mètode permet eliminar una associació segons l'id d'una cançó
-     * @param song_id
+     * @param song_id int
      */
     public void deleteOneUserSong(int song_id) {
         String query = "DELETE FROM UserSongs WHERE song_id = '"+song_id+"';";
