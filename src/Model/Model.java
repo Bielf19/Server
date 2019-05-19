@@ -591,7 +591,7 @@ public class Model {
         boolean comprovacioOk;
         ValidaDades vd = new ValidaDades();
 
-        if (vd.usernameOK(user) && vd.passwordOK(password) && vd.emailOK(email) && vd.isValidEmailAddress(email) && vd.formatPassword(password)) {
+       if (vd.usernameOK(user) && vd.passwordOK(password) && vd.emailOK(email) && vd.isValidEmailAddress(email) && vd.formatPassword(password)) {
 
             comprovacioOk = true;
 

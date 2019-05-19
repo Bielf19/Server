@@ -3,6 +3,6 @@
     "IP": "localhost",
     "nomBase": "PianoData",
     "usuariAcces": "root",
-    "contrasenyaAcces": "root",
+    "contrasenyaAcces": "",
     "portClient": "4000"
  }
