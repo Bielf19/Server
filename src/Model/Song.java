@@ -3,6 +3,11 @@ package Model;
 import java.io.File;
 import java.io.Serializable;
 
+/**
+ * La classe Song s'utilitzarà per emmagatzemar tota la informació que s'hagi de tenir en compte a l'hora de definir
+ * una canço d'un usuari registrat al sistema.
+ */
+
 public class Song implements Serializable {
     private int song_id;
     private boolean privat;
