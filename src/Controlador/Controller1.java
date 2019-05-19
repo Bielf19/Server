@@ -86,8 +86,6 @@ public class Controller1 implements ActionListener, MouseListener {
 
         }
 
-        //fitxer_trobat = model.findSongFile(actionCommand, songFiles);
-        //window1.consultaDelete();
 
     }
 
@@ -162,9 +160,7 @@ public class Controller1 implements ActionListener, MouseListener {
                 if (((JTabbedPane) o).getTitleAt(3).equals("Top 5 songs")) {
                     Top5Thread thread = new Top5Thread(model, window1);
                     thread.start();
-                    System.out.println("TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5TOP5");
-                    //window1.setTop5(model.getTop5());
-                    //window1.generaTaulaTop5();
+
 
                 }
             }

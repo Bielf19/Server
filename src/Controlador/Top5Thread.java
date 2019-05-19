@@ -2,11 +2,14 @@ package Controlador;
 
 import Model.Model;
 import Model.Song;
-import Vista.Top5;
+
 import Vista.Window1;
 
 import java.util.LinkedList;
 
+/**
+ * Classe que exten de Thread per a poder actualitzar en temps real els valors de la taula Top5
+ */
 public class Top5Thread extends Thread {
 
     private Model model;
@@ -17,19 +20,18 @@ public class Top5Thread extends Thread {
         this.model = model;
     }
 
+    /**
+     * Executem un thread per a actualitzar els valors de la taula de Top5
+     */
     @Override
     public synchronized void run() {
         while (true) {
-            System.out.println("PROVA11");
             LinkedList<Song> top5 = model.getTop5();
             window1.setTop5(top5);
             for (int i = 0; i < top5.size(); i++) {
                 System.out.println(top5.get(i).getTitol());
             }
-            System.out.println("PROVA12");
-            //window1.setTop5(top5);
             window1.generaTaulaTop5();
-            //window1.updateTop5();
         }
     }
 }

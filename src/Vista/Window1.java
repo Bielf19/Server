@@ -511,13 +511,6 @@ public class Window1 extends JFrame {
 
     }
 
-    public synchronized void updateTop5() {
-        System.out.println("PROVA10");
-        //jpTopFiveSongs.removeAll();
-        serverTabs.setComponentAt(3, new Top5(top5));
-        jpTopFiveSongs.updateUI();
-    }
-
 
     public ArrayList getBotons() {
         return conjuntDeleteFile;

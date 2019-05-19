@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.LinkedList;
 
+/**
+ * Classe que generarà un JPanel amb la gràfica de l'evolució del nombre d'usuaris
+ * Autors: Pol Caubet, Dani Ulied, Ona Rof, Anna Aguareles, Enric Sasselli, Biel Fernández
+ */
 public class Graphic extends JPanel {
 
     private LinkedList<Evolution> e;
@@ -14,6 +18,11 @@ public class Graphic extends JPanel {
     public Graphic (LinkedList<Evolution> e){
         this.e = e;
     }
+
+    /**
+     * Funció que permet pintar el gràfic amb l'evolucio del nombre d'usuaris
+     * @param g Graphics
+     */
     @Override
     public void paint(Graphics g) {
 
@@ -57,6 +66,10 @@ public class Graphic extends JPanel {
 
     }
 
+    /**
+     * Obtenim el nombre maxim d'usuaris per dia
+     * @return int amb el nombre
+     */
     private int getMaxnUser () {
         int max = 0;
         for (int i = 0; i < e.size(); i++){

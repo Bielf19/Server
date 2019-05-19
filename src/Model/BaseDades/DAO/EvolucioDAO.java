@@ -8,7 +8,10 @@ import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.LinkedList;
 
-
+/**
+ * Classe que gestiona la taula de base de dades Evolucio
+ * Autors: Pol Caubet, Dani Ulied, Ona Rof, Anna Aguareles, Enric Sasselli, Biel Fernández
+ */
 public class EvolucioDAO {
 
     /**

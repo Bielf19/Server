@@ -11,6 +11,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * Aquest controlador permetrà gestionar la taula on tenim tots els song files.
+ * Utilitzarem el MouseListener per a detectar si es prem algun boto delete i a partir d'aquí esborrar la Song del sistema
+ */
 public class Controller2 implements MouseListener, ActionListener {
 
     private Window1 window1;
