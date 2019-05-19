@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.Controller1;
+import Controlador.Controller2;
 import Model.Evolution;
 import Model.Song;
 
@@ -48,6 +49,8 @@ public class Window1 extends JFrame {
 
     private JScrollPane jspSongFiles;
     private ArrayList<JButton> conjuntDeleteFile = new ArrayList<>();
+    private JTable table;
+    private TableCellRenderer buttonRenderer;
 
     //EVOLUTION
     private JTabbedPane jtpEvolutionTabs;
@@ -212,7 +215,7 @@ public class Window1 extends JFrame {
 
         }
         System.out.println("N Deletes: " + conjuntDeleteFile.size() );
-        JTable table = new JTable(information, columnNames);
+        table = new JTable(information, columnNames);
         table.getColumnModel().getColumn(0).setMaxWidth(100);
         table.getColumnModel().getColumn(1).setMaxWidth(200);
         table.getColumnModel().getColumn(2).setMaxWidth(100);
@@ -221,7 +224,7 @@ public class Window1 extends JFrame {
         jspSongFiles.removeAll();
         jspSongFiles = new JScrollPane(table);
         table.setFillsViewportHeight(true);
-        TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+        buttonRenderer = new JTableButtonRenderer();
         table.getColumn("Delete").setCellRenderer(buttonRenderer);
         serverTabs.setComponentAt(1, jspSongFiles);
         jspSongFiles.updateUI();
@@ -324,11 +327,11 @@ public class Window1 extends JFrame {
 
     */
 
-    public void consultaDelete () {
+    public int consultaDelete () {
 
         JDialog missatge = new JDialog();
-        JOptionPane consultaAccio = new JOptionPane("Are you sure you want to delete this file?",JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION);
-        missatge.add(consultaAccio);
+        int reply = JOptionPane.showConfirmDialog(missatge, "Are you sure you want to delete this file?", "SmartPiano",JOptionPane.YES_NO_OPTION);
+        return reply;
 
     }
 
@@ -431,8 +434,14 @@ public class Window1 extends JFrame {
         */
 
         serverTabs.addMouseListener(controller1);
-        jspSongFiles.addMouseListener(controller1);
 
+
+
+    }
+
+    public void registraControlador2(Controller2 controller2) {
+        jspSongFiles.addMouseListener(controller2);
+        table.addMouseListener(controller2);
 
     }
 
@@ -510,4 +519,7 @@ public class Window1 extends JFrame {
     }
 
 
+    public ArrayList getBotons() {
+        return conjuntDeleteFile;
+    }
 }

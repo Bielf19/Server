@@ -17,6 +17,8 @@ public class Controller1 implements ActionListener, MouseListener {
 
     private Model model;
     private Window1 window1;
+    private int index;
+    private Controller2 controller2;
 
     public Controller1 (Model model, Window1 window1) {
         this.model = model;
@@ -93,9 +95,13 @@ public class Controller1 implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
 
         Object o = e.getSource();
-        Integer index;
+        System.out.println(o.getClass());
+        //Integer index = 1;
         LinkedList<Song> songFiles;
         JTable table = new JTable();
+
+
+
 
         if (o instanceof JTabbedPane) {
 
@@ -115,23 +121,18 @@ public class Controller1 implements ActionListener, MouseListener {
 
             if (index == 1) {
 
+
+
                 if (((JTabbedPane) o).getTitleAt(1).equals("Song files")) {
 
                     System.out.println("ENTRAAAAA");
                     songFiles = model.getAllSongs();
                     table = window1.generaLlistaFiles(songFiles);
+                    controller2 = new Controller2(window1, table, model);
+                    window1.registraControlador2(controller2);
 
-                    int column = table.getColumnModel().getColumnIndexAtX(e.getX()); // get the coloum of the button
-                    int row    = e.getY()/table.getRowHeight(); //get the row of the button
 
-                    /*Checking the row or column is valid or not*/
-                    if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
-                        Object value = table.getValueAt(row, column);
-                        if (value instanceof JButton) {
-                            /*perform a click event*/
-                            ((JButton)value).doClick();
-                        }
-                    }
+
 
                 }
 

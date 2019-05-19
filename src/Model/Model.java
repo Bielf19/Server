@@ -331,6 +331,11 @@ public class Model {
         ad.deleteOneFriend(user_id1, user_id2);
     }
 
+
+    public void deleteOneUserSong(int song_id) {
+        usd.deleteOneUserSong(song_id);
+    }
+
 //**********************************************AUTENTIFICACIO********************************************************//
 
     //Funcio que s'utilitzarà per autentificar el email del usuari en l'inici de sessió
@@ -344,7 +349,7 @@ public class Model {
 
             login = users.get(i).getLogin();
 
-            if (login.getNomUsuari().equals(emailIntroduit)) {
+            if (login.getCorreu().equals(emailIntroduit)) {
 
                 authenticationOk = true;
 

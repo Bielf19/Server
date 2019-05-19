@@ -110,4 +110,13 @@ public class UserSongsDAO {
         String query = "DELETE FROM UserSongs WHERE user_id = '"+user_id+"';";
         DataBase.getInstance().deleteQuery(query);
     }
+
+    /**
+     * Aquest mètode permet eliminar una associació segons l'id d'una cançó
+     * @param song_id
+     */
+    public void deleteOneUserSong(int song_id) {
+        String query = "DELETE FROM UserSongs WHERE song_id = '"+song_id+"';";
+        DataBase.getInstance().deleteQuery(query);
+    }
 }
