@@ -2,6 +2,11 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * La classe Login emmagatzemara tota la informacio necessaria per a enregistrar un usuari al sistema: el nickname
+ * de l'usuari, la seva direccio de correu electronic i la contrasenya.
+ */
+
 public class Login implements Serializable {
     private String nomUsuari;
     private String password;

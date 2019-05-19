@@ -7,6 +7,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+/**
+ * La classe Configuracio emmagatzemara tota la informacio que tingui a veure amb la configuració del servidor per
+ * accedir a la base de dades.
+ */
+
 public class Configuracio {
 
     private Integer portBase;
@@ -63,6 +68,13 @@ public class Configuracio {
     public void setPortClient(String portClient) {
         this.portClient = portClient;
     }
+
+    /**
+     * Procediment que efectuara una lectura del fitxer JSON on hi ha emmagatzenada la informació de la configuracio
+     * de la base de dades del servidor.
+     * @return Configuracio; variable que conte tots els parametres llegits del fitxer JSON
+     * @throws FileNotFoundException
+     */
 
     public Configuracio llegeixJson () throws FileNotFoundException {
 
