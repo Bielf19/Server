@@ -3,6 +3,11 @@ package Model;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/**
+ * La classe Usuari s'utilitzarà per emmagatzemar tota la informació que s'hagi de tenir en compte a l'hora de definir
+ * un usuari registrat al sistema.
+ */
+
 public class Usuari implements Serializable {
     private int user_id;
     private LinkedList<Song> songs;
