@@ -281,7 +281,7 @@ public class Model {
      * @param correu
      * @return LinkedList<Tecla> llista de la classe tecla amb tota la configuració
      */
-    public LinkedList<Tecla> getTeclat(String correu) {
+    public Tecla[] getTeclat(String correu) {
         return ud.getTeclat(correu);
     }
 

@@ -135,7 +135,7 @@ public class UserDAO {
      */
     public void updateTeclat(int id, LinkedList<Tecla> t) {
         for (int i = 0; i < t.size(); i++) {
-            String query = "UPDATE Usuaris SET '"+t.get(i).getNota()+"' = '" + t.get(i).getTecla() + "' WHERE user_id = '" + id + "';";
+            String query = "UPDATE Usuaris SET '"+t.get(i).getNota()+"' = '" + t.get(i).getTecla() + "' WHERE user_id = '" + id + ";";
             DataBase.getInstance().updateQuery(query);
         }
 
@@ -145,32 +145,138 @@ public class UserDAO {
     /**
      * Mètode on agafarem de la base de dades tota la configuració del teclat de l'usuari que correspongui el correu
      * @param correu
-     * @return LinkedList<Tecla> llista de la classe tecla amb tota la configuració
+     * @return Tecla[]  array de la classe tecla amb tota la configuració
      */
-    public LinkedList<Tecla> getTeclat(String correu) {
-        LinkedList<Tecla> tecles = new LinkedList<>();
+    public Tecla[] getTeclat(String correu) {
+        Tecla[] tecles = new Tecla[25];
+        for(int i =0;i<tecles.length;i++){
+            tecles[i]= new Tecla();
+        }
         String query = "SELECT * FROM Usuaris WHERE correu = '"+correu+"';";
         ResultSet result = DataBase.getInstance().selectQuery(query);
         try {
 
             while (result.next()) {
                 Tecla t = new Tecla();
+                //tecles.add(t);
                 String tecla = result.getString("C4");
-                t.setTecla(tecla.charAt(0));
-                t.setNota("C4");
-                tecles.add(t);
+                //t.setTecla(tecla.charAt(0));
+                //t.setNota("C4");
+                tecles[0].setNota("C4");
+                tecles[0].setTecla(tecla.charAt(0));
+
+                // System.out.println("Nota: " + tecles.get(0).getNota() + " Tecla: " + tecles.get(0).getTecla());
                 tecla = result.getString("D4");
-                t.setTecla(tecla.charAt(0));
+                tecles[1].setNota("D4");
+                tecles[1].setTecla(tecla.charAt(0));
+                /*t.setTecla(tecla.charAt(0));
                 t.setNota("D4");
-                tecles.add(t);
+                tecles.add(t);*/
                 tecla = result.getString("E4");
-                t.setTecla(tecla.charAt(0));
+                tecles[2].setNota("E4");
+                tecles[2].setTecla(tecla.charAt(0));
+                /*t.setTecla(tecla.charAt(0));
                 t.setNota("E4");
-                tecles.add(t);
+                tecles.add(t);*/
                 tecla = result.getString("F4");
+                tecles[3].setNota("F4");
+                tecles[3].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("G4");
+                tecles[4].setNota("G4");
+                tecles[4].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("A4");
+                tecles[5].setNota("A4");
+                tecles[5].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("B4");
+                tecles[6].setNota("B4");
+                tecles[6].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("C5");
+                tecles[7].setNota("C5");
+                tecles[7].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("D5");
+                tecles[8].setNota("D5");
+                tecles[8].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("E5");
+                tecles[9].setNota("E5");
+                tecles[9].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("F5");
+                tecles[10].setNota("F5");
+                tecles[10].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("G5");
+                tecles[11].setNota("G5");
+                tecles[11].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("A5");
+                tecles[12].setNota("A5");
+                tecles[12].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("B5");
+                tecles[13].setNota("B5");
+                tecles[13].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("C6");
+                tecles[14].setNota("C6");
+                tecles[14].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("C#4");
+                tecles[15].setNota("C#4");
+                tecles[15].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("D#4");
+                tecles[16].setNota("D#4");
+                tecles[16].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("F#4");
+                tecles[17].setNota("F#4");
+                tecles[17].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("G#4");
+                tecles[18].setNota("G#4");
+                tecles[18].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("A#4");
+                tecles[19].setNota("A#4");
+                tecles[19].setTecla(tecla.charAt(0));
+
+                /*tecla = result.getString("B#4");
+                tecles[20].setNota("B#4");
+                tecles[20].setTecla(tecla.charAt(0));*/
+
+                tecla = result.getString("C#5");
+                tecles[20].setNota("C#5");
+                tecles[20].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("D#5");
+                tecles[21].setNota("D#5");
+                tecles[21].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("F#5");
+                tecles[22].setNota("F#5");
+                tecles[22].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("G#5");
+                tecles[23].setNota("G#5");
+                tecles[23].setTecla(tecla.charAt(0));
+
+                tecla = result.getString("A#5");
+                tecles[24].setNota("A#5");
+                tecles[24].setTecla(tecla.charAt(0));
+                /*tecla = result.getString("F4");
                 t.setTecla(tecla.charAt(0));
                 t.setNota("F4");
                 tecles.add(t);
+                tecla = result.getString(GE4");
+                tecles[2].setNota("E4");
+                tecles[2].setTecla(tecla.charAt(0));
+                System.out.println("Nota: " + tecles.get(3).getNota() + " Tecla: " + tecles.get(0).getTecla());
                 tecla = result.getString("G4");
                 t.setTecla(tecla.charAt(0));
                 t.setNota("G4");
@@ -251,14 +357,23 @@ public class UserDAO {
                 t.setTecla(tecla.charAt(0));
                 t.setNota("G#5");
                 tecles.add(t);
+                System.out.println("Nota: " + tecles.get(23).getNota() + " Tecla: " + tecles.get(23).getTecla());
                 tecla = result.getString("A#5");
                 t.setTecla(tecla.charAt(0));
                 t.setNota("A#5");
                 tecles.add(t);
+                System.out.println("Nota: " + tecles.get(23).getNota() + " Tecla: " + tecles.get(23).getTecla());
+                for(int i = 0; i < tecles.size(); i++) {
+                    System.out.println("Tecles2: " + tecles.get(i).getTecla());
+                }*/
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        for(int i = 0; i < tecles.length; i++) {
+            System.out.println("Tecles: " + tecles[i].getTecla());
+        }
+
         return tecles;
     }
 

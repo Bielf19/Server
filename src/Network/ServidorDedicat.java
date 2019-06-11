@@ -217,15 +217,21 @@ public class  ServidorDedicat extends Thread{
 
                                 user_id = model.getIdUsuari(login.getNomUsuari());
                                 //Passem la configuració del teclat
-                                oo.writeObject(model.getTeclat(login.getCorreu()));
+                                Tecla[] tecles = new Tecla[25];
+                                for(int i =0;i<tecles.length;i++){
+                                    tecles[i]= new Tecla();
+                                }
+                                tecles= model.getTeclat(login.getCorreu());
+                                LinkedList<Tecla> t=new LinkedList<Tecla>();
+                                for(int i=0;i<tecles.length;i++) {
+                                    t.add(tecles[i]);
+                                }
+                                oo.writeObject(t);
                                 oo.writeObject(model.getNomAmics(user_id));
                                 LinkedList<String> songs = model.getTitolsDisponibles(user_id, model.getAmics(user_id), model.getAllSongs());
                                 oo.writeObject(songs);
                                 oo.writeObject(usuari.getUser_id());
                                 oo.writeObject(usuari.getCodiAmistat());
-
-                                //Comptabilitzem un usuari
-                                model.update_nUsuaris(1);
 
                             }
 

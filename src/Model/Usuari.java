@@ -44,8 +44,16 @@ public class Usuari implements Serializable {
         return tecles;
     }
 
-    public void setTecles(LinkedList<Tecla> tecles) {
-        this.tecles = tecles;
+    public void setTecles(Tecla[] tecles) {
+        LinkedList<Tecla> t=new LinkedList<Tecla>();
+        for(int i=0;i<tecles.length;i++) {
+            t.add(tecles[i]);
+        }
+
+        this.tecles = t;
+        for(int i = 0; i<t.size();i++){
+            System.out.println("PINYA:  "+t.get(i).getNota());
+        }
     }
 
     public String getCodiAmistat() {
