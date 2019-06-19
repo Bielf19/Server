@@ -82,6 +82,13 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(passwordOK);
                                 if (passwordOK) {
                                     //Passem la configuració del teclat d'aquell usuari
+                                    /**LinkedList<Tecla> t= new LinkedList<Tecla>();
+                                    t=user.getTecles();
+                                    for(int i =0;i<t.size();i++){
+                                        System.out.println("PAPAYA  "+t.get(i).getNota());
+                                    }*/
+
+
                                     oo.writeObject(user.getTecles());
                                     oo.writeObject(model.getNomAmics(user.getUser_id()));
                                     LinkedList<String> songs = model.getTitolsDisponibles(user.getUser_id(), model.getAmics(user.getUser_id()), model.getAllSongs());
@@ -104,6 +111,44 @@ public class  ServidorDedicat extends Thread{
                             int user_id = model.getIdUsuari(user_name);
                             LinkedList<Tecla> teclat = (LinkedList<Tecla>) oi.readObject();
                             //Guardem nova configuaració a la BBDD
+
+                            /**for(int i = 0;i<teclat.size();i++){
+                             System.out.println("POMA   "+teclat.get(i).getNota()+"       "+teclat.get(i).getTecla());
+                             }
+                             for (int i = 0; i < teclat.size(); i++) {
+                             if (teclat.get(i).getNota().equals("C#4")) {
+                             teclat.get(i).setNota("C44");
+                             }
+                             if (teclat.get(i).getNota().equals("D#4")) {
+                             teclat.get(i).setNota("D44");
+                             }
+                             if (teclat.get(i).getNota().equals("F#4")) {
+                             teclat.get(i).setNota("F44");
+                             }
+                             if (teclat.get(i).getNota().equals("G#4")) {
+                             teclat.get(i).setNota("G44");
+                             }
+                             if (teclat.get(i).getNota().equals("A#4")) {
+                             teclat.get(i).setNota("A44");
+                             }
+                             if (teclat.get(i).getNota().equals("C#5")) {
+                             teclat.get(i).setNota("C55");
+                             }
+                             if (teclat.get(i).getNota().equals("D#5")) {
+                             teclat.get(i).setNota("D55");
+                             }
+                             if (teclat.get(i).getNota().equals("F#5")) {
+                             teclat.get(i).setNota("F55");
+                             }
+                             if (teclat.get(i).getNota().equals("G#5")) {
+                             teclat.get(i).setNota("G55");
+                             }
+                             if (teclat.get(i).getNota().equals("A#5")) {
+                             teclat.get(i).setNota("A55");
+                             }
+                             }*/
+
+
                             model.updateTeclat(user_id, teclat);
                             //Actualitzem el nou teclat (NO CAL REALMENT)
                             oo.writeObject(teclat);
@@ -233,6 +278,8 @@ public class  ServidorDedicat extends Thread{
                                 oo.writeObject(usuari.getUser_id());
                                 oo.writeObject(usuari.getCodiAmistat());
 
+                               /** model.update_nUsuaris(1);*/
+
                             }
 
 
@@ -254,6 +301,11 @@ public class  ServidorDedicat extends Thread{
                             break;
 
 
+
+                        case "10":
+                            oo.close();
+                            oi.close();
+                            s.close();
 
 
 
